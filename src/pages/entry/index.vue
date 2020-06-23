@@ -12,7 +12,7 @@ export default {
 
   methods: {
     goCalc () {
-      const url = '../logs/main'
+      const url = '../parkType/main'
       mpvue.navigateTo({ url })
     }
   },
@@ -28,11 +28,11 @@ export default {
   display: block;
   height: 100%;
   width: 100%;
-  background: -webkit-linear-gradient(left bottom,#49E198,#13987E);
-  background: -o-linear-gradient(left bottom,#49E198,#13987E);
-  background: -mos-linear-gradient(left bottom,#49E198,#13987E);
-  background: -moz-linear-gradient(left bottom,#49E198,#13987E);
-  background: linear-gradient(left bottom,#49E198,#13987E);
+  background: -webkit-linear-gradient(left bottom,#08B26B,#0FC1A2);
+  background: -o-linear-gradient(left bottom,#08B26B,#0FC1A2);
+  background: -mos-linear-gradient(left bottom,#08B26B,#0FC1A2);
+  background: -moz-linear-gradient(left bottom,#08B26B,#0FC1A2);
+  background: linear-gradient(left bottom,#08B26B,#0FC1A2);
 }
 .entry-body__logo {
   width: 100%;

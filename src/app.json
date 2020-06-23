@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/parkType/main",
     "pages/entry/main",
     "pages/counter/main"
   ],
