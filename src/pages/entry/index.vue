@@ -3,7 +3,7 @@
 
     <!-- <div class="nav-title">景观小工具</div> -->
     <div class="entry-body__logo"><img src="/static/images/dlrb.jpg" alt=""></div>
-    <div class="entry-body__start-btn" @click="goCalc">进入计算</div>
+    <div class="entry-body__start-btn white-bottom-btn" @click="goCalc">进入计算</div>
   </div>
 </template>
 
@@ -47,13 +47,5 @@ export default {
 }
 .entry-body__start-btn {
   margin: 20% auto;
-  width: 90%;
-  background: #FFFFFF;
-  color: #13987E;
-  text-align: center;
-  border-radius: 25px;
-  height: 40px;
-  line-height: 40px;
-  font-weight: 600;
 }
 </style>

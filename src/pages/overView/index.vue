@@ -99,15 +99,15 @@ export default {
     },
     getReport () {
       console.log(this.waterArea, this.landArea, this.nowType)
-      if (!this.landArea) {
+      if (!this.waterArea) {
         wx.showToast({
-          title: '请输入陆地面积',
+          title: '请输入水域面积',
           icon: 'none',
           duration: 2000
         })
-      } else if (!this.waterArea) {
+      } else if (!this.landArea) {
         wx.showToast({
-          title: '请输入水域面积',
+          title: '请输入陆地面积',
           icon: 'none',
           duration: 2000
         })
