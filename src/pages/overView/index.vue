@@ -1,130 +1,166 @@
 <template>
-<div class="park-type-container">
-  <div class="park-type">
-
-    <!-- <div class="nav-title">景观小工具</div> -->
-    <div class="park-type__area">
-      <div class="park-type__area__title">
-        <p class="park-type__area__title--white">场地面积</p>
-        <p class="park-type__area__title--normal">请填写陆地和水域面积</p>
+<div class="overview">
+  <div class="overview-head">
+    <div class="overview-head__title">场地总面积</div>
+    <div class="overview-head__number">2333 <span class="m2">㎡</span> </div>
+    <div class="overview-head__area-line">
+      <div class="area-line__land-area">
+        <p>1</p>
+        <p>陆地面积(㎡)</p>
       </div>
-      <div class="park-type__area__input">
-        <div class="park-type__area__input__line">
-          <img src="/static/images/landarea.png" alt="" class="area-line__logo">
-          陆地面积
-          <input class="area-line__enter" type="text" placeholder="不可为空值*" v-model="landArea">
-          ㎡
-        </div>
-        <div class="park-type__area__input__line">
-          <img src="/static/images/waterarea.png" alt="" class="area-line__logo">
-          水域面积
-          <input class="area-line__enter" type="text" placeholder="0" v-model="waterArea">
-          ㎡
-        </div>
-      </div>
-      <div class="park-type__area__title park-type__area__title--bottom">
-        <p class="park-type__area__title--green">公园类型</p>
-        <p class="park-type__area__title--normal">请根据陆地面积值有以下可选类型</p>
+      <div class="area-line__water-area">
+        <p>1</p>
+        <p>水域面积(㎡)</p>
       </div>
     </div>
   </div>
+  <div class="overview-body">
+    <div class="chart-line">
 
-  <div class="swiper area-swiper">
-    <swiper
-      class="swiper-inner"
-      :indicator-dots='false'
-      :autoplay='false'
-      :interval='3000'
-      :circular='circular'
-      :previous-margin="'100px'"
-      :next-margin="'100px'"
-      @change='changeSwiper'
-    >
-      <a  v-for='img in topSwipers' :key='img.id'>
+      <div class="chart-line__block">
+        <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
+        <div class="chart-line">
+          <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>60</span></div>
+          <div class="echarts-wrap">
+            <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="chart1" />
+          </div>
+        </div>
+        <div><span>340000</span>㎡</div>
+      </div>
+      <div class="chart-line__block">
+        <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
+        <div class="chart-line">
+          <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>60</span></div>
+          <div class="echarts-wrap">
+            <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="chart2" />
+          </div>
+        </div>
+        <div><span>340000</span>㎡</div>
+      </div>
+      
+    </div>
+    <div class="chart-line">
 
-        <swiper-item class="swiper-bar">
-          <img              
-            class='slide-image' 
-            mode='aspectFit' 
-            :src="img.outterImage" 
-            />
-        </swiper-item>
-      </a>
-    </swiper>  
+      <div class="chart-line__block">
+        <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
+        <div class="chart-line">
+          <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>60</span></div>
+          <div class="echarts-wrap">
+            <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="chart3" />
+          </div>
+        </div>
+        <div><span>340000</span>㎡</div>
+      </div>
+      <div class="chart-line__block">
+        <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
+        <div class="chart-line">
+          <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>60</span></div>
+          <div class="echarts-wrap">
+            <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="chart4" />
+          </div>
+        </div>
+        <div><span>340000</span>㎡</div>
+      </div>
+      
+    </div>
     
-  </div> 
+    <div class="ov__tab-bar">
+      <div class="ov__tab-block ov__tab-block--left" :class="{'tab-block--active': leftActive}" @click="leftActive = true">人均绿地指标范围</div>
+      <div class="ov__tab-block ov__tab-block--right" :class="{'tab-block--active': !leftActive}" @click="leftActive = false">建筑和数量</div>
+    </div>
 
-  <div class="green-bottom-btn get-report-btn" @click="getReport">获取报告</div>
+    <div class="ov__body">
+
+      <div class="ov__body__line">
+        <div class="fl">
+          <img src="/static/images/people.png" alt="" class="body-line__icon">
+          <span>&nbsp;&nbsp;游人容量</span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;2989人</span>
+        </div>
+        <div class="fr">
+          <div class=" fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <div class="ov-body-line__area fr">
+            <p>2000人</p>
+            <p>-</p>
+            <p>2000人</p>
+          </div>
+        </div>
+      </div>
+      <div class="ov__body__line ov__body__line--end">
+        <div class="fl">
+          <img src="/static/images/people.png" alt="" class="body-line__icon">
+          <span>&nbsp;&nbsp;游人容量</span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;2989人</span>
+        </div>
+        <div class="fr">
+          <div class=" fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <div class="ov-body-line__area fr">
+            <p>2000人</p>
+            <p>-</p>
+            <p>2000人</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
   
 </template>
 
 <script>
+import echarts from 'echarts'
+import mpvueEcharts from 'mpvue-echarts'
+
+let chart = null
+
+function initChart (canvas, width, height) {
+  chart = echarts.init(canvas, null, {
+    width: width,
+    height: height
+  })
+  canvas.setChart(chart)
+
+  var option = {
+    color: ['#cccccc', '#5480ff'],
+    series: [
+      {
+        type: 'pie',
+        hoverAnimation: false,
+        radius: ['80%', '60%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: false,
+          position: 'center'
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          {value: 1},
+          {value: 3}
+        ]
+      }
+    ]
+  } // ECharts 配置项
+
+  chart.setOption(option)
+
+  return chart // 返回 chart 后可以自动绑定触摸操作
+}
 export default {
+  components: {
+    mpvueEcharts
+  },
   data () {
     return {
-      topSwipers: [{
-        id: 1,
-        outterImage: '../../static/images/zoo.png'
-      },
-      {
-        id: 1,
-        outterImage: '../../static/images/plant.png'
-      },
-      {
-        id: 1,
-        outterImage: '../../static/images/combine.png'
-      },
-      {
-        id: 1,
-        outterImage: '../../static/images/park.png'
-      },
-      {
-        id: 1,
-        outterImage: '../../static/images/commity.png'
-      },
-      {
-        id: 1,
-        outterImage: '../../static/images/other.png'
-      }],
-      nowType: '0',
-      landArea: null,
-      waterArea: null
+      echarts,
+      onInit: initChart,
+      leftActive: true
     }
   },
   methods: {
-    changeSwiper (event) {
-      console.log(event.mp.detail.current)
-      this.nowType = event.mp.detail.current
-    },
-    getReport () {
-      console.log(this.waterArea, this.landArea, this.nowType)
-      if (!this.waterArea) {
-        wx.showToast({
-          title: '请输入水域面积',
-          icon: 'none',
-          duration: 2000
-        })
-      } else if (!this.landArea) {
-        wx.showToast({
-          title: '请输入陆地面积',
-          icon: 'none',
-          duration: 2000
-        })
-      } else {
-        const area = {
-          landArea: this.landArea,
-          waterArea: this.waterArea,
-          parkType: this.nowType
-        }
-        wx.setStorage({
-          key: 'area',
-          data: area
-        })
-        const url = '../overView/main'
-        mpvue.navigateTo({ url })
-      }
-    }
   },
 
   created () {
@@ -134,87 +170,125 @@ export default {
 </script>
 
 <style scoped>
-.park-type-container {
+.overview {
   height: 100%;
 }
-.park-type {
+.overview-head {
   display: block;
-  height: 35%;
-  width: 100%;
   background: -webkit-linear-gradient(left bottom,#08B26B,#0FC1A2);
   background: -o-linear-gradient(left bottom,#08B26B,#0FC1A2);
   background: -mos-linear-gradient(left bottom,#08B26B,#0FC1A2);
   background: -moz-linear-gradient(left bottom,#08B26B,#0FC1A2);
   background: linear-gradient(left bottom,#08B26B,#0FC1A2);
-  border-bottom-left-radius: 550px 30px;
-  border-bottom-right-radius: 550px 30px;
+  padding: 90px 20px 60px;
+  color: #ffffff;
 }
-.park-type__area {
-  height: 40%;
-  text-align: left;
-  padding-top: 30%;
-  padding-left: 20px;
-  padding-right: 20px;
+.overview-head__title {
+  font-size: 22px;
 }
-.park-type__area__title--white {
-  font-size: 28px;
-  font-weight: 500;
-  color: #FFFFFF;
+.overview-head__number {
+  font-size: 40px;
 }
-.park-type__area__title--green {
-  font-size: 28px;
-  font-weight: 500;
-  color: #21c3a2;
+.overview-head__number .m2 {
+  font-size: 22px;
+  vertical-align: top;
 }
-.park-type__area__title--normal {
+.overview-head__area-line {
+  overflow: hidden;
+  font-size: 18px;
   padding-top: 10px;
-  font-size: 12px;
 }
-.park-type__area__input {
-  background: #FFFFFF;
-  border-radius: 5px;
-  margin-top: 50px;
-  padding: 0 15px;
-  box-shadow: whitesmoke 0px 2px 3px;
+.area-line__land-area {
+  float: left;
 }
-.park-type__area__input__line {
-  height: 50px;
-  line-height: 50px;
-  padding: 15px 0;
-}
-.park-type__area__input__line:last-child {
-  border-top: .5px solid #f0f0f0;
-}
-.area-line__logo {
-  display: inline-block;
-  vertical-align: middle;
-  width: 25px;
-  height: 25px;
-}
-.area-line__enter{
-  display: inline-block;
-  vertical-align: middle;
+.area-line__water-area {
+  float: right;
   text-align: right;
 }
-.park-type__area__title--bottom {
-  margin-top: 30px;
+.overview-body {
+  border-radius: 25px 25px 0 0;
+  position: relative;
+  top: -25px;
+  background: #f7f7f7;
+  padding: 20px;
 }
-.area-swiper {
-  margin-top: 200px;
-  height: 200px;
+.chart-line {
+  overflow: hidden;
+  width: 100%;
 }
-.swiper-inner {
-  height: 100%;
+.chart-line__block {
+  float: left;
+  width: 44%;
+  padding: 20px 10px;
 }
-.swiper-bar {
+.chart-line__block__title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.chart-edit {
+  width: 25px;
+  height: 25px;
+  float: right;
+}
+.chart-line__icon img{
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-top: -10px;
+}
+.chart-line__icon {
+  font-size: 46px;
+  color: #5480ff;
+  float: left;
+  padding-top: 10px;
+}
+.echarts-wrap {
+  width: 38%;
+  height: 80px;
+  float: right;
+}
+.ov__tab-bar {
+  overflow: hidden;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+.ov__tab-block {
+  width: 50%;
+  background: #08B26B;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #005D49;
+}
+.ov__tab-block--left {
+  float: left;
+}
+.ov__tab-block--right {
+  float: right;
+}
+.tab-block--active {
+  background: #19D0A8;
+  color: #FFFFFF;
+}
+.ov__body__line {
+  font-size: 16px;
+  overflow: hidden;
+  padding: 10px 20px;
+  height: 40px;
+  line-height: 40px;
+  background: #FFFFFF;
+}
+.body-line__icon {
+  width: 23px;
+  height: 23px;
+  position: relative;
+  top: 5px;
+}
+.ov-body-line__area {
+  line-height: 14px;
   text-align: center;
 }
-.slide-image{
-  width:160px;
-  height:200px;
-  margin: 0 10px;
-}
-.get-report-btn {
-  margin: 15px auto;
+.ov__body__line--end {
+  border-radius: 0 0 10px 10px;
 }
 </style>

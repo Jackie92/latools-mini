@@ -31,6 +31,12 @@ page {
   height: 100%;
   font-family: '微软雅黑';
 }
+.fr {
+  float: right;
+}
+.fl {
+  float: left;
+}
 /* 公共组件样式 */
 .nav-title {
   /* 顶部标题 */
