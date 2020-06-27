@@ -17,11 +17,8 @@
     
   </div>
   <div class="gl-body">
-    <div class="chart-line">
-      <div class="chart-line__block">
-        <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
-        
-      </div>
+    <div class="three-switch">
+      
     </div>
   </div>
 </div>
