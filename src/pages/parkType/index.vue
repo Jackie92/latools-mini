@@ -12,7 +12,7 @@
         <div class="park-type__area__input__line">
           <img src="/static/images/landarea.png" alt="" class="area-line__logo">
           陆地面积
-          <input class="area-line__enter" type="text" placeholder="不可为空值*" v-model="landArea">
+          <input class="area-line__enter" type="text" placeholder="不可为空值*" v-model="landArea" @blur="countParkType">
           ㎡
         </div>
         <div class="park-type__area__input__line">
@@ -39,10 +39,11 @@
       :previous-margin="'100px'"
       :next-margin="'100px'"
       @change='changeSwiper'
+      v-if="showSwiper"
     >
       <a  v-for='img in topSwipers' :key='img.id'>
 
-        <swiper-item class="swiper-bar">
+        <swiper-item class="swiper-bar" :item-id='img.id'>
           <img              
             class='slide-image' 
             mode='aspectFit' 
@@ -63,51 +64,45 @@
 export default {
   data () {
     return {
+      showSwiper: true,
       topSwipers: [{
-        id: 1,
-        outterImage: '../../static/images/zoo.png'
-      },
-      {
-        id: 1,
-        outterImage: '../../static/images/plant.png'
-      },
-      {
-        id: 1,
+        id: 'combine',
         outterImage: '../../static/images/combine.png'
       },
       {
-        id: 1,
-        outterImage: '../../static/images/park.png'
+        id: 'zoo',
+        outterImage: '../../static/images/zoo.png'
       },
       {
-        id: 1,
+        id: 'plant',
+        outterImage: '../../static/images/plant.png'
+      },
+      {
+        id: 'other',
+        outterImage: '../../static/images/other.png'
+      },
+      {
+        id: 'commity',
         outterImage: '../../static/images/commity.png'
       },
       {
-        id: 1,
-        outterImage: '../../static/images/other.png'
+        id: 'park',
+        outterImage: '../../static/images/park.png'
       }],
-      nowType: '0',
+      nowType: '',
       landArea: null,
-      waterArea: null
+      waterArea: 0
     }
   },
   methods: {
     changeSwiper (event) {
-      console.log(event.mp.detail.current)
-      this.nowType = event.mp.detail.current
+      console.log(event.mp.detail)
+      this.nowType = event.mp.detail.currentItemId
     },
     getReport () {
-      console.log(this.waterArea, this.landArea, this.nowType)
       if (!this.landArea) {
         wx.showToast({
           title: '请输入陆地面积',
-          icon: 'none',
-          duration: 2000
-        })
-      } else if (!this.waterArea) {
-        wx.showToast({
-          title: '请输入水域面积',
           icon: 'none',
           duration: 2000
         })
@@ -115,15 +110,101 @@ export default {
         const area = {
           landArea: this.landArea,
           waterArea: this.waterArea,
-          parkType: this.nowType
+          parkType: this.nowType === '' ? this.topSwipers[0].id : this.nowType
         }
-        wx.setStorage({
-          key: 'area',
-          data: area
-        })
+        wx.setStorageSync('area', area)
         const url = '../overView/main'
         mpvue.navigateTo({ url })
       }
+    },
+    countParkType () {
+      this.showSwiper = false
+      wx.showLoading()
+      const area = ~~this.landArea
+      if (area <= 19999) {
+        this.topSwipers = [{
+          id: 'plant',
+          outterImage: '../../static/images/plant.png'
+        },
+        {
+          id: 'other',
+          outterImage: '../../static/images/other.png'
+        },
+        {
+          id: 'commity',
+          outterImage: '../../static/images/commity.png'
+        },
+        {
+          id: 'park',
+          outterImage: '../../static/images/park.png'
+        }]
+      }
+      if (area <= 49999 && area > 19999) {
+        this.topSwipers = [{
+          id: 'park',
+          outterImage: '../../static/images/zoo.png'
+        },
+        {
+          id: 'plant',
+          outterImage: '../../static/images/plant.png'
+        },
+        {
+          id: 'other',
+          outterImage: '../../static/images/other.png'
+        },
+        {
+          id: 'commity',
+          outterImage: '../../static/images/commity.png'
+        },
+        {
+          id: 'park',
+          outterImage: '../../static/images/park.png'
+        }]
+      }
+      if (area < 499999 && area > 99999) {
+        this.topSwipers = [{
+          id: 'combine',
+          outterImage: '../../static/images/combine.png'
+        },
+        {
+          id: 'zoo',
+          outterImage: '../../static/images/zoo.png'
+        },
+        {
+          id: 'plant',
+          outterImage: '../../static/images/plant.png'
+        },
+        {
+          id: 'other',
+          outterImage: '../../static/images/other.png'
+        },
+        {
+          id: 'commity',
+          outterImage: '../../static/images/commity.png'
+        }]
+      }
+      if (area > 499999) {
+        this.topSwipers = [{
+          id: 'combine',
+          outterImage: '../../static/images/combine.png'
+        },
+        {
+          id: 'zoo',
+          outterImage: '../../static/images/zoo.png'
+        },
+        {
+          id: 'plant',
+          outterImage: '../../static/images/plant.png'
+        },
+        {
+          id: 'other',
+          outterImage: '../../static/images/other.png'
+        }]
+      }
+      setTimeout(() => {
+        this.showSwiper = true
+        wx.hideLoading()
+      }, 300)
     }
   },
 

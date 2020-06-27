@@ -2,6 +2,7 @@
 export default {
   created () {
     console.log('mpvue')
+    // wx.setStorageSync('area', {})
   }
 }
 </script>
@@ -36,6 +37,77 @@ page {
 }
 .fl {
   float: left;
+}
+.chart-edit {
+  width: 20px;
+  height: 20px;
+  float: right;
+}
+.icon-wrapper {
+  margin-top: 15px;
+}
+.icon-line {
+  margin: 11px 0;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 15px;
+}
+.icon-line--right {
+  border-radius: 0 0 10px 10px;
+  margin: 0 0 11px 0;
+}
+.icon-line--title--line {
+  vertical-align: middle;
+  height: 27px;
+  line-height: 27px;
+}
+.icon-line--title--icon {
+  width: 25px;
+  height: 25px;
+}
+.icon-line--title--text {
+  position: relative;
+  top: -6px;
+  left: 10px;
+}
+.icon-line--body--line {
+  padding-top: 15px;
+}
+.icon-wrapper .icon-line--body--line {
+  padding-top: 8px;
+}
+.icon-web-line {
+  margin: 30px 0;
+  overflow: hidden;
+}
+.icon-describe {
+  margin-top: 10px;
+}
+.icon-content {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+.green-title {
+  border-left: #0FC1A2 solid 5px ;
+  padding-left: 5px;
+  font-size: 17px;
+  color: #333333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.green-spread {
+  border-top: #D2D2D2 solid .5px;
+  text-align: center;
+  margin-top: 30px;
+}
+.green-spread-inner {
+  background: #FFFFFF;
+  padding: 0 5px;
+  position: relative;
+  top: -10px;
+  color: #0FBFA3;
+  font-size: 16px;
 }
 /* 公共组件样式 */
 .nav-title {

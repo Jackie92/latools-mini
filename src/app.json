@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/greenLand/main",
     "pages/overView/main",
     "pages/parkType/main",
     "pages/entry/main",

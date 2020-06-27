@@ -1,26 +1,26 @@
 <template>
-<div class="overview">
-  <div class="overview-head">
-    <div class="overview-head__title">场地总面积</div>
-    <div class="overview-head__number">2333 <span class="m2">㎡</span> </div>
-    <div class="overview-head__area-line">
-      <div class="area-line__land-area">
-        <p>1</p>
-        <p>陆地面积(㎡)</p>
-      </div>
-      <div class="area-line__water-area">
-        <p>1</p>
-        <p>水域面积(㎡)</p>
+<div class="gl">
+  <div class="gl-head">
+    <div class="fl">
+      <div class="gl-head__title">绿化用地</div>
+      <div class="gl-head__number">23<span class="m2">%</span> </div>
+      <div class="gl-head__area-line">
+        <div class="area-line__land-area">
+          <p>1000㎡</p>
+        </div>
       </div>
     </div>
+    <div class="fr echarts-wrap">
+      <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="demo-canvas" />
+
+    </div>
+    
   </div>
-  <div class="overview-body">
+  <div class="gl-body">
     <div class="chart-line">
       <div class="chart-line__block">
         <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
-        <div class="echarts-wrap">
-          <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="demo-canvas" />
-        </div>
+        
       </div>
     </div>
   </div>
@@ -88,10 +88,10 @@ export default {
 </script>
 
 <style scoped>
-.overview {
+.gl {
   height: 100%;
 }
-.overview-head {
+.gl-head {
   display: block;
   background: -webkit-linear-gradient(left bottom,#08B26B,#0FC1A2);
   background: -o-linear-gradient(left bottom,#08B26B,#0FC1A2);
@@ -100,18 +100,19 @@ export default {
   background: linear-gradient(left bottom,#08B26B,#0FC1A2);
   padding: 90px 20px 60px;
   color: #ffffff;
+  overflow: hidden;
 }
-.overview-head__title {
+.gl-head__title {
   font-size: 22px;
 }
-.overview-head__number {
-  font-size: 40px;
+.gl-head__number {
+  font-size: 60px;
 }
-.overview-head__number .m2 {
+.gl-head__number .m2 {
   font-size: 22px;
   vertical-align: top;
 }
-.overview-head__area-line {
+.gl-head__area-line {
   overflow: hidden;
   font-size: 18px;
   padding-top: 10px;
@@ -123,7 +124,7 @@ export default {
   float: right;
   text-align: right;
 }
-.overview-body {
+.gl-body {
   border-radius: 25px 25px 0 0;
   position: relative;
   top: -25px;
@@ -146,7 +147,7 @@ export default {
   float: right;
 }
 .echarts-wrap {
-  width: 100%;
-  height: 300px;
+  width: 50%;
+  height: 150px;
 }
 </style>
