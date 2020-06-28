@@ -14,12 +14,81 @@
       <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="demo-canvas" />
 
     </div>
-    
+
   </div>
   <div class="gl-body">
-    <div class="three-switch">
-      
+    <div class="gl-body-head">
+      <div class="three-switch">
+        <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+        <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+        <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+      </div>
     </div>
+    <div class="body-between">
+      <div class="bet-item">
+        <div class="bet-item-title">
+          <div class="bet-item-left">
+            <img class="greenarea" src="/static/icon/greenarea.png" alt="">绿化用地面积
+          </div>
+          <div class="bet-item-right">205860㎡</div>
+        </div>
+        <div class="green-pro">
+          <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+          <div class="green-pro-left">79%</div>
+        </div>
+      </div>
+      <div class="bet-item">
+        <div class="bet-item-title">
+          <div class="bet-item-left">
+          <img class="greenarea" src="/static/icon/avegreen.png" alt="">人均绿地面积
+          </div>
+        </div>
+        <div class="green-pro">
+          <slider class="greenslider" backgroundColor="#EBEBEB" activeColor="#5380FF" value="55"/>
+          <div class="green-pro-left">20㎡/人</div>
+        </div>
+      </div>
+      <div class="bet-item">
+        <div class="bet-item-title">
+          <div class="bet-item-left">
+            <img class="greenarea" src="/static/icon/avewater.png" alt="">人均水域面积
+          </div>
+        </div>
+        <div class="green-pro">
+          <slider class="greenslider" backgroundColor="#EBEBEB" activeColor="#5380FF" value="69"/>
+          <div class="green-pro-left">180㎡/人</div>
+        </div>
+      </div>
+    </div>
+    <div class="body-foot">
+      <div class="foot-item">
+        <div class="foot-item-left"><img class="foot-img" src="/static/icon/tourist.png" alt="">游人容量</div>
+        <div class="foot-item-right">5000人</div>
+      </div>
+      <div class="foot-item">
+        <div class="foot-item-left"><img class="foot-img" src="/static/icon/charnum.png" alt="">座椅数量</div>
+        <div class="foot-item-right">500-600个</div>
+      </div>
+      <div class="foot-item">
+        <div class="foot-item-left"><img class="foot-img" src="/static/icon/wheelchair.png" alt="">放置轮椅</div>
+        <div class="foot-item-right">500-600个</div>
+      </div>
+      <div class="foot-item-last">
+        <div class="foot-last">
+          <div class="foot-item-left"><img class="foot-img" src="/static/icon/latrinepit.png" alt="">蹲位数量</div>
+          <div class="foot-item-right">500-600个</div>
+        </div>
+        <div class="foot-list-con">
+          <div>女士蹲位数量</div>
+          <div>500-600个</div>
+        </div>
+        <div class="foot-list-con">
+          <div>男士蹲位数量</div>
+          <div>500-600个</div>
+        </div>
+      </div>
+    </div>
+    <div class="submit">提交修改</div>
   </div>
 </div>
   
@@ -72,10 +141,14 @@ export default {
   data () {
     return {
       echarts,
-      onInit: initChart
+      onInit: initChart,
+      index: 0
     }
   },
   methods: {
+    // sliderchange() {
+    //   console.log(2333)
+    // }
   },
 
   created () {
@@ -126,7 +199,132 @@ export default {
   position: relative;
   top: -25px;
   background: #f7f7f7;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+}
+.gl-body-head{
+  position: relative;
+  height: 56px;
+  padding: 18px 20px;
+  box-sizing: border-box;
+}
+.three-switch{
+  width: 250px;
+  height: 26px;
+  border-radius: 13px;
+  background: #ECECEC;
+  float:right;
+  display: flex;
+  padding: 3px;
+}
+.switch-item{
+  font-size: 15px;
+  flex: 1;
+  text-align: center;
+  line-height: 26px;
+  color: #A0A0A0;
+}
+.current{
+  background: #ffffff;
+  color: #11CC98;
+  border-radius: 12px;
+}
+.body-between{
+  padding: 5px 29px;
+}
+.bet-item{
+  margin-bottom: 24px;
+}
+.bet-item-title{
+  font-size:15px;
+  font-weight:600;
+  color:#333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.green-pro{
+  margin-top:15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.green-pro-left{
+  font-size:15px;
+  font-weight:600;
+  line-height: 15px;
+  color:#333333;
+}
+.greenpro{
+  width: 240px;
+}
+.greenslider{
+  width: 210px;
+}
+.greenarea{
+  width: 22px;
+  height: 22px;
+  background: #0FC0A3;
+  border-radius: 11px;
+  vertical-align: bottom;
+  margin-right: 11px;
+}
+.body-foot{
+  padding: 0px 15px 45px;
+}
+.foot-item{
+  border-radius: 6px;
+  background: #ffffff;
   padding: 20px;
+  margin-bottom: 10px;
+  font-size:15px;
+  font-weight:600;
+  color:#333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.foot-item-last{
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+.foot-last{
+  font-size:15px;
+  font-weight:600;
+  color:#333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.foot-list-con{
+  font-size:15px;
+  color:#333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 13px;
+}
+.foot-img{
+  width: 22px;
+  height: 22px;
+  background: #5983FE;
+  border-radius: 11px;
+  vertical-align: bottom;
+  margin-right: 10px;
+}
+.submit{
+  width: 315px;
+  height: 54px;
+  background: #12CC97;
+  border-radius:27px;
+  margin: auto;
+  color: #ffffff;
+  font-size:18px;
+  font-weight:500;
+  line-height:54px;
+  text-align: center;
 }
 .chart-line {
   overflow: hidden;
