@@ -2,11 +2,11 @@
 <div class="gl">
   <div class="gl-head">
     <div class="fl">
-      <div class="gl-head__title">绿化用地</div>
-      <div class="gl-head__number">23<span class="m2">%</span> </div>
+      <div class="gl-head__title">游憩服务用地</div>
+      <div class="gl-head__number">80<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>1000㎡</p>
+          <p>5860㎡</p>
         </div>
       </div>
     </div>
@@ -17,6 +17,10 @@
 
   </div>
   <div class="gl-body">
+    <div class="gl-body-type">
+      <div class="type-item"  @click="typeIn=0" :class="typeIn==0 ? 'active':''">游憩类建筑</div>
+      <div class="type-item" @click="typeIn=1" :class="typeIn==1 ? 'active':''">服务类建筑</div>
+    </div>
     <div class="gl-body-head">
       <div class="three-switch">
         <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
@@ -57,34 +61,6 @@
         <div class="green-pro">
           <slider class="greenslider" backgroundColor="#EBEBEB" activeColor="#5380FF" value="69"/>
           <div class="green-pro-left">180㎡/人</div>
-        </div>
-      </div>
-    </div>
-    <div class="body-foot">
-      <div class="foot-item">
-        <div class="foot-item-left"><img class="foot-img" src="/static/icon/tourist.png" alt="">游人容量</div>
-        <div class="foot-item-right">5000人</div>
-      </div>
-      <div class="foot-item">
-        <div class="foot-item-left"><img class="foot-img" src="/static/icon/charnum.png" alt="">座椅数量</div>
-        <div class="foot-item-right">500-600个</div>
-      </div>
-      <div class="foot-item">
-        <div class="foot-item-left"><img class="foot-img" src="/static/icon/wheelchair.png" alt="">放置轮椅</div>
-        <div class="foot-item-right">500-600个</div>
-      </div>
-      <div class="foot-item-last">
-        <div class="foot-last">
-          <div class="foot-item-left"><img class="foot-img" src="/static/icon/latrinepit.png" alt="">蹲位数量</div>
-          <div class="foot-item-right">500-600个</div>
-        </div>
-        <div class="foot-list-con">
-          <div>女士蹲位数量</div>
-          <div>500-600个</div>
-        </div>
-        <div class="foot-list-con">
-          <div>男士蹲位数量</div>
-          <div>500-600个</div>
         </div>
       </div>
     </div>
@@ -142,7 +118,8 @@ export default {
     return {
       echarts,
       onInit: initChart,
-      index: 0
+      index: 0,
+      typeIn: 0
     }
   },
   methods: {
@@ -201,6 +178,25 @@ export default {
   background: #f7f7f7;
   box-sizing: border-box;
   padding-bottom: 20px;
+}
+.gl-body-type{
+  padding: 20px 20px 0px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.type-item{
+  width: 90px;
+  height: 30px;
+  font-size:17px;
+  font-weight:500;
+  color:#666666;
+  text-align: center;
+  border-bottom: 2px solid #f7f7f7;
+}
+.active{
+  color:#0EBE98;
+  border-bottom: 2px solid #0EBE98;
 }
 .gl-body-head{
   position: relative;
@@ -275,51 +271,6 @@ export default {
   border-radius: 11px;
   vertical-align: bottom;
   margin-right: 11px;
-}
-.body-foot{
-  padding: 0px 15px 45px;
-}
-.foot-item{
-  border-radius: 6px;
-  background: #ffffff;
-  padding: 20px;
-  margin-bottom: 10px;
-  font-size:15px;
-  font-weight:600;
-  color:#333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.foot-item-last{
-  border-radius: 6px;
-  background: #ffffff;
-  padding: 20px;
-  margin-bottom: 10px;
-}
-.foot-last{
-  font-size:15px;
-  font-weight:600;
-  color:#333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.foot-list-con{
-  font-size:15px;
-  color:#333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 13px;
-}
-.foot-img{
-  width: 22px;
-  height: 22px;
-  background: #5983FE;
-  border-radius: 11px;
-  vertical-align: bottom;
-  margin-right: 10px;
 }
 .submit{
   width: 315px;
