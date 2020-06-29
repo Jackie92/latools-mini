@@ -1,10 +1,9 @@
 {
   "pages": [
-    "pages/parkType/main",
     "pages/strollRest/main",
     "pages/greenLand/main",
     "pages/overView/main",
-    
+    "pages/parkType/main",
     "pages/entry/main",
     "pages/counter/main"
   ],
