@@ -24,6 +24,7 @@
         <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
       </div>
     </div>
+    
     <div class="body-between">
       <div class="bet-item">
         <div class="bet-item-title">
@@ -33,7 +34,7 @@
           <div class="bet-item-right">205860㎡</div>
         </div>
         <div class="green-pro-one">
-          <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="3"></progress>
+          <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
           <div class="green-pro-left">79%</div>
         </div>
       </div>
@@ -44,7 +45,7 @@
           </div>
         </div>
         <div class="green-pro">
-          <slider class="greenslider" backgroundColor="#EBEBEB" activeColor="#5380FF" value="69"/>
+          <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
           <div class="green-pro-left">20㎡/人</div>
         </div>
       </div>
@@ -55,7 +56,7 @@
           </div>
         </div>
         <div class="green-pro">
-          <slider class="greenslider" backgroundColor="#EBEBEB" activeColor="#5380FF" value="69"/>
+          <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
           <div class="green-pro-left">180㎡/人</div>
         </div>
       </div>
@@ -149,6 +150,9 @@ export default {
     // sliderchange() {
     //   console.log(2333)
     // }
+    onChange (event) {
+      console.log(event)
+    }
   },
 
   created () {
@@ -267,6 +271,7 @@ export default {
 }
 .greenslider{
   width: 210px;
+  margin-left: 18px;
 }
 .greenarea{
   width: 22px;
