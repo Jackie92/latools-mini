@@ -164,8 +164,7 @@ export default {
   },
   methods: {
     changeSwiper (event) {
-      console.log(event);
-      
+      console.log(event)
     }
     // sliderchange() {
     //   console.log(2333)
