@@ -681,6 +681,26 @@ export default {
     this.womanToiletTop = ~~(this.toiletTop * 0.6)
 
     this.area.rateNum = this.rateNum
+    this.area.greenPer = {
+      top: this.greenPerTop,
+      bottom: this.greenPerBottom
+    }
+    this.area.peopleAbility = {
+      top: this.peopleAbilityTop,
+      bottom: this.peopleAbilityBottom
+    }
+    this.area.seatNum = {
+      top: this.seatNumTop,
+      bottom: this.seatNumBottom
+    }
+    this.area.toilet = {
+      toiletBtm: this.toiletBtm,
+      toiletTop: this.toiletTop,
+      manToiletBtm: this.manToiletBtm,
+      manToiletTop: this.manToiletTop,
+      womanToiletBtm: this.womanToiletBtm,
+      womanToiletTop: this.womanToiletTop
+    }
     wx.setStorageSync('area', this.area)
   },
   created () {

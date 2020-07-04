@@ -3,10 +3,10 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">绿化用地</div>
-      <div class="gl-head__number">23<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{sdata.rateNum[0]}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>1000㎡</p>
+          <p>{{sdata.rateNum[0] / 100 * sdata.landArea}}㎡</p>
         </div>
       </div>
     </div>
@@ -31,11 +31,11 @@
           <div class="bet-item-left">
             <img class="greenarea" src="/static/icon/greenarea.png" alt="">绿化用地面积
           </div>
-          <div class="bet-item-right">205860㎡</div>
+          <div class="bet-item-right">{{sdata.rateNum[0] / 100 * sdata.landArea}}㎡</div>
         </div>
         <div class="green-pro-one">
-          <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-          <div class="green-pro-left">79%</div>
+          <progress class="greenpro" :percent="sdata.rateNum[0]" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+          <div class="green-pro-left">{{sdata.rateNum[0]}}%</div>
         </div>
       </div>
       <div class="bet-item">
@@ -45,47 +45,65 @@
           </div>
         </div>
         <div class="green-pro">
-          <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
-          <div class="green-pro-left">20㎡/人</div>
+          <van-slider
+            class="greenslider"
+            bar-height="3.1px"
+            active-color="#5380FF"
+            inactive-color="#EBEBEB"
+            :value="sdata.greenPer.bottom"
+            @change="onChangeGreen"
+            :min="sdata.greenPer.bottom"
+            :max="sdata.greenPer.top"
+          />
+          <div class="green-pro-left">{{greenPer}}㎡/人</div>
         </div>
       </div>
-      <div class="bet-item">
+      <div v-if="sdata.waterArea != 0" class="bet-item">
         <div class="bet-item-title">
           <div class="bet-item-left">
             <img class="greenarea" src="/static/icon/avewater.png" alt="">人均水域面积
           </div>
         </div>
         <div class="green-pro">
-          <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
-          <div class="green-pro-left">180㎡/人</div>
+          <van-slider
+            class="greenslider"
+            bar-height="3.1px"
+            active-color="#5380FF"
+            inactive-color="#EBEBEB"
+            :value="waterPer"
+            @change="onChangeWater"
+            :min="150"
+            :max="250"
+          />
+          <div class="green-pro-left">{{waterPer}}㎡/人</div>
         </div>
       </div>
     </div>
     <div class="body-foot">
       <div class="foot-item">
-        <div class="foot-item-left"><img class="foot-img" src="/static/icon/tourist.png" alt="">游人容量</div>
-        <div class="foot-item-right">5000人</div>
+        <div class="foot-item-left"><img class="foot-img" src="/static/icon/yrrl.png" alt="">游人容量</div>
+        <div class="foot-item-right">{{peopleAbility}}人</div>
       </div>
       <div class="foot-item">
-        <div class="foot-item-left"><img class="foot-img" src="/static/icon/charnum.png" alt="">座椅数量</div>
-        <div class="foot-item-right">500-600个</div>
+        <div class="foot-item-left"><img class="foot-img" src="/static/icon/seats.png" alt="">座椅数量</div>
+        <div class="foot-item-right">{{sdata.seatNum.bottom}}-{{sdata.seatNum.top}}个</div>
       </div>
       <div class="foot-item">
-        <div class="foot-item-left"><img class="foot-img" src="/static/icon/wheelchair.png" alt="">放置轮椅</div>
-        <div class="foot-item-right">500-600个</div>
+        <div class="foot-item-left"><img class="foot-img" src="/static/icon/ly.png" alt="">放置轮椅</div>
+        <div class="foot-item-right">{{wheelchairBottom}}-{{wheelchairTop}}个</div>
       </div>
       <div class="foot-item-last">
         <div class="foot-last">
-          <div class="foot-item-left"><img class="foot-img" src="/static/icon/latrinepit.png" alt="">蹲位数量</div>
-          <div class="foot-item-right">500-600个</div>
+          <div class="foot-item-left"><img class="foot-img" src="/static/icon/dw.png" alt="">蹲位数量</div>
+          <div class="foot-item-right">{{sdata.toilet.toiletBtm}}-{{sdata.toilet.toiletTop}}个</div>
         </div>
         <div class="foot-list-con">
           <div>女士蹲位数量</div>
-          <div>500-600个</div>
+          <div>{{sdata.toilet.womanToiletBtm}}-{{sdata.toilet.womanToiletTop}}个</div>
         </div>
         <div class="foot-list-con">
           <div>男士蹲位数量</div>
-          <div>500-600个</div>
+          <div>{{sdata.toilet.manToiletBtm}}-{{sdata.toilet.manToiletTop}}个</div>
         </div>
       </div>
     </div>
@@ -101,19 +119,17 @@ import mpvueEcharts from 'mpvue-echarts'
 
 let chart = null
 
-function initChart (canvas, width, height) {
-  chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(chart)
-
-  var option = {
-    color: ['#13987e', '#bbffd0', '#49e198'],
+function getOption (num) {
+  const rate = wx.getStorageSync('area').rateNum
+  const rateNum = rate[num]
+  console.log(num, rateNum)
+  return {
+    color: ['#187161', '#BBFFD0'],
     series: [
       {
         type: 'pie',
-        radius: ['90%', '70%'],
+        hoverAnimation: false,
+        radius: ['80%', '60%'],
         avoidLabelOverlap: false,
         label: {
           show: false,
@@ -123,17 +139,12 @@ function initChart (canvas, width, height) {
           show: false
         },
         data: [
-          {value: 1},
-          {value: 3},
-          {value: 2}
+          {value: 100 - ~~rateNum},
+          {value: ~~rateNum}
         ]
       }
     ]
-  } // ECharts 配置项
-
-  chart.setOption(option)
-
-  return chart // 返回 chart 后可以自动绑定触摸操作
+  }
 }
 export default {
   components: {
@@ -142,21 +153,48 @@ export default {
   data () {
     return {
       echarts,
-      onInit: initChart,
-      index: 0
+      onInit: function (canvas, width, height) {
+        chart = echarts.init(canvas, null, {
+          width: width,
+          height: height
+        })
+        canvas.setChart(chart)
+        chart.setOption(getOption(0))
+        return chart
+      },
+      index: 0,
+      sdata: {},
+      greenPer: wx.getStorageSync('area').greenPer.bottom,
+      waterPer: 150,
+      peopleAbility: 0,
+      wheelchairTop: 0,
+      wheelchairBottom: 0
     }
   },
   methods: {
     // sliderchange() {
     //   console.log(2333)
     // }
-    onChange (event) {
-      console.log(event)
+    onChange (value) {
+      console.log(value)
+    },
+    onChangeGreen (e) {
+      console.log(e.mp.detail)
+      this.greenPer = e.mp.detail
+      this.peopleAbility = ~~(this.sdata.landArea / this.greenPer)
+    },
+    onChangeWater (e) {
+      console.log(e.mp.detail)
+      this.waterPer = e.mp.detail
     }
   },
 
   created () {
     // let app = getApp()
+    this.sdata = wx.getStorageSync('area')
+    this.peopleAbility = this.sdata.landArea / this.greenPer
+    this.wheelchairBottom = ~~(this.sdata.seatNum.bottom * 0.1)
+    this.wheelchairTop = ~~(this.sdata.seatNum.top * 0.1)
   }
 }
 </script>
