@@ -17,7 +17,7 @@
   <div class="overview-body">
     <div class="chart-line">
 
-      <div class="chart-line__block">
+      <div class="chart-line__block" @click="greenClick">
         <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
           <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>{{rateNum[0]}}</span></div>
@@ -415,7 +415,6 @@ let chart = null
 function getOption (num) {
   const rate = wx.getStorageSync('area').rateNum
   const rateNum = rate[num]
-  console.log(num, rateNum)
   return {
     color: ['#cccccc', '#5480ff'],
     series: [
@@ -521,6 +520,10 @@ export default {
     }
   },
   methods: {
+    greenClick () {
+      const url = '../greenLand/main'
+      mpvue.navigateTo({ url })
+    }
   },
   mounted () {
     this.area = wx.getStorageSync('area')
@@ -692,14 +695,6 @@ export default {
     this.area.seatNum = {
       top: this.seatNumTop,
       bottom: this.seatNumBottom
-    }
-    this.area.toilet = {
-      toiletBtm: this.toiletBtm,
-      toiletTop: this.toiletTop,
-      manToiletBtm: this.manToiletBtm,
-      manToiletTop: this.manToiletTop,
-      womanToiletBtm: this.womanToiletBtm,
-      womanToiletTop: this.womanToiletTop
     }
     wx.setStorageSync('area', this.area)
   },

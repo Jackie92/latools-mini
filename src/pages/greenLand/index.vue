@@ -18,14 +18,14 @@
   </div>
   <div class="gl-body">
     <div class="gl-body-head">
-      <div class="three-switch">
+      <!-- <div class="three-switch">
         <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
         <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
         <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
-      </div>
+      </div> -->
     </div>
     
-    <div class="body-between">
+    <div class="body-between" v-if="JSON.stringify(sdata) !== '{}'">
       <div class="bet-item">
         <div class="bet-item-title">
           <div class="bet-item-left">
@@ -86,28 +86,31 @@
       </div>
       <div class="foot-item">
         <div class="foot-item-left"><img class="foot-img" src="/static/icon/seats.png" alt="">座椅数量</div>
-        <div class="foot-item-right">{{sdata.seatNum.bottom}}-{{sdata.seatNum.top}}个</div>
+        <div class="foot-item-right">{{~~(peopleAbility * 0.2)}}-{{~~(peopleAbility * 0.3)}}个</div>
       </div>
       <div class="foot-item">
         <div class="foot-item-left"><img class="foot-img" src="/static/icon/ly.png" alt="">放置轮椅</div>
-        <div class="foot-item-right">{{wheelchairBottom}}-{{wheelchairTop}}个</div>
+        <div class="foot-item-right">{{~~(peopleAbility * 0.2 * 0.1)}}-{{~~(peopleAbility * 0.3 * 0.1)}}个</div>
       </div>
       <div class="foot-item-last">
         <div class="foot-last">
           <div class="foot-item-left"><img class="foot-img" src="/static/icon/dw.png" alt="">蹲位数量</div>
-          <div class="foot-item-right">{{sdata.toilet.toiletBtm}}-{{sdata.toilet.toiletTop}}个</div>
+          <div class="foot-item-right" v-if="sdata.landArea < 100000">{{~~(peopleAbility * 0.02)}}个</div>
+          <div class="foot-item-right" v-else>{{~~(peopleAbility * 0.15)}}个</div>
         </div>
         <div class="foot-list-con">
           <div>女士蹲位数量</div>
-          <div>{{sdata.toilet.womanToiletBtm}}-{{sdata.toilet.womanToiletTop}}个</div>
+          <div v-if="sdata.landArea < 100000">{{~~(peopleAbility * 0.02 * 0.6)}}个</div>
+          <div v-else>{{~~(peopleAbility * 0.15 * 0.6)}}个</div>
         </div>
         <div class="foot-list-con">
           <div>男士蹲位数量</div>
-          <div>{{sdata.toilet.manToiletBtm}}-{{sdata.toilet.manToiletTop}}个</div>
+          <div v-if="sdata.landArea < 100000">{{~~(peopleAbility * 0.02 * 0.4)}}个</div>
+          <div v-else>{{~~(peopleAbility * 0.15 * 0.4)}}个</div>
         </div>
       </div>
     </div>
-    <div class="submit">提交修改</div>
+    <div class="submit" @click="submit">提交修改</div>
   </div>
 </div>
   
@@ -122,7 +125,6 @@ let chart = null
 function getOption (num) {
   const rate = wx.getStorageSync('area').rateNum
   const rateNum = rate[num]
-  console.log(num, rateNum)
   return {
     color: ['#187161', '#BBFFD0'],
     series: [
@@ -164,37 +166,33 @@ export default {
       },
       index: 0,
       sdata: {},
-      greenPer: wx.getStorageSync('area').greenPer.bottom,
+      greenPer: 0,
       waterPer: 150,
-      peopleAbility: 0,
-      wheelchairTop: 0,
-      wheelchairBottom: 0
+      peopleAbility: 0
     }
   },
   methods: {
-    // sliderchange() {
-    //   console.log(2333)
-    // }
-    onChange (value) {
-      console.log(value)
-    },
     onChangeGreen (e) {
-      console.log(e.mp.detail)
       this.greenPer = e.mp.detail
       this.peopleAbility = ~~(this.sdata.landArea / this.greenPer)
     },
     onChangeWater (e) {
-      console.log(e.mp.detail)
       this.waterPer = e.mp.detail
+    },
+    submit () {
+      this.sdata.greenPerChose = this.greenPer
+      this.sdata.peopleAbilityChose = this.peopleAbility
+      wx.setStorageSync('area', this.sdata)
+      const url = '../greenLand/main'
+      mpvue.navigateBack({ url })
     }
   },
 
-  created () {
+  mounted () {
     // let app = getApp()
     this.sdata = wx.getStorageSync('area')
+    this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
-    this.wheelchairBottom = ~~(this.sdata.seatNum.bottom * 0.1)
-    this.wheelchairTop = ~~(this.sdata.seatNum.top * 0.1)
   }
 }
 </script>
