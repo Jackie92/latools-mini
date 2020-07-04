@@ -17,7 +17,7 @@
   <div class="overview-body">
     <div class="chart-line">
 
-      <div class="chart-line__block" @click="greenClick">
+      <div class="chart-line__block" @click="goPage('greenLand')">
         <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
           <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>{{rateNum[0]}}</span></div>
@@ -27,7 +27,7 @@
         </div>
         <div><span>{{greenLand}}</span>㎡</div>
       </div>
-      <div class="chart-line__block">
+      <div class="chart-line__block" @click="goPage('strollRest')">
         <div class="chart-line__block__title"><span>游憩及服务(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
           <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[2]}}</span></div>
@@ -520,8 +520,9 @@ export default {
     }
   },
   methods: {
-    greenClick () {
-      const url = '../greenLand/main'
+    goPage (pageName) {
+      const url = `../${pageName}/main`
+      console.log(url)
       mpvue.navigateTo({ url })
     }
   },

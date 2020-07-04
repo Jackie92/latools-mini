@@ -6,7 +6,7 @@
       <div class="gl-head__number">{{sdata.rateNum[0]}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{sdata.rateNum[0] / 100 * sdata.landArea}}㎡</p>
+          <p>{{~~(sdata.rateNum[0] / 100 * sdata.landArea)}}㎡</p>
         </div>
       </div>
     </div>

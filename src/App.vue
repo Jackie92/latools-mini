@@ -2,7 +2,7 @@
 export default {
   created () {
     console.log('mpvue')
-    wx.setStorageSync('area', {})
+    // wx.setStorageSync('area', {})
   }
 }
 </script>

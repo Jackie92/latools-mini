@@ -3,10 +3,10 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">游憩服务用地</div>
-      <div class="gl-head__number">80<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{sdata.rateNum[2]}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>5860㎡</p>
+          <p>{{~~(sdata.rateNum[2] / 100 * sdata.landArea)}}㎡</p>
         </div>
       </div>
     </div>
@@ -21,76 +21,81 @@
       <div class="type-item"  @click="typeIn=0" :class="typeIn==0 ? 'active':''">游憩类建筑</div>
       <div class="type-item" @click="typeIn=1" :class="typeIn==1 ? 'active':''">服务类建筑</div>
     </div>
-    <div class="swiper area-swiper">
-      <swiper
-        class="swiper-inner"
-        :indicator-dots='false'
-        :autoplay='false'
-        :interval='3000'
-        :circular='circular'
-        :previous-margin="'100px'"
-        :next-margin="'150px'"
-        @change='changeSwiper'
-        v-if="showSwiper"
-      >
-        <a  v-for='img in topSwipers' :key='img.id'>
 
-          <swiper-item class="swiper-bar" :item-id='img.id'>
-            <img              
-              class='slide-image' 
-              mode='aspectFit' 
-              :src="img.outterImage" 
-              />
-          </swiper-item>
-        </a>
-      </swiper>  
-      
-    </div>
-    <div class="gl-body-head">
-      <div class="three-switch">
-        <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-        <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-        <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+    <div class="gl-showBody" v-if="typeIn == 0">
+      <div class="swiper area-swiper">
+        <swiper
+          class="swiper-inner"
+          :indicator-dots='false'
+          :autoplay='false'
+          :interval='3000'
+          :circular='circular'
+          :previous-margin="'100px'"
+          :next-margin="'150px'"
+          @change='changeSwiper'
+          v-if="showSwiper"
+        >
+          <a  v-for='img in topSwipers' :key='img.id'>
+
+            <swiper-item class="swiper-bar" :item-id='img.id'>
+              <img              
+                class='slide-image' 
+                mode='aspectFit' 
+                :src="img.outterImage" 
+                />
+            </swiper-item>
+          </a>
+        </swiper>  
+        
       </div>
-    </div>
-    <div class="body-between">
-      <div class="bet-item">
-        <div class="bet-item-title">
-          <div class="bet-item-left">
-            <img class="greenarea" src="/static/icon/play.png" alt="">活动馆用地
+      <div class="gl-body-head">
+        <div class="three-switch">
+          <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+          <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+          <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+        </div>
+      </div>
+      <div class="body-between">
+        <div class="bet-item">
+          <div class="bet-item-title">
+            <div class="bet-item-left">
+              <img class="greenarea" src="/static/icon/play.png" alt="">活动馆用地
+            </div>
+            <div class="bet-item-right">2个</div>
           </div>
-          <div class="bet-item-right">2个</div>
-        </div>
-        <div class="bet-item-be">500㎡</div>
-        <div class="green-pro-one">
-          <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-          <div class="green-pro-left">79%</div>
-        </div>
-      </div>
-      <div class="bet-item">
-        <div class="bet-item-title">
-          <div class="bet-item-left">
-            <div class="number">1</div>活动馆1
-          </div>
-        </div>
-        <div class="green-pro">
-          <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
-          <div class="green-pro-left">15㎡/人</div>
-        </div>
-      </div>
-      <div class="bet-item">
-        <div class="bet-item-title">
-          <div class="bet-item-left">
-            <div class="number">2</div>活动馆2
+          <div class="bet-item-be">500㎡</div>
+          <div class="green-pro-one">
+            <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+            <div class="green-pro-left">79%</div>
           </div>
         </div>
-        <div class="green-pro">
-          <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
-          <div class="green-pro-left">20㎡/人</div>
+        <div class="bet-item">
+          <div class="bet-item-title">
+            <div class="bet-item-left">
+              <div class="number">1</div>活动馆1
+            </div>
+          </div>
+          <div class="green-pro">
+            <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
+            <div class="green-pro-left">15㎡/人</div>
+          </div>
         </div>
+        <div class="bet-item">
+          <div class="bet-item-title">
+            <div class="bet-item-left">
+              <div class="number">2</div>活动馆2
+            </div>
+          </div>
+          <div class="green-pro">
+            <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
+            <div class="green-pro-left">20㎡/人</div>
+          </div>
+        </div>
+        <div class="add"><div class="number">+</div>添加类目</div>
       </div>
-      <div class="add"><div class="number">+</div>添加类目</div>
     </div>
+    <div class="gl-showBody" v-else>222</div>
+    
     <div class="submit">提交修改</div>
   </div>
 </div>
@@ -159,7 +164,10 @@ export default {
       {
         id: 'tinglang',
         outterImage: '../../static/images/dlrb.jpg'
-      }]
+      }],
+      sdata: {},
+      greenPer: 0,
+      peopleAbility: 0
     }
   },
   methods: {
@@ -171,8 +179,11 @@ export default {
     // }
   },
 
-  created () {
+  mounted () {
     // let app = getApp()
+    this.sdata = wx.getStorageSync('area')
+    this.greenPer = this.sdata.greenPer.bottom
+    this.peopleAbility = this.sdata.landArea / this.greenPer
   }
 }
 </script>
