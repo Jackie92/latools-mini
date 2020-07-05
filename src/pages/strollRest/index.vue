@@ -21,7 +21,7 @@
       <div class="type-item"  @click="typeIn=0" :class="typeIn==0 ? 'active':''">游憩类建筑</div>
       <div class="type-item" @click="typeIn=1" :class="typeIn==1 ? 'active':''">服务类建筑</div>
     </div>
-
+    <!-- 游憩类start -->
     <div class="gl-showBody" v-if="typeIn == 0">
       <div class="swiper area-swiper">
         <swiper
@@ -32,13 +32,20 @@
           :circular='circular'
           :previous-margin="'100px'"
           :next-margin="'150px'"
+          :current='current'
           @change='changeSwiper'
-          v-if="showSwiper"
         >
-          <a  v-for='img in topSwipers' :key='img.id'>
+          <a  v-for='(img, index) in topSwipers' :key='index'>
 
             <swiper-item class="swiper-bar" :item-id='img.id'>
               <img              
+                v-if="current === index"
+                class='slide-image' 
+                mode='aspectFit' 
+                :src="img.outterImageCur" 
+                />
+              <img              
+                v-else
                 class='slide-image' 
                 mode='aspectFit' 
                 :src="img.outterImage" 
@@ -48,53 +55,807 @@
         </swiper>  
         
       </div>
-      <div class="gl-body-head">
-        <div class="three-switch">
-          <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-          <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-          <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+
+      <!-- 游憩类-活动馆start -->
+      <div v-if="strollType === 'huodong'" class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">活动馆用地
+              </div>
+              <div class="bet-item-right">{{2 + activityList.length}}个</div>
+            </div>
+            <div class="bet-item-be">{{activityListAll + activity1 + activity2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>活动馆1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="150"
+                @change="onChange(1, 'huodong', $event)"
+                :min='0'
+                :max='150'
+              />
+              <div class="green-pro-left">{{activity1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>活动馆2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="150"
+                @change="onChange(2, 'huodong', $event)"
+                :min='0'
+                :max='150'
+              />
+              <div class="green-pro-left">{{activity2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="activityList.length > 0" v-for="(item, i) in activityList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>活动馆{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="150"
+                  @change="onChangeList(i, 'huodong', $event)"
+                  :min='0'
+                  :max='150'
+                />
+                <div class="green-pro-left">{{activityList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('huodong')"><div class="number">+</div>添加类目</div>
         </div>
       </div>
-      <div class="body-between">
-        <div class="bet-item">
-          <div class="bet-item-title">
-            <div class="bet-item-left">
-              <img class="greenarea" src="/static/icon/play.png" alt="">活动馆用地
-            </div>
-            <div class="bet-item-right">2个</div>
+      <!-- 游憩类-活动馆end -->
+      
+      <!-- 游憩类-廊亭厅榭start -->
+      <div v-if="strollType === 'tinglang'"  class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
           </div>
-          <div class="bet-item-be">500㎡</div>
-          <div class="green-pro-one">
-            <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-            <div class="green-pro-left">79%</div>
-          </div>
-        </div>
-        <div class="bet-item">
-          <div class="bet-item-title">
-            <div class="bet-item-left">
-              <div class="number">1</div>活动馆1
-            </div>
-          </div>
-          <div class="green-pro">
-            <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
-            <div class="green-pro-left">15㎡/人</div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
           </div>
         </div>
-        <div class="bet-item">
-          <div class="bet-item-title">
-            <div class="bet-item-left">
-              <div class="number">2</div>活动馆2
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">亭廊厅榭用地
+              </div>
+              <div class="bet-item-right">2个</div>
+            </div>
+            <div class="bet-item-be">{{galleryListAll + gallery1 + gallery2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
             </div>
           </div>
-          <div class="green-pro">
-            <van-slider class="greenslider" bar-height="3.1px" active-color="#5380FF" inactive-color="#EBEBEB" value="50" @change="onChange" />
-            <div class="green-pro-left">20㎡/人</div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>亭廊厅榭1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="20"
+                @change="onChange(1, 'tinglang', $event)"
+                :min='0'
+                :max='20'
+              />
+              <div class="green-pro-left">{{gallery1}}㎡</div>
+            </div>
           </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>亭廊厅榭2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="20"
+                @change="onChange(2, 'tinglang', $event)"
+                :min='0'
+                :max='20'
+              />
+              <div class="green-pro-left">{{gallery2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="galleryList.length > 0" v-for="(item, i) in galleryList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>亭廊厅榭{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="20"
+                  @change="onChangeList(i, 'tinglang', $event)"
+                  :min='0'
+                  :max='20'
+                />
+                <div class="green-pro-left">{{galleryList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('tinglang')"><div class="number">+</div>添加类目</div>
         </div>
-        <div class="add"><div class="number">+</div>添加类目</div>
       </div>
+      <!-- 游憩类-廊亭厅榭end -->
+
+      <!-- 游憩类-展览馆start -->
+      <div v-if="strollType === 'zhanlan'"  class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+              </div>
+              <div class="bet-item-right">2个</div>
+            </div>
+            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>展览馆1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="200"
+                @change="onChange(1, 'zhanlan', $event)"
+                :min='0'
+                :max='200'
+              />
+              <div class="green-pro-left">{{exhibition1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>展览馆2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="300"
+                @change="onChange(2, 'zhanlan', $event)"
+                :min='0'
+                :max='300'
+              />
+              <div class="green-pro-left">{{exhibition2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="300"
+                  @change="onChangeList(i, 'zhanlan', $event)"
+                  :min='0'
+                  :max='300'
+                />
+                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+        </div>
+      </div>
+      <!-- 游憩类-展览馆end -->
+
     </div>
-    <div class="gl-showBody" v-else>222</div>
+    <!-- 游憩类end -->
+
+    <!-- 建筑类start -->
+    <div class="gl-showBody" v-else>
+      <div class="swiper area-swiper">
+        <swiper
+          class="swiper-inner"
+          :indicator-dots='false'
+          :autoplay='false'
+          :interval='3000'
+          :circular='circular'
+          :previous-margin="'100px'"
+          :next-margin="'150px'"
+          :current='current2'
+          @change='changeSwiper2'
+        >
+          <a  v-for='(img, index) in topSwipers2' :key='index'>
+
+            <swiper-item class="swiper-bar" :item-id='img.id'>
+              <img              
+                v-if="current2 === index"
+                class='slide-image' 
+                mode='aspectFit' 
+                :src="img.outterImageCur" 
+                />
+              <img              
+                v-else
+                class='slide-image' 
+                mode='aspectFit' 
+                :src="img.outterImage" 
+                />
+            </swiper-item>
+          </a>
+        </swiper>  
+        
+      </div>
+
+      <!-- 建筑类-厕所start -->
+      <div v-if="strollType2 === 'cs'" class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">厕所用地
+              </div>
+              <div class="bet-item-right">{{2 + toiletList.length}}个</div>
+            </div>
+            <div class="bet-item-be">{{toiletListAll + toilet1 + toilet2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>厕所1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="150"
+                @change="onChange(1, 'cs', $event)"
+                :min='0'
+                :max='150'
+              />
+              <div class="green-pro-left">{{toilet1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>厕所2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="150"
+                @change="onChange(2, 'cs', $event)"
+                :min='0'
+                :max='150'
+              />
+              <div class="green-pro-left">{{toilet2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="toiletList.length > 0" v-for="(item, i) in toiletList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>厕所{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="150"
+                  @change="onChangeList(i, 'cs', $event)"
+                  :min='0'
+                  :max='150'
+                />
+                <div class="green-pro-left">{{toiletList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('cs')"><div class="number">+</div>添加类目</div>
+        </div>
+      </div>
+      <!-- 建筑类-厕所end -->
+      
+      <!-- 建筑类-游客服务中心start -->
+      <div v-if="strollType2 === 'yk'"  class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">游客服务中心用地
+              </div>
+              <div class="bet-item-right">2个</div>
+            </div>
+            <div class="bet-item-be">{{visitorListAll + visitor1 + visitor2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>游客服务中心1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="100"
+                @change="onChange(1, 'yk', $event)"
+                :min='0'
+                :max='100'
+              />
+              <div class="green-pro-left">{{visitor1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>游客服务中心2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="200"
+                @change="onChange(2, 'yk', $event)"
+                :min='0'
+                :max='200'
+              />
+              <div class="green-pro-left">{{visitor2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="visitorList.length > 0" v-for="(item, i) in visitorList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>游客服务中心{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="200"
+                  @change="onChangeList(i, 'yk', $event)"
+                  :min='0'
+                  :max='200'
+                />
+                <div class="green-pro-left">{{visitorList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('yk')"><div class="number">+</div>添加类目</div>
+        </div>
+      </div>
+      <!-- 建筑类-游客服务中心end -->
+
+      <!-- 建筑类-茶座和咖啡start -->
+      <div v-if="strollType2 === 'cz'"  class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+              </div>
+              <div class="bet-item-right">2个</div>
+            </div>
+            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>展览馆1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="200"
+                @change="onChange(1, 'zhanlan', $event)"
+                :min='0'
+                :max='200'
+              />
+              <div class="green-pro-left">{{exhibition1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>展览馆2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="300"
+                @change="onChange(2, 'zhanlan', $event)"
+                :min='0'
+                :max='300'
+              />
+              <div class="green-pro-left">{{exhibition2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="300"
+                  @change="onChangeList(i, 'zhanlan', $event)"
+                  :min='0'
+                  :max='300'
+                />
+                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+        </div>
+      </div>
+      <!-- 建筑类-茶座和咖啡end -->
+
+      <!-- 建筑类-医疗救助站start -->
+      <div v-if="strollType2 === 'yl'"  class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+              </div>
+              <div class="bet-item-right">2个</div>
+            </div>
+            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>展览馆1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="200"
+                @change="onChange(1, 'zhanlan', $event)"
+                :min='0'
+                :max='200'
+              />
+              <div class="green-pro-left">{{exhibition1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>展览馆2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="300"
+                @change="onChange(2, 'zhanlan', $event)"
+                :min='0'
+                :max='300'
+              />
+              <div class="green-pro-left">{{exhibition2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="300"
+                  @change="onChangeList(i, 'zhanlan', $event)"
+                  :min='0'
+                  :max='300'
+                />
+                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+        </div>
+      </div>
+      <!-- 建筑类-医疗救助站end -->
+
+      
+      <!-- 建筑类-小卖部start -->
+      <div v-if="strollType2 === 'xmb'"  class="swiper-per-body">
+        <div class="gl-body-head">
+          <div class="three-switch" v-if="sdata.landArea < 200000">
+            <div class="switch-item current">off</div>
+            <div class="switch-item">on</div>
+            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          </div>
+        </div>
+        <div class="body-between">
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+              </div>
+              <div class="bet-item-right">2个</div>
+            </div>
+            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="green-pro-one">
+              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">1</div>展览馆1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="200"
+                @change="onChange(1, 'zhanlan', $event)"
+                :min='0'
+                :max='200'
+              />
+              <div class="green-pro-left">{{exhibition1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>展览馆2
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="300"
+                @change="onChange(2, 'zhanlan', $event)"
+                :min='0'
+                :max='300'
+              />
+              <div class="green-pro-left">{{exhibition2}}㎡</div>
+            </div>
+          </div>
+          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+            <div class="bet-item">
+              <div class="bet-item-title">
+                <div class="bet-item-left">
+                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                </div>
+              </div>
+              <div class="green-pro">
+                <van-slider
+                  class="greenslider"
+                  bar-height="3.1px"
+                  active-color="#5380FF"
+                  inactive-color="#EBEBEB"
+                  value="300"
+                  @change="onChangeList(i, 'zhanlan', $event)"
+                  :min='0'
+                  :max='300'
+                />
+                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+              </div>
+            </div>
+          </div>
+          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+        </div>
+      </div>
+      <!-- 建筑类-小卖部end -->
+    </div>
+    <!-- 建筑类end -->
     
     <div class="submit">提交修改</div>
   </div>
@@ -152,33 +913,166 @@ export default {
       onInit: initChart,
       index: 0,
       typeIn: 0,
-      showSwiper: true,
       topSwipers: [{
         id: 'huodong',
-        outterImage: '../../static/images/dlrb.jpg'
+        outterImage: '../../static/images/hdg.png',
+        outterImageCur: '../../static/images/hdg2.png'
       },
       {
         id: 'zhanlan',
-        outterImage: '../../static/images/dlrb.jpg'
+        outterImage: '../../static/images/zlg.png',
+        outterImageCur: '../../static/images/zlg2.png'
       },
       {
         id: 'tinglang',
-        outterImage: '../../static/images/dlrb.jpg'
+        outterImage: '../../static/images/tltx.png',
+        outterImageCur: '../../static/images/tltx2.png'
+      }],
+      topSwipers2: [{
+        id: 'cs',
+        outterImage: '../../static/images/cs.png',
+        outterImageCur: '../../static/images/cs2.png'
+      },
+      {
+        id: 'yk',
+        outterImage: '../../static/images/yk.png',
+        outterImageCur: '../../static/images/yk2.png'
+      },
+      {
+        id: 'xmb',
+        outterImage: '../../static/images/xmb.png',
+        outterImageCur: '../../static/images/xmb2.png'
+      },
+      {
+        id: 'cz',
+        outterImage: '../../static/images/cz.png',
+        outterImageCur: '../../static/images/cz2.png'
+      },
+      {
+        id: 'yl',
+        outterImage: '../../static/images/yl.png',
+        outterImageCur: '../../static/images/yl2.png'
       }],
       sdata: {},
       greenPer: 0,
-      peopleAbility: 0
+      peopleAbility: 0,
+      strollType: 'huodong',
+      strollType2: 'cs',
+      activity1: 150,
+      activity2: 150,
+      activityList: [],
+      activityListAll: 0,
+      gallery1: 20,
+      gallery2: 20,
+      galleryList: [],
+      galleryListAll: 0,
+      exhibition1: 200,
+      exhibition2: 300,
+      exhibitionList: [],
+      exhibitionListAll: 0,
+      toilet1: 150,
+      toilet2: 150,
+      toiletList: [],
+      toiletListAll: 0,
+      visitor1: 150,
+      visitor2: 150,
+      visitorList: [],
+      visitorListAll: 0,
+      current: 0,
+      current2: 0
     }
   },
   methods: {
     changeSwiper (event) {
-      console.log(event)
+      console.log(event.mp.detail)
+      this.strollType = event.mp.detail.currentItemId
+      this.current = event.mp.detail.current
+    },
+    changeSwiper2 (event) {
+      console.log(event.mp.detail)
+      this.strollType2 = event.mp.detail.currentItemId
+      this.current2 = event.mp.detail.current
+    },
+    onChange (index, type, e) {
+      if (type === 'huodong') {
+        const valueName = 'activity' + index
+        this[valueName] = e.mp.detail
+      }
+      if (type === 'tinglang') {
+        const valueName = 'gallery' + index
+        this[valueName] = e.mp.detail
+      }
+      if (type === 'zhanlan') {
+        const valueName = 'exhibition' + index
+        this[valueName] = e.mp.detail
+      }
+      if (type === 'cs') {
+        const valueName = 'toilet' + index
+        this[valueName] = e.mp.detail
+      }
+      if (type === 'yk') {
+        const valueName = 'visitor' + index
+        this[valueName] = e.mp.detail
+      }
+    },
+    onChangeList (index, type, event) {
+      if (type === 'huodong') {
+        this.$set(this.activityList, index, event.mp.detail)
+      }
+      if (type === 'tinglang') {
+        this.$set(this.galleryList, index, event.mp.detail)
+      }
+      if (type === 'zhanlan') {
+        this.$set(this.exhibitionList, index, event.mp.detail)
+      }
+      if (type === 'cs') {
+        this.$set(this.toiletList, index, event.mp.detail)
+      }
+      if (type === 'yk') {
+        this.$set(this.visitorList, index, event.mp.detail)
+      }
+    },
+    addList (type) {
+      if (type === 'huodong') {
+        this.$set(this.activityList, this.activityList.length, 150)
+      }
+      if (type === 'tinglang') {
+        this.$set(this.galleryList, this.galleryList.length, 20)
+      }
+      if (type === 'zhanlan') {
+        this.$set(this.exhibitionList, this.exhibitionList.length, 300)
+      }
+      if (type === 'cs') {
+        this.$set(this.toiletList, this.toiletList.length, 150)
+      }
     }
-    // sliderchange() {
-    //   console.log(2333)
-    // }
   },
-
+  watch: {
+    activityList (val) {
+      this.activityListAll = 0
+      for (let i = 0; i < this.activityList.length; i++) {
+        this.activityListAll += this.activityList[i]
+      }
+    },
+    galleryList (val) {
+      this.galleryListAll = 0
+      for (let i = 0; i < this.galleryList.length; i++) {
+        this.galleryListAll += this.galleryList[i]
+      }
+    },
+    exhibitionList (val) {
+      this.exhibitionListAll = 0
+      for (let i = 0; i < this.exhibitionList.length; i++) {
+        this.exhibitionListAll += this.exhibitionList[i]
+      }
+    },
+    toiletList (val) {
+      this.toiletListAll = 0
+      for (let i = 0; i < this.toiletList.length; i++) {
+        this.toiletListAll += this.toiletList[i]
+      }
+    }
+  },
   mounted () {
     // let app = getApp()
     this.sdata = wx.getStorageSync('area')
