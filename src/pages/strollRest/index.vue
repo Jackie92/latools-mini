@@ -31,7 +31,7 @@
           :interval='3000'
           :circular='circular'
           :previous-margin="'100px'"
-          :next-margin="'150px'"
+          :next-margin="'100px'"
           :current='current'
           @change='changeSwiper'
         >
@@ -74,7 +74,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">活动馆用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">活动馆用地
               </div>
               <div class="bet-item-right">{{2 + activityList.length}}个</div>
             </div>
@@ -169,7 +169,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">亭廊厅榭用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">亭廊厅榭用地
               </div>
               <div class="bet-item-right">2个</div>
             </div>
@@ -264,7 +264,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">展览馆用地
               </div>
               <div class="bet-item-right">2个</div>
             </div>
@@ -354,7 +354,7 @@
           :interval='3000'
           :circular='circular'
           :previous-margin="'100px'"
-          :next-margin="'150px'"
+          :next-margin="'100px'"
           :current='current2'
           @change='changeSwiper2'
         >
@@ -397,14 +397,39 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">厕所用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">厕所用地
               </div>
               <div class="bet-item-right">{{2 + toiletList.length}}个</div>
             </div>
             <div class="bet-item-be">{{toiletListAll + toilet1 + toilet2}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <!-- <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress> -->
+              <van-progress
+                class="van-progress"
+                pivot-text="√"
+                color="#5380FF"
+                show-pivot
+                :percentage="25"
+              />
               <div class="green-pro-left">79%</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <img class="greenarea" src="/static/icon/hd.png" alt="">蹲位数量
+              </div>
+            </div>
+            <div class="green-pro-one">
+              <!-- <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress> -->
+              <van-progress
+                class="van-progress"
+                :pivot-text="toiletNum"
+                color="#5380FF"
+                show-pivot
+                :percentage="25"
+              />
+              <div class="green-pro-left">{{toiletNum}}个</div>
             </div>
           </div>
           <div class="bet-item">
@@ -492,7 +517,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">游客服务中心用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">游客服务中心用地
               </div>
               <div class="bet-item-right">2个</div>
             </div>
@@ -587,11 +612,11 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">茶座/咖啡厅用地
               </div>
               <div class="bet-item-right">2个</div>
             </div>
-            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="bet-item-be">{{cafeListAll + cafe1 + cafe2}}㎡</div>
             <div class="green-pro-one">
               <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
               <div class="green-pro-left">79%</div>
@@ -600,7 +625,27 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <div class="number">1</div>展览馆1
+                <div class="number">1</div>茶座/咖啡厅1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="100"
+                @change="onChange(1, 'cafe', $event)"
+                :min='0'
+                :max='100'
+              />
+              <div class="green-pro-left">{{cafe1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>茶座/咖啡厅2
               </div>
             </div>
             <div class="green-pro">
@@ -610,38 +655,18 @@
                 active-color="#5380FF"
                 inactive-color="#EBEBEB"
                 value="200"
-                @change="onChange(1, 'zhanlan', $event)"
+                @change="onChange(2, 'cafe', $event)"
                 :min='0'
                 :max='200'
               />
-              <div class="green-pro-left">{{exhibition1}}㎡</div>
+              <div class="green-pro-left">{{cafe2}}㎡</div>
             </div>
           </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>展览馆2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="300"
-                @change="onChange(2, 'zhanlan', $event)"
-                :min='0'
-                :max='300'
-              />
-              <div class="green-pro-left">{{exhibition2}}㎡</div>
-            </div>
-          </div>
-          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+          <div v-if="cafeList.length > 0" v-for="(item, i) in cafeList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                  <div class="number">{{i + 3}}</div>茶座/咖啡厅{{i + 3}}
                 </div>
               </div>
               <div class="green-pro">
@@ -650,16 +675,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="300"
-                  @change="onChangeList(i, 'zhanlan', $event)"
+                  value="200"
+                  @change="onChangeList(i, 'cafe', $event)"
                   :min='0'
-                  :max='300'
+                  :max='200'
                 />
-                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+                <div class="green-pro-left">{{cafeList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+          <div class="add" @click="addList('cafe')"><div class="number">+</div>添加类目</div>
         </div>
       </div>
       <!-- 建筑类-茶座和咖啡end -->
@@ -682,11 +707,11 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">医疗救助站用地
               </div>
               <div class="bet-item-right">2个</div>
             </div>
-            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="bet-item-be">{{medicalListAll + medical1 + medical2}}㎡</div>
             <div class="green-pro-one">
               <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
               <div class="green-pro-left">79%</div>
@@ -695,7 +720,27 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <div class="number">1</div>展览馆1
+                <div class="number">1</div>医疗救助站1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="100"
+                @change="onChange(1, 'yl', $event)"
+                :min='0'
+                :max='100'
+              />
+              <div class="green-pro-left">{{medical1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>医疗救助站2
               </div>
             </div>
             <div class="green-pro">
@@ -705,38 +750,18 @@
                 active-color="#5380FF"
                 inactive-color="#EBEBEB"
                 value="200"
-                @change="onChange(1, 'zhanlan', $event)"
+                @change="onChange(2, 'yl', $event)"
                 :min='0'
                 :max='200'
               />
-              <div class="green-pro-left">{{exhibition1}}㎡</div>
+              <div class="green-pro-left">{{medical2}}㎡</div>
             </div>
           </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>展览馆2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="300"
-                @change="onChange(2, 'zhanlan', $event)"
-                :min='0'
-                :max='300'
-              />
-              <div class="green-pro-left">{{exhibition2}}㎡</div>
-            </div>
-          </div>
-          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+          <div v-if="medicalList.length > 0" v-for="(item, i) in medicalList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                  <div class="number">{{i + 3}}</div>医疗救助站{{i + 3}}
                 </div>
               </div>
               <div class="green-pro">
@@ -745,16 +770,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="300"
-                  @change="onChangeList(i, 'zhanlan', $event)"
+                  value="200"
+                  @change="onChangeList(i, 'yl', $event)"
                   :min='0'
-                  :max='300'
+                  :max='200'
                 />
-                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+                <div class="green-pro-left">{{medicalList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+          <div class="add" @click="addList('yl')"><div class="number">+</div>添加类目</div>
         </div>
       </div>
       <!-- 建筑类-医疗救助站end -->
@@ -778,11 +803,11 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/play.png" alt="">展览馆用地
+                <img class="greenarea" src="/static/icon/hd.png" alt="">小卖部用地
               </div>
               <div class="bet-item-right">2个</div>
             </div>
-            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="bet-item-be">{{shopListAll + shop1 + shop2}}㎡</div>
             <div class="green-pro-one">
               <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
               <div class="green-pro-left">79%</div>
@@ -791,7 +816,27 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <div class="number">1</div>展览馆1
+                <div class="number">1</div>小卖部1
+              </div>
+            </div>
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                value="100"
+                @change="onChange(1, 'xmb', $event)"
+                :min='0'
+                :max='100'
+              />
+              <div class="green-pro-left">{{shop1}}㎡</div>
+            </div>
+          </div>
+          <div class="bet-item">
+            <div class="bet-item-title">
+              <div class="bet-item-left">
+                <div class="number">2</div>小卖部2
               </div>
             </div>
             <div class="green-pro">
@@ -801,38 +846,18 @@
                 active-color="#5380FF"
                 inactive-color="#EBEBEB"
                 value="200"
-                @change="onChange(1, 'zhanlan', $event)"
+                @change="onChange(2, 'xmb', $event)"
                 :min='0'
                 :max='200'
               />
-              <div class="green-pro-left">{{exhibition1}}㎡</div>
+              <div class="green-pro-left">{{shop2}}㎡</div>
             </div>
           </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>展览馆2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="300"
-                @change="onChange(2, 'zhanlan', $event)"
-                :min='0'
-                :max='300'
-              />
-              <div class="green-pro-left">{{exhibition2}}㎡</div>
-            </div>
-          </div>
-          <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
+          <div v-if="shopList.length > 0" v-for="(item, i) in shopList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                  <div class="number">{{i + 3}}</div>小卖部{{i + 3}}
                 </div>
               </div>
               <div class="green-pro">
@@ -841,16 +866,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="300"
-                  @change="onChangeList(i, 'zhanlan', $event)"
+                  value="200"
+                  @change="onChangeList(i, 'xmb', $event)"
                   :min='0'
-                  :max='300'
+                  :max='200'
                 />
-                <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
+                <div class="green-pro-left">{{shopList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+          <div class="add" @click="addList('xmb')"><div class="number">+</div>添加类目</div>
         </div>
       </div>
       <!-- 建筑类-小卖部end -->
@@ -974,12 +999,25 @@ export default {
       toilet2: 150,
       toiletList: [],
       toiletListAll: 0,
-      visitor1: 150,
-      visitor2: 150,
+      visitor1: 100,
+      visitor2: 200,
       visitorList: [],
       visitorListAll: 0,
+      shop1: 100,
+      shop2: 200,
+      shopList: [],
+      shopListAll: 0,
+      cafe1: 100,
+      cafe2: 200,
+      cafeList: [],
+      cafeListAll: 0,
+      medical1: 100,
+      medical2: 200,
+      medicalList: [],
+      medicalListAll: 0,
       current: 0,
-      current2: 0
+      current2: 0,
+      toiletNum: ~~((150 * 2 - 14 * 2) / 6)
     }
   },
   methods: {
@@ -1014,6 +1052,18 @@ export default {
         const valueName = 'visitor' + index
         this[valueName] = e.mp.detail
       }
+      if (type === 'xmb') {
+        const valueName = 'shop' + index
+        this[valueName] = e.mp.detail
+      }
+      if (type === 'cafe') {
+        const valueName = 'cafe' + index
+        this[valueName] = e.mp.detail
+      }
+      if (type === 'yl') {
+        const valueName = 'medical' + index
+        this[valueName] = e.mp.detail
+      }
     },
     onChangeList (index, type, event) {
       if (type === 'huodong') {
@@ -1031,6 +1081,15 @@ export default {
       if (type === 'yk') {
         this.$set(this.visitorList, index, event.mp.detail)
       }
+      if (type === 'xmb') {
+        this.$set(this.shopList, index, event.mp.detail)
+      }
+      if (type === 'cafe') {
+        this.$set(this.cafeList, index, event.mp.detail)
+      }
+      if (type === 'yl') {
+        this.$set(this.medicalList, index, event.mp.detail)
+      }
     },
     addList (type) {
       if (type === 'huodong') {
@@ -1044,6 +1103,18 @@ export default {
       }
       if (type === 'cs') {
         this.$set(this.toiletList, this.toiletList.length, 150)
+      }
+      if (type === 'yk') {
+        this.$set(this.visitorList, this.visitorList.length, 200)
+      }
+      if (type === 'xmb') {
+        this.$set(this.shopList, this.shopList.length, 200)
+      }
+      if (type === 'cafe') {
+        this.$set(this.cafeList, this.cafeList.length, 200)
+      }
+      if (type === 'yl') {
+        this.$set(this.medicalList, this.medicalList.length, 200)
       }
     }
   },
@@ -1066,11 +1137,42 @@ export default {
         this.exhibitionListAll += this.exhibitionList[i]
       }
     },
+    visitorList (val) {
+      this.visitorListAll = 0
+      for (let i = 0; i < this.visitorList.length; i++) {
+        this.visitorListAll += this.visitorList[i]
+      }
+    },
+    shopList (val) {
+      this.shopListAll = 0
+      for (let i = 0; i < this.shopList.length; i++) {
+        this.shopListAll += this.shopList[i]
+      }
+    },
+    cafeList (val) {
+      this.cafeListAll = 0
+      for (let i = 0; i < this.cafeList.length; i++) {
+        this.cafeListAll += this.cafeList[i]
+      }
+    },
+    medicalList (val) {
+      this.medicalListAll = 0
+      for (let i = 0; i < this.medicalList.length; i++) {
+        this.medicalListAll += this.medicalList[i]
+      }
+    },
     toiletList (val) {
       this.toiletListAll = 0
       for (let i = 0; i < this.toiletList.length; i++) {
         this.toiletListAll += this.toiletList[i]
       }
+      this.toiletNum = ~~((this.toiletListAll + this.toilet1 + this.toilet2 - 14 * (2 + this.toiletList.length)) / 6)
+    },
+    toilet1 (val) {
+      this.toiletNum = ~~((this.toiletListAll + this.toilet1 + this.toilet2 - 14 * (2 + this.toiletList.length)) / 6)
+    },
+    toilet2 (val) {
+      this.toiletNum = ~~((this.toiletListAll + this.toilet1 + this.toilet2 - 14 * (2 + this.toiletList.length)) / 6)
     }
   },
   mounted () {
@@ -1223,8 +1325,6 @@ export default {
 .greenarea{
   width: 22px;
   height: 22px;
-  background: #5480FF;
-  border-radius: 11px;
   vertical-align: bottom;
   margin-right: 11px;
 }
@@ -1288,10 +1388,14 @@ export default {
 }
 .swiper-bar {
   text-align: center;
+  width:200px;
 }
 .slide-image{
   width:134px;
   height:60px;
   margin: 0 10px;
+}
+.van-progress {
+  width: 68%;
 }
 </style>
