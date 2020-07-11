@@ -403,7 +403,6 @@
             </div>
             <div class="bet-item-be">{{toiletListAll + toilet1 + toilet2}}㎡</div>
             <div class="green-pro-one">
-              <!-- <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress> -->
               <van-progress
                 class="van-progress"
                 pivot-text="√"

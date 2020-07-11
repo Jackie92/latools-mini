@@ -3,7 +3,9 @@
     "pages/overView/main",
     "pages/entry/main",
     "pages/greenLand/main",
+    "pages/garden/main",
     "pages/strollRest/main",
+    "pages/manage/main",
     "pages/parkType/main",
     "pages/counter/main"
   ],

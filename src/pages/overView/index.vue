@@ -41,7 +41,7 @@
     </div>
     <div class="chart-line">
 
-      <div class="chart-line__block">
+      <div class="chart-line__block" @click="goPage('manage')">
         <div class="chart-line__block__title"><span>管理建筑类(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
           <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[1]}}</span></div>
@@ -51,7 +51,7 @@
         </div>
         <div><span>{{manager}}</span>㎡</div>
       </div>
-      <div class="chart-line__block">
+      <div class="chart-line__block" @click="goPage('garden')">
         <div class="chart-line__block__title"><span>园路及铺装(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
           <div class="chart-line__icon chart-line__icon--special">{{rateNum[3]}}-{{rateNum[4]}}</div>
