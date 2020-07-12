@@ -75,26 +75,27 @@
         <div class="fl">
           <img src="/static/images/people.png" alt="" class="body-line__icon">
           <span>&nbsp;&nbsp;游人容量</span>
-          <span v-if="peopleAbility">&nbsp;&nbsp;&nbsp;&nbsp;{{peopleAbility}}人</span>
         </div>
         <div class="fr">
           <div class="ov-body-line__spread fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-          <div class="ov-body-line__area fr">
+          <span v-if="isChosePeople">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewPeople}}人</span>
+          <div v-else class="ov-body-line__area fr">
             <p>{{peopleAbilityBottom}}人</p>
             <p>-</p>
             <p>{{peopleAbilityTop}}人</p>
           </div>
         </div>
       </div>
+
       <div class="ov__body__line ov__body__line--end">
         <div class="fl">
           <img src="/static/images/per.png" alt="" class="body-line__icon">
           <span>&nbsp;&nbsp;人均绿地</span>
-          <span v-if="greenPer != 0">&nbsp;&nbsp;&nbsp;&nbsp;{{greenPer}}人</span>
         </div>
         <div class="fr">
           <div class="ov-body-line__spread fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-          <div class="ov-body-line__area fr">
+          <span v-if="isChoseGreenPer">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewGreenPer}}人</span>
+          <div v-else class="ov-body-line__area fr">
             <p>{{greenPerBottom}}㎡</p>
             <p>-</p>
             <p>{{greenPerTop}}㎡</p>
@@ -409,7 +410,7 @@
 <script>
 import echarts from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
-
+import { mapState } from 'vuex'
 let chart = null
 
 function getOption (num) {
@@ -481,6 +482,11 @@ export default {
         chart.setOption(getOption(3))
         return chart
       },
+      isChosePeople: false,
+      isChoseGreenPer: false,
+      isNewGreenPer: 0,
+      isNewPeople: 0,
+      reloadFlag: true,
       leftActive: true,
       area: {},
       rateNum: {},
@@ -519,6 +525,7 @@ export default {
       pavementTop: 0
     }
   },
+  computed: mapState(['sdata']),
   methods: {
     goPage (pageName) {
       const url = `../${pageName}/main`
@@ -687,20 +694,33 @@ export default {
     this.area.rateNum = this.rateNum
     this.area.greenPer = {
       top: this.greenPerTop,
-      bottom: this.greenPerBottom
+      bottom: this.greenPerBottom,
+      chose: this.greenPerBottom,
+      isChose: false
     }
     this.area.peopleAbility = {
       top: this.peopleAbilityTop,
-      bottom: this.peopleAbilityBottom
+      bottom: this.peopleAbilityBottom,
+      chose: this.peopleAbilityBottom,
+      isChose: false
     }
     this.area.seatNum = {
       top: this.seatNumTop,
       bottom: this.seatNumBottom
     }
     wx.setStorageSync('area', this.area)
+    this.$store.commit('_setData', this.area)
+    console.log('$store2', this.$store.state.sdata)
   },
-  created () {
-    // let app = getApp()
+  onShow () {
+    console.log('$storeOnShow', this.$store.state.sdata)
+    let _data = this.$store.state.sdata
+    if (_data !== undefined) {
+      this.isChosePeople = _data.peopleAbility.isChose
+      this.isChoseGreenPer = _data.greenPer.isChose
+      this.isNewPeople = _data.peopleAbility.chose
+      this.isNewGreenPer = _data.greenPer.chose
+    }
   }
 }
 </script>

@@ -50,12 +50,12 @@
             bar-height="3.1px"
             active-color="#5380FF"
             inactive-color="#EBEBEB"
-            :value="sdata.greenPer.bottom"
+            :value="sdata.greenPer.chose"
             @change="onChangeGreen"
             :min="sdata.greenPer.bottom"
             :max="sdata.greenPer.top"
           />
-          <div class="green-pro-left">{{greenPer}}㎡/人</div>
+          <div class="green-pro-left">{{sdata.greenPer.chose}}㎡/人</div>
         </div>
       </div>
       <div v-if="sdata.waterArea != 0" class="bet-item">
@@ -119,7 +119,7 @@
 <script>
 import echarts from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
-
+import { mapState } from 'vuex'
 let chart = null
 
 function getOption (num) {
@@ -165,32 +165,39 @@ export default {
         return chart
       },
       index: 0,
-      sdata: {},
+      // sdata: {},
       greenPer: 0,
       waterPer: 150,
       peopleAbility: 0
     }
   },
+  computed: mapState(['sdata']),
   methods: {
     onChangeGreen (e) {
-      this.greenPer = e.mp.detail
-      this.peopleAbility = ~~(this.sdata.landArea / this.greenPer)
+      this.sdata.greenPer.chose = e.mp.detail
+      this.sdata.greenPer.isChose = true
+      console.log(this.sdata)
+      this.peopleAbility = ~~(this.sdata.landArea / this.sdata.greenPer.chose) + ~~(this.sdata.waterArea / this.waterPer)
     },
     onChangeWater (e) {
       this.waterPer = e.mp.detail
+      this.sdata.waterPer = e.mp.detail
+      this.peopleAbility = ~~(this.sdata.landArea / this.sdata.greenPer.chose) + ~~(this.sdata.waterArea / this.waterPer)
     },
     submit () {
-      this.sdata.greenPerChose = this.greenPer
-      this.sdata.peopleAbilityChose = this.peopleAbility
+      // this.sdata.greenPerChose = this.greenPer
+      this.sdata.peopleAbility.chose = this.peopleAbility
+      this.sdata.peopleAbility.isChose = true
       wx.setStorageSync('area', this.sdata)
-      const url = '../greenLand/main'
-      mpvue.navigateBack({ url })
+      // const url = '../greenLand/main'
+      // mpvue.navigateBack({ url })
+      wx.navigateBack()
     }
   },
 
   mounted () {
     // let app = getApp()
-    this.sdata = wx.getStorageSync('area')
+    // this.sdata = wx.getStorageSync('area')
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
   }
