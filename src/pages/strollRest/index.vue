@@ -84,7 +84,7 @@
               <div class="green-pro-left">79%</div>
             </div>
           </div>
-          <div class="bet-item">
+          <!-- <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
                 <div class="number">1</div>活动馆1
@@ -123,7 +123,7 @@
               />
               <div class="green-pro-left">{{activity2}}㎡</div>
             </div>
-          </div>
+          </div> -->
           <div v-if="activityList.length > 0" v-for="(item, i) in activityList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
@@ -881,7 +881,7 @@
     </div>
     <!-- 建筑类end -->
     
-    <div class="submit">提交修改</div>
+    <div class="submit" @click="submit">提交修改</div>
   </div>
 </div>
   
@@ -1020,6 +1020,15 @@ export default {
     }
   },
   methods: {
+    submit () {
+      // // this.sdata.greenPerChose = this.greenPer
+      // this.sdata.peopleAbility.chose = this.peopleAbility
+      // this.sdata.peopleAbility.isChose = true
+      // wx.setStorageSync('area', this.sdata)
+      // // const url = '../greenLand/main'
+      // // mpvue.navigateBack({ url })
+      wx.navigateBack()
+    },
     changeSwiper (event) {
       console.log(event.mp.detail)
       this.strollType = event.mp.detail.currentItemId
