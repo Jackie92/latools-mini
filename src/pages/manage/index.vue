@@ -72,59 +72,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">安保监控室用地
               </div>
-              <div class="bet-item-right">{{2 + securityList.length}}个</div>
+              <div class="bet-item-right">{{securityList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{securityListAll + security1 + security2}}㎡</div>
+            <div class="bet-item-be">{{securityListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>安保监控室1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'anbao', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{security1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>安保监控室2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'anbao', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{security2}}㎡</div>
+              <progress class="greenpro" :percent="(securityListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(securityListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="securityList.length > 0" v-for="(item, i) in securityList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>安保监控室{{i + 3}}
+                  <div class="number">{{i + 1}}</div>安保监控室{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -142,7 +102,8 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('anbao')"><div class="number">+</div>添加类目</div>
+          <!-- <div class="add" @click="addList('anbao')"><div class="number">+</div>添加类目</div> -->
+          <div class="add"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
         </div>
       </div>
       <!-- 安保监控室end -->
@@ -167,59 +128,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">管理办公室用地
               </div>
-              <div class="bet-item-right">{{2 + officeList.length}}个</div>
+              <div class="bet-item-right">{{officeList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{officeListAll + office1 + office2}}㎡</div>
+            <div class="bet-item-be">{{officeListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>管理办公室1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'office', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{office1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>管理办公室2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'office', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{office2}}㎡</div>
+              <progress class="greenpro" :percent="(officeListAll / sdata.landArea * 100) | numFilter"  color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(officeListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="officeList.length > 0" v-for="(item, i) in officeList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>管理办公室{{i + 3}}
+                  <div class="number">{{i + 1}}</div>管理办公室{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -237,7 +158,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('office')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
         </div>
       </div>
       <!-- 管理办公室end -->
@@ -262,59 +183,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">广播室用地
               </div>
-              <div class="bet-item-right">{{2 + radioList.length}}个</div>
+              <div class="bet-item-right">{{radioList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{radioListAll + radio1 + radio2}}㎡</div>
+            <div class="bet-item-be">{{radioListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>广播室1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'radio', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{radio1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>广播室2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'radio', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{radio2}}㎡</div>
+              <progress class="greenpro"  :percent="(radioListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(radioListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="radioList.length > 0" v-for="(item, i) in radioList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>广播室{{i + 3}}
+                  <div class="number">{{i + 1}}</div>广播室{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -332,7 +213,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('radio')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
         </div>
       </div>
       <!-- 广播室end -->
@@ -430,6 +311,18 @@ export default {
       current: 0
     }
   },
+  filters: {
+    numFilter (value) {
+      let realVal = ''
+      if (!isNaN(value) && value !== '') {
+        // 截取当前数据到小数点后两位
+        realVal = parseFloat(value).toFixed(2)
+      } else {
+        realVal = '--'
+      }
+      return realVal
+    }
+  },
   methods: {
     changeSwiper (event) {
       console.log(event.mp.detail)
@@ -470,6 +363,17 @@ export default {
       }
       if (type === 'radio') {
         this.$set(this.radioList, this.radioList.length, 200)
+      }
+    },
+    delList (type) {
+      if (type === 'anbao') {
+        this.$delete(this.securityList, this.securityList.length - 1)
+      }
+      if (type === 'office') {
+        this.$delete(this.officeList, this.officeList.length - 1)
+      }
+      if (type === 'radio') {
+        this.$delete(this.radioList, this.radioList.length - 1)
       }
     }
   },
@@ -716,5 +620,19 @@ export default {
 }
 .van-progress {
   width: 68%;
+}
+.delete {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: #5480FF 1px solid;
+  border-radius: 11px;
+  vertical-align: bottom;
+  margin-right: 11px;
+  color: #5480FF;
+  font-size:15px;
+  font-weight:400;
+  line-height:18px;
+  text-align: center;
 }
 </style>

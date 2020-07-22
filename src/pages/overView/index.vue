@@ -247,13 +247,13 @@
             </div>
             <div class="icon-line--title--line">
               <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <span class="icon-line--title--text">座椅</span>
+              <span class="icon-line--title--text">厕所</span>
             </div>
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>休息座椅数量</span>
-              <span class="fr">666-555个</span>
+              <span>面积{{csArea === 0 ? '--' : csArea}}㎡</span>
+              <span class="fr">{{csNum === 0 ? '--' : csNum}}个</span>
             </div>
           </div>
         </div>
@@ -261,13 +261,55 @@
           <div class="icon-line--title">
             <div class="icon-line--title--line">
               <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <span class="icon-line--title--text">座椅</span>
+              <span class="icon-line--title--text">医疗救助站</span>
             </div>
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>休息座椅数量</span>
-              <span class="fr">666-555个</span>
+              <span>面积{{ylArea === 0 ? '--' : ylArea}}㎡</span>
+              <span class="fr">{{ylNum === 0 ? '--' : ylNum}}个</span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-wrapper">
+          <div class="icon-line--title">
+            <div class="icon-line--title--line">
+              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <span class="icon-line--title--text">小卖部</span>
+            </div>
+          </div>
+          <div class="icon-line--body">
+            <div class="icon-line--body--line">
+              <span>面积{{xmbArea === 0 ? '--' : xmbArea}}㎡</span>
+              <span class="fr">{{xmbNum === 0 ? '--' : xmbNum}}个</span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-wrapper">
+          <div class="icon-line--title">
+            <div class="icon-line--title--line">
+              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <span class="icon-line--title--text">咖啡和茶座</span>
+            </div>
+          </div>
+          <div class="icon-line--body">
+            <div class="icon-line--body--line">
+              <span>面积{{cafeArea === 0 ? '--' : cafeArea}}㎡</span>
+              <span class="fr">{{cafeNum === 0 ? '--' : cafeNum}}个</span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-wrapper">
+          <div class="icon-line--title">
+            <div class="icon-line--title--line">
+              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <span class="icon-line--title--text">游客服务中心</span>
+            </div>
+          </div>
+          <div class="icon-line--body">
+            <div class="icon-line--body--line">
+              <span>面积{{ykArea === 0 ? '--' : ykArea}}㎡</span>
+              <span class="fr">{{ykNum === 0 ? '--' : ykNum}}个</span>
             </div>
           </div>
         </div>
@@ -283,13 +325,41 @@
             </div>
             <div class="icon-line--title--line">
               <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <span class="icon-line--title--text">座椅</span>
+              <span class="icon-line--title--text">亭廊厅榭</span>
             </div>
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>休息座椅数量</span>
-              <span class="fr">666-555个</span>
+              <span>面积{{tltxArea === 0 ? '--' : tltxArea}}㎡</span>
+              <span class="fr">{{tltxNum === 0 ? '--' : tltxNum}}个</span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-wrapper">
+          <div class="icon-line--title">
+            <div class="icon-line--title--line">
+              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <span class="icon-line--title--text">活动馆</span>
+            </div>
+          </div>
+          <div class="icon-line--body">
+            <div class="icon-line--body--line">
+              <span>面积{{hdgArea === 0 ? '--' : hdgArea}}㎡</span>
+              <span class="fr">{{hdgNum === 0 ? '--' : hdgNum}}个</span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-wrapper">
+          <div class="icon-line--title">
+            <div class="icon-line--title--line">
+              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <span class="icon-line--title--text">展览馆</span>
+            </div>
+          </div>
+          <div class="icon-line--body">
+            <div class="icon-line--body--line">
+              <span>面积{{zlgArea === 0 ? '--' : zlgArea}}㎡</span>
+              <span class="fr">{{zlgNum === 0 ? '--' : zlgNum}}个</span>
             </div>
           </div>
         </div>
@@ -522,7 +592,24 @@ export default {
       recreation: 0,
       manager: 0,
       pavementBtm: 0,
-      pavementTop: 0
+      pavementTop: 0,
+      hdgNum: 0,
+      hdgArea: 0,
+      zlgNum: 0,
+      zlgArea: 0,
+      tltxNum: 0,
+      tltxArea: 0,
+      csNum: 0,
+      csArea: 0,
+      csdwNum: 0,
+      ykArea: 0,
+      ykNum: 0,
+      xmbArea: 0,
+      xmbNum: 0,
+      cafeArea: 0,
+      cafeNum: 0,
+      ylArea: 0,
+      ylNum: 0
     }
   },
   computed: mapState(['sdata']),
@@ -720,6 +807,23 @@ export default {
       this.isChoseGreenPer = _data.greenPer.isChose
       this.isNewPeople = _data.peopleAbility.chose
       this.isNewGreenPer = _data.greenPer.chose
+      this.hdgNum = _data.hdgNum
+      this.hdgArea = _data.hdgArea
+      this.zlgNum = _data.zlgNum
+      this.zlgArea = _data.zlgArea
+      this.tltxNum = _data.tltxNum
+      this.tltxArea = _data.tltxArea
+      this.csNum = _data.csNum
+      this.csArea = _data.csArea
+      this.csdwNum = _data.csdwNum
+      this.ykArea = _data.ykArea
+      this.ykNum = _data.ykNum
+      this.xmbArea = _data.xmbArea
+      this.xmbNum = _data.xmbNum
+      this.cafeArea = _data.cafeArea
+      this.cafeNum = _data.cafeNum
+      this.ylArea = _data.ylArea
+      this.ylNum = _data.ylNum
     }
   }
 }

@@ -72,9 +72,9 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">停车场用地
               </div>
-              <div class="bet-item-right">{{2 + parkingList.length}}个</div>
+              <div class="bet-item-right">{{parkingList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{parkingListAll + parking1 + parking2}}㎡</div>
+            <div class="bet-item-be">{{parkingListAll}}㎡</div>
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
@@ -103,51 +103,11 @@
               <div class="green-pro-left">2个</div>
             </div>
           </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>停车场1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(1, 'tingche', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{parking1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>停车场2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(2, 'tingche', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{parking2}}㎡</div>
-            </div>
-          </div>
           <div v-if="parkingList.length > 0" v-for="(item, i) in parkingList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>停车场{{i + 3}}
+                  <div class="number">{{i + 1}}</div>停车场{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -165,7 +125,8 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('tingche')"><div class="number">+</div>添加类目</div>
+          <!-- <div class="add" @click="addList('tingche')"><div class="number">+</div>添加类目</div> -->
+          <div class="add"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
         </div>
       </div>
       <!-- 停车场end -->
@@ -190,9 +151,9 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">自行车存放处
               </div>
-              <div class="bet-item-right">{{2 + bikeList.length}}个</div>
+              <div class="bet-item-right">{{bikeList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{bikeListAll + bike1 + bike2}}㎡</div>
+            <div class="bet-item-be">{{bikeListAll}}㎡</div>
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
@@ -221,51 +182,11 @@
               <div class="green-pro-left">2个</div>
             </div>
           </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>自行车存放处1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(1, 'zixingche', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{bike1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>自行车存放处2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(2, 'zixingche', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{bike2}}㎡</div>
-            </div>
-          </div>
           <div v-if="bikeList.length > 0" v-for="(item, i) in bikeList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>自行车存放处{{i + 3}}
+                  <div class="number">{{i + 1}}</div>自行车存放处{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -283,7 +204,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('zixingche')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
         </div>
       </div>
       <!-- 自行车存放处end -->
@@ -308,59 +229,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">活动场地
               </div>
-              <div class="bet-item-right">{{2 + activityList.length}}个</div>
+              <div class="bet-item-right">{{activityList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{activityListAll + activity1 + activity2}}㎡</div>
+            <div class="bet-item-be">{{activityListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>活动场地1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'huodong', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{activity1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>活动场地2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'huodong', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{activity2}}㎡</div>
+              <progress class="greenpro" :percent="(activityListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(activityListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="activityList.length > 0" v-for="(item, i) in activityList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>管理办公室{{i + 3}}
+                  <div class="number">{{i + 1}}</div>活动场地{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -378,7 +259,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('huodong')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
         </div>
       </div>
       <!-- 活动场地end -->
@@ -552,6 +433,17 @@ export default {
       }
       if (type === 'huodong') {
         this.$set(this.activityList, this.activityList.length, 200)
+      }
+    },
+    delList (type) {
+      if (type === 'tingche') {
+        this.$delete(this.parkingList, this.parkingList.length - 1)
+      }
+      if (type === 'zixingche') {
+        this.$delete(this.bikeList, this.bikeList.length - 1)
+      }
+      if (type === 'huodong') {
+        this.$delete(this.activityList, this.activityList.length - 1)
       }
     }
   },
@@ -807,5 +699,19 @@ export default {
 }
 .swiper-per-body {
   min-height: 360px;
+}
+.delete {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: #5480FF 1px solid;
+  border-radius: 11px;
+  vertical-align: bottom;
+  margin-right: 11px;
+  color: #5480FF;
+  font-size:15px;
+  font-weight:400;
+  line-height:18px;
+  text-align: center;
 }
 </style>

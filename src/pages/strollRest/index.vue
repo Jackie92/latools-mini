@@ -76,59 +76,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">活动馆用地
               </div>
-              <div class="bet-item-right">{{2 + activityList.length}}个</div>
+              <div class="bet-item-right">{{activityList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{activityListAll + activity1 + activity2}}㎡</div>
+            <div class="bet-item-be">{{activityListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
+              <progress class="greenpro" :percent="(activityListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(activityListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
-          <!-- <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>活动馆1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(1, 'huodong', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{activity1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>活动馆2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(2, 'huodong', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{activity2}}㎡</div>
-            </div>
-          </div> -->
           <div v-if="activityList.length > 0" v-for="(item, i) in activityList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>活动馆{{i + 3}}
+                  <div class="number">{{i + 1}}</div>活动馆{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -146,7 +106,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('huodong')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
         </div>
       </div>
       <!-- 游憩类-活动馆end -->
@@ -171,59 +131,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">亭廊厅榭用地
               </div>
-              <div class="bet-item-right">2个</div>
+              <div class="bet-item-right">{{galleryList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{galleryListAll + gallery1 + gallery2}}㎡</div>
+            <div class="bet-item-be">{{galleryListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>亭廊厅榭1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="20"
-                @change="onChange(1, 'tinglang', $event)"
-                :min='0'
-                :max='20'
-              />
-              <div class="green-pro-left">{{gallery1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>亭廊厅榭2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="20"
-                @change="onChange(2, 'tinglang', $event)"
-                :min='0'
-                :max='20'
-              />
-              <div class="green-pro-left">{{gallery2}}㎡</div>
+              <progress class="greenpro" :percent="(galleryListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(galleryListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="galleryList.length > 0" v-for="(item, i) in galleryList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>亭廊厅榭{{i + 3}}
+                  <div class="number">{{i + 1}}</div>亭廊厅榭{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -241,7 +161,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('tinglang')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
         </div>
       </div>
       <!-- 游憩类-廊亭厅榭end -->
@@ -266,59 +186,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">展览馆用地
               </div>
-              <div class="bet-item-right">2个</div>
+              <div class="bet-item-right">{{exhibitionList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{exhibitionListAll + exhibition1 + exhibition2}}㎡</div>
+            <div class="bet-item-be">{{exhibitionListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>展览馆1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(1, 'zhanlan', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{exhibition1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>展览馆2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="300"
-                @change="onChange(2, 'zhanlan', $event)"
-                :min='0'
-                :max='300'
-              />
-              <div class="green-pro-left">{{exhibition2}}㎡</div>
+              <progress class="greenpro" :percent="(exhibitionListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(exhibitionListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="exhibitionList.length > 0" v-for="(item, i) in exhibitionList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>展览馆{{i + 3}}
+                  <div class="number">{{i + 1}}</div>展览馆{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -336,7 +216,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('zhanlan')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
         </div>
       </div>
       <!-- 游憩类-展览馆end -->
@@ -399,18 +279,18 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">厕所用地
               </div>
-              <div class="bet-item-right">{{2 + toiletList.length}}个</div>
+              <div class="bet-item-right">{{toiletList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{toiletListAll + toilet1 + toilet2}}㎡</div>
+            <div class="bet-item-be">{{toiletListAll}}㎡</div>
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
                 pivot-text="√"
                 color="#5380FF"
                 show-pivot
-                :percentage="25"
+                :percentage="(toiletListAll / sdata.landArea * 100) | numFilter"
               />
-              <div class="green-pro-left">79%</div>
+              <div class="green-pro-left">{{(toiletListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div class="bet-item">
@@ -423,15 +303,15 @@
               <!-- <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress> -->
               <van-progress
                 class="van-progress"
-                :pivot-text="toiletNum"
+                :pivot-text="toiletNum > 373 ? '√' : toiletNum"
                 color="#5380FF"
                 show-pivot
-                :percentage="25"
+                :percentage="~~(toiletNum / 373 * 100) > 373 ? 100 : ~~(toiletNum / 373 * 100)"
               />
               <div class="green-pro-left">{{toiletNum}}个</div>
             </div>
           </div>
-          <div class="bet-item">
+          <!-- <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
                 <div class="number">1</div>厕所1
@@ -470,12 +350,12 @@
               />
               <div class="green-pro-left">{{toilet2}}㎡</div>
             </div>
-          </div>
+          </div> -->
           <div v-if="toiletList.length > 0" v-for="(item, i) in toiletList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>厕所{{i + 3}}
+                  <div class="number">{{i + 1}}</div>厕所{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -493,7 +373,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('cs')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
         </div>
       </div>
       <!-- 建筑类-厕所end -->
@@ -518,59 +398,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">游客服务中心用地
               </div>
-              <div class="bet-item-right">2个</div>
+              <div class="bet-item-right">{{visitorList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{visitorListAll + visitor1 + visitor2}}㎡</div>
+            <div class="bet-item-be">{{visitorListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>游客服务中心1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'yk', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{visitor1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>游客服务中心2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'yk', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{visitor2}}㎡</div>
+              <progress class="greenpro" :percent="(visitorListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(visitorListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="visitorList.length > 0" v-for="(item, i) in visitorList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>游客服务中心{{i + 3}}
+                  <div class="number">{{i + 1}}</div>游客服务中心{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -588,7 +428,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('yk')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
         </div>
       </div>
       <!-- 建筑类-游客服务中心end -->
@@ -613,59 +453,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">茶座/咖啡厅用地
               </div>
-              <div class="bet-item-right">2个</div>
+              <div class="bet-item-right">{{cafeList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{cafeListAll + cafe1 + cafe2}}㎡</div>
+            <div class="bet-item-be">{{cafeListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>茶座/咖啡厅1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'cafe', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{cafe1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>茶座/咖啡厅2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'cafe', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{cafe2}}㎡</div>
+              <progress class="greenpro" :percent="(cafeListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(cafeListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="cafeList.length > 0" v-for="(item, i) in cafeList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>茶座/咖啡厅{{i + 3}}
+                  <div class="number">{{i + 1}}</div>茶座/咖啡厅{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -683,7 +483,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('cafe')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
         </div>
       </div>
       <!-- 建筑类-茶座和咖啡end -->
@@ -708,59 +508,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">医疗救助站用地
               </div>
-              <div class="bet-item-right">2个</div>
+              <div class="bet-item-right">{{medicalList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{medicalListAll + medical1 + medical2}}㎡</div>
+            <div class="bet-item-be">{{medicalListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>医疗救助站1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'yl', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{medical1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>医疗救助站2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'yl', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{medical2}}㎡</div>
+              <progress class="greenpro" :percent="(medicalListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(medicalListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="medicalList.length > 0" v-for="(item, i) in medicalList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>医疗救助站{{i + 3}}
+                  <div class="number">{{i + 1}}</div>医疗救助站{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -778,7 +538,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('yl')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
         </div>
       </div>
       <!-- 建筑类-医疗救助站end -->
@@ -804,59 +564,19 @@
               <div class="bet-item-left">
                 <img class="greenarea" src="/static/icon/hd.png" alt="">小卖部用地
               </div>
-              <div class="bet-item-right">2个</div>
+              <div class="bet-item-right">{{shopList.length}}个</div>
             </div>
-            <div class="bet-item-be">{{shopListAll + shop1 + shop2}}㎡</div>
+            <div class="bet-item-be">{{shopListAll}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>小卖部1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="100"
-                @change="onChange(1, 'xmb', $event)"
-                :min='0'
-                :max='100'
-              />
-              <div class="green-pro-left">{{shop1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>小卖部2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="200"
-                @change="onChange(2, 'xmb', $event)"
-                :min='0'
-                :max='200'
-              />
-              <div class="green-pro-left">{{shop2}}㎡</div>
+              <progress class="greenpro" :percent="(shopListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(shopListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div v-if="shopList.length > 0" v-for="(item, i) in shopList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
                 <div class="bet-item-left">
-                  <div class="number">{{i + 3}}</div>小卖部{{i + 3}}
+                  <div class="number">{{i + 1}}</div>小卖部{{i + 1}}
                 </div>
               </div>
               <div class="green-pro">
@@ -874,7 +594,7 @@
               </div>
             </div>
           </div>
-          <div class="add" @click="addList('xmb')"><div class="number">+</div>添加类目</div>
+          <div class="add"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
         </div>
       </div>
       <!-- 建筑类-小卖部end -->
@@ -890,6 +610,7 @@
 <script>
 import echarts from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
+import { mapState } from 'vuex'
 
 let chart = null
 
@@ -931,6 +652,7 @@ export default {
   components: {
     mpvueEcharts
   },
+  computed: mapState(['sdata']),
   data () {
     return {
       echarts,
@@ -977,7 +699,7 @@ export default {
         outterImage: '../../static/images/yl.png',
         outterImageCur: '../../static/images/yl2.png'
       }],
-      sdata: {},
+      // sdata: {},
       greenPer: 0,
       peopleAbility: 0,
       strollType: 'huodong',
@@ -1016,17 +738,42 @@ export default {
       medicalListAll: 0,
       current: 0,
       current2: 0,
-      toiletNum: ~~((150 * 2 - 14 * 2) / 6)
+      toiletNum: 0
+    }
+  },
+  filters: {
+    numFilter (value) {
+      let realVal = ''
+      if (!isNaN(value) && value !== '') {
+        // 截取当前数据到小数点后两位
+        realVal = parseFloat(value).toFixed(2)
+      } else {
+        realVal = '--'
+      }
+      return realVal
     }
   },
   methods: {
     submit () {
-      // // this.sdata.greenPerChose = this.greenPer
-      // this.sdata.peopleAbility.chose = this.peopleAbility
-      // this.sdata.peopleAbility.isChose = true
-      // wx.setStorageSync('area', this.sdata)
-      // // const url = '../greenLand/main'
-      // // mpvue.navigateBack({ url })
+      this.sdata.hdgNum = this.activityList.length
+      this.sdata.hdgArea = this.activityListAll
+      this.sdata.zlgNum = this.exhibitionList.length
+      this.sdata.zlgArea = this.exhibitionListAll
+      this.sdata.tltxNum = this.galleryList.length
+      this.sdata.tltxArea = this.galleryListAll
+      this.sdata.csNum = this.toiletList.length
+      this.sdata.csArea = this.toiletListAll
+      this.sdata.csNum = this.toiletList.length
+      this.sdata.csdwNum = this.toiletList.length
+      this.sdata.ykArea = this.visitorListAll
+      this.sdata.ykNum = this.visitorList.length
+      this.sdata.xmbArea = this.shopListAll
+      this.sdata.xmbNum = this.shopList.length
+      this.sdata.cafeArea = this.cafeListAll
+      this.sdata.cafeNum = this.cafeList.length
+      this.sdata.ylArea = this.medicalListAll
+      this.sdata.ylNum = this.medicalList.length
+      wx.setStorageSync('area', this.sdata)
       wx.navigateBack()
     },
     changeSwiper (event) {
@@ -1124,6 +871,32 @@ export default {
       if (type === 'yl') {
         this.$set(this.medicalList, this.medicalList.length, 200)
       }
+    },
+    delList (type) {
+      if (type === 'huodong') {
+        this.$delete(this.activityList, this.activityList.length - 1)
+      }
+      if (type === 'tinglang') {
+        this.$delete(this.galleryList, this.galleryList.length - 1)
+      }
+      if (type === 'zhanlan') {
+        this.$delete(this.exhibitionList, this.exhibitionList.length - 1)
+      }
+      if (type === 'cs') {
+        this.$delete(this.toiletList, this.toiletList.length - 1)
+      }
+      if (type === 'yk') {
+        this.$delete(this.visitorList, this.visitorList.length - 1)
+      }
+      if (type === 'xmb') {
+        this.$delete(this.shopList, this.shopList.length - 1)
+      }
+      if (type === 'cafe') {
+        this.$delete(this.cafeList, this.cafeList.length - 1)
+      }
+      if (type === 'yl') {
+        this.$delete(this.medicalList, this.medicalList.length - 1)
+      }
     }
   },
   watch: {
@@ -1174,18 +947,19 @@ export default {
       for (let i = 0; i < this.toiletList.length; i++) {
         this.toiletListAll += this.toiletList[i]
       }
-      this.toiletNum = ~~((this.toiletListAll + this.toilet1 + this.toilet2 - 14 * (2 + this.toiletList.length)) / 6)
+      this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
     },
     toilet1 (val) {
-      this.toiletNum = ~~((this.toiletListAll + this.toilet1 + this.toilet2 - 14 * (2 + this.toiletList.length)) / 6)
+      this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
     },
     toilet2 (val) {
-      this.toiletNum = ~~((this.toiletListAll + this.toilet1 + this.toilet2 - 14 * (2 + this.toiletList.length)) / 6)
+      this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
     }
   },
   mounted () {
     // let app = getApp()
-    this.sdata = wx.getStorageSync('area')
+    // this.sdata = wx.getStorageSync('area')
+    console.log(this.sdata)
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
   }
@@ -1354,6 +1128,20 @@ export default {
   font-size:15px;
   font-weight:400;
   line-height:21px;
+  text-align: center;
+}
+.delete {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: #5480FF 1px solid;
+  border-radius: 11px;
+  vertical-align: bottom;
+  margin-right: 11px;
+  color: #5480FF;
+  font-size:15px;
+  font-weight:400;
+  line-height:18px;
   text-align: center;
 }
 .submit{
