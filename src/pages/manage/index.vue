@@ -221,7 +221,7 @@
     </div>
     <!-- 管理类建筑用地end -->
 
-    <div class="submit">提交修改</div>
+    <div class="submit" @click="submit">提交修改</div>
   </div>
 </div>
   
@@ -230,6 +230,7 @@
 <script>
 import echarts from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
+import { mapState } from 'vuex'
 
 let chart = null
 
@@ -263,6 +264,7 @@ export default {
   components: {
     mpvueEcharts
   },
+  computed: mapState(['sdata']),
   data () {
     return {
       echarts,
@@ -292,7 +294,7 @@ export default {
         outterImage: '../../static/images/gb.png',
         outterImageCur: '../../static/images/gb2.png'
       }],
-      sdata: {},
+      // sdata: {},
       greenPer: 0,
       peopleAbility: 0,
       strollType: 'anbao',
@@ -324,6 +326,16 @@ export default {
     }
   },
   methods: {
+    submit () {
+      this.sdata.abjkNum = this.securityList.length
+      this.sdata.abjkArea = this.securityListAll
+      this.sdata.manageNum = this.officeList.length
+      this.sdata.manageArea = this.officeListAll
+      this.sdata.gbsNum = this.radioList.length
+      this.sdata.gbsArea = this.radioListAll
+      wx.setStorageSync('area', this.sdata)
+      wx.navigateBack()
+    },
     changeSwiper (event) {
       console.log(event.mp.detail)
       this.strollType = event.mp.detail.currentItemId
@@ -398,8 +410,7 @@ export default {
     }
   },
   mounted () {
-    // let app = getApp()
-    this.sdata = wx.getStorageSync('area')
+    console.log(this.sdata)
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
   }

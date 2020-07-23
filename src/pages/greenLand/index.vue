@@ -188,6 +188,11 @@ export default {
       // this.sdata.greenPerChose = this.greenPer
       this.sdata.peopleAbility.chose = this.peopleAbility
       this.sdata.peopleAbility.isChose = true
+      this.sdata.seatNumBottom = ~~(this.peopleAbility * 0.2)
+      this.sdata.seatNumTop = ~~(this.peopleAbility * 0.3)
+      this.sdata.toiletChose = this.sdata.landArea < 100000 ? ~~(this.peopleAbility * 0.02) : ~~(this.peopleAbility * 0.15)
+      this.sdata.manToiletChose = ~~(this.sdata.toiletChose * 0.4)
+      this.sdata.womanToiletChose = ~~(this.sdata.toiletChose * 0.6)
       wx.setStorageSync('area', this.sdata)
       // const url = '../greenLand/main'
       // mpvue.navigateBack({ url })

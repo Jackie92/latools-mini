@@ -285,10 +285,10 @@
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
-                pivot-text="√"
+                :pivot-text="toiletListAll > toiletAreaLine ? '√' : toiletListAll"
                 color="#5380FF"
                 show-pivot
-                :percentage="(toiletListAll / sdata.landArea * 100) | numFilter"
+                :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100)"
               />
               <div class="green-pro-left">{{(toiletListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
@@ -303,10 +303,10 @@
               <!-- <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress> -->
               <van-progress
                 class="van-progress"
-                :pivot-text="toiletNum > 373 ? '√' : toiletNum"
+                :pivot-text="toiletNum > toiletNumLine ? '√' : toiletNum"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletNum / 373 * 100) > 373 ? 100 : ~~(toiletNum / 373 * 100)"
+                :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100)"
               />
               <div class="green-pro-left">{{toiletNum}}个</div>
             </div>
@@ -738,7 +738,9 @@ export default {
       medicalListAll: 0,
       current: 0,
       current2: 0,
-      toiletNum: 0
+      toiletNum: 0,
+      toiletAreaLine: 0,
+      toiletNumLine: 0
     }
   },
   filters: {
@@ -962,6 +964,8 @@ export default {
     console.log(this.sdata)
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
+    this.toiletNumLine = this.sdata.landArea < 100000 ? ~~(this.peopleAbility * 0.02) : ~~(this.peopleAbility * 0.15)
+    this.toiletAreaLine = this.toiletNumLine * 14
   }
 }
 </script>

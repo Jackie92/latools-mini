@@ -94,7 +94,7 @@
         </div>
         <div class="fr">
           <div class="ov-body-line__spread fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-          <span v-if="isChoseGreenPer">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewGreenPer}}人</span>
+          <span v-if="isChoseGreenPer">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewGreenPer}}㎡</span>
           <div v-else class="ov-body-line__area fr">
             <p>{{greenPerBottom}}㎡</p>
             <p>-</p>
@@ -127,7 +127,7 @@
 
         <div class="icon-line--title">
           <div class="icon-line--title--line">
-            <img class="icon-line--title--icon" src="/static/images/car.png" alt="">
+            <img class="icon-line--title--icon" src="/static/icon/car.png" alt="">
             <span class="icon-line--title--text">停车位</span>
             <img class="chart-edit" src="/static/images/edit.png" alt="">
           </div>
@@ -151,7 +151,7 @@
 
         <div class="icon-line--title">
           <div class="icon-line--title--line">
-            <img class="icon-line--title--icon" src="/static/images/car.png" alt="">
+            <img class="icon-line--title--icon" src="/static/icon/bike.png" alt="">
             <span class="icon-line--title--text">自行车车位</span>
             <img class="chart-edit" src="/static/images/edit.png" alt="">
           </div>
@@ -171,7 +171,7 @@
 
         <div class="icon-line--title">
           <div class="icon-line--title--line">
-            <img class="icon-line--title--icon" src="/static/images/car.png" alt="">
+            <img class="icon-line--title--icon" src="/static/icon/dw.png" alt="">
             <span class="icon-line--title--text">厕所蹲位</span>
             <img class="chart-edit" src="/static/images/edit.png" alt="">
           </div>
@@ -180,15 +180,18 @@
         <div class="icon-line--body">
           <div class="icon-line--body--line">
             <span>累计厕所蹲位数量</span>
-            <span class="fr">{{toiletBtm}}-{{toiletTop}}个</span>
+            <span class="fr" v-if="toiletChose === 0">{{toiletBtm}}-{{toiletTop}}个</span>
+            <span class="fr" v-else>{{toiletChose}}个</span>
           </div>
           <div class="icon-line--body--line">
             <span>男性蹲位数量</span>
-            <span class="fr">{{manToiletBtm}}-{{manToiletTop}}个</span>
+            <span class="fr" v-if="manToiletChose === 0">{{manToiletBtm}}-{{manToiletTop}}个</span>
+            <span class="fr" v-else>{{manToiletChose}}个</span>
           </div>
           <div class="icon-line--body--line">
             <span>女性蹲位数量</span>
-            <span class="fr">{{womanToiletBtm}}-{{womanToiletTop}}个</span>
+            <span class="fr" v-if="womanToiletChose === 0">{{womanToiletBtm}}-{{womanToiletTop}}个</span>
+            <span class="fr" v-else>{{womanToiletChose}}个</span>
           </div>
         </div>
 
@@ -199,7 +202,7 @@
 
         <div class="icon-line--title">
           <div class="icon-line--title--line">
-            <img class="icon-line--title--icon" src="/static/images/car.png" alt="">
+            <img class="icon-line--title--icon" src="/static/icon/road.png" alt="">
             <span class="icon-line--title--text">路网体量参考</span>
             <img class="chart-edit" src="/static/images/edit.png" alt="">
           </div>
@@ -246,7 +249,7 @@
               <img class="chart-edit" src="/static/images/edit.png" alt="">
             </div>
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/cs.png" alt="">
               <span class="icon-line--title--text">厕所</span>
             </div>
           </div>
@@ -260,7 +263,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/medical.png" alt="">
               <span class="icon-line--title--text">医疗救助站</span>
             </div>
           </div>
@@ -274,7 +277,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/xmb.png" alt="">
               <span class="icon-line--title--text">小卖部</span>
             </div>
           </div>
@@ -288,7 +291,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/cafe.png" alt="">
               <span class="icon-line--title--text">咖啡和茶座</span>
             </div>
           </div>
@@ -302,7 +305,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/yk.png" alt="">
               <span class="icon-line--title--text">游客服务中心</span>
             </div>
           </div>
@@ -324,7 +327,7 @@
               <img class="chart-edit" src="/static/images/edit.png" alt="">
             </div>
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/tltx.png" alt="">
               <span class="icon-line--title--text">亭廊厅榭</span>
             </div>
           </div>
@@ -338,7 +341,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/hd.png" alt="">
               <span class="icon-line--title--text">活动馆</span>
             </div>
           </div>
@@ -352,7 +355,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/zl.png" alt="">
               <span class="icon-line--title--text">展览馆</span>
             </div>
           </div>
@@ -375,28 +378,28 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <span class="icon-line--title--text">座椅</span>
+              <img class="icon-line--title--icon" src="/static/icon/abjk.png" alt="">
+              <span class="icon-line--title--text">安保监控室</span>
             </div>
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>休息座椅数量</span>
-              <span class="fr">666-555个</span>
+              <span>{{abjkArea === 0 ? '--' : abjkArea}}㎡</span>
+              <span class="fr">{{abjkNum === 0 ? '--' : abjkNum}}个</span>
             </div>
           </div>
         </div>
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <span class="icon-line--title--text">座椅</span>
+              <img class="icon-line--title--icon" src="/static/icon/gl.png" alt="">
+              <span class="icon-line--title--text">管理办公室</span>
             </div>
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>休息座椅数量</span>
-              <span class="fr">666-555个</span>
+              <span>{{manageArea === 0 ? '--' : manageArea}}㎡</span>
+              <span class="fr">{{manageNum === 0 ? '--' : manageNum}}个</span>
             </div>
           </div>
         </div>
@@ -404,14 +407,14 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <span class="icon-line--title--text">座椅</span>
+              <img class="icon-line--title--icon" src="/static/icon/gb.png" alt="">
+              <span class="icon-line--title--text">广播室</span>
             </div>
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>休息座椅数量</span>
-              <span class="fr">666-555个</span>
+              <span>{{gbsArea === 0 ? '--' : gbsArea}}㎡</span>
+              <span class="fr">{{gbsNum === 0 ? '--' : gbsNum}}个</span>
             </div>
           </div>
         </div>
@@ -422,7 +425,7 @@
       <!-- icon-line -->
       <div class="icon-line icon-line--right">
         <div class="green-title">
-          管理类建筑<img class="chart-edit" src="/static/images/edit.png" alt="">
+          其他设施<img class="chart-edit" src="/static/images/edit.png" alt="">
         </div>
         <div class="icon-web">
           <div class="icon-web-line">
@@ -609,7 +612,16 @@ export default {
       cafeArea: 0,
       cafeNum: 0,
       ylArea: 0,
-      ylNum: 0
+      ylNum: 0,
+      toiletChose: 0,
+      manToiletChose: 0,
+      womanToiletChose: 0,
+      abjkNum: 0,
+      abjkArea: 0,
+      manageNum: 0,
+      manageArea: 0,
+      gbsNum: 0,
+      gbsArea: 0
     }
   },
   computed: mapState(['sdata']),
@@ -795,7 +807,15 @@ export default {
       top: this.seatNumTop,
       bottom: this.seatNumBottom
     }
-    wx.setStorageSync('area', this.area)
+    this.area.toiletBtm = this.toiletBtm
+    this.area.toiletTop = this.toiletTop
+    this.area.manToiletBtm = this.manToiletBtm
+    this.area.manToiletTop = this.manToiletTop
+    this.area.womanToiletBtm = this.womanToiletBtm
+    this.area.womanToiletTop = this.womanToiletTop
+    this.area.pavement = this.pavementBtm
+    this.area.pavementPercent = this.rateNum[3]
+    // wx.setStorageSync('area', this.area)
     this.$store.commit('_setData', this.area)
     console.log('$store2', this.$store.state.sdata)
   },
@@ -824,6 +844,15 @@ export default {
       this.cafeNum = _data.cafeNum
       this.ylArea = _data.ylArea
       this.ylNum = _data.ylNum
+      this.toiletChose = _data.toiletChose !== undefined ? _data.toiletChose : 0
+      this.manToiletChose = _data.manToiletChose !== undefined ? _data.manToiletChose : 0
+      this.womanToiletChose = _data.womanToiletChose !== undefined ? _data.womanToiletChose : 0
+      this.abjkNum = _data.abjkNum
+      this.abjkArea = _data.abjkArea
+      this.manageNum = _data.manageNum
+      this.manageArea = _data.manageArea
+      this.gbsNum = _data.gbsNum
+      this.gbsArea = _data.gbsArea
     }
   }
 }

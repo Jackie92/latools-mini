@@ -76,14 +76,8 @@
             </div>
             <div class="bet-item-be">{{parkingListAll}}㎡</div>
             <div class="green-pro-one">
-              <van-progress
-                class="van-progress"
-                pivot-text="√"
-                color="#5380FF"
-                show-pivot
-                :percentage="25"
-              />
-              <div class="green-pro-left">79%</div>
+              <progress class="greenpro" :percent="(parkingListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(parkingListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div class="bet-item">
@@ -95,12 +89,12 @@
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
-                pivot-text="2"
+                :pivot-text="parkingListAll / 30"
                 color="#5380FF"
                 show-pivot
-                :percentage="25"
+                :percentage="parkingListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea)"
               />
-              <div class="green-pro-left">2个</div>
+              <div class="green-pro-left">{{parkingListAll / 30}}个</div>
             </div>
           </div>
           <div v-if="parkingList.length > 0" v-for="(item, i) in parkingList" :key="i">
@@ -155,14 +149,8 @@
             </div>
             <div class="bet-item-be">{{bikeListAll}}㎡</div>
             <div class="green-pro-one">
-              <van-progress
-                class="van-progress"
-                pivot-text="√"
-                color="#5380FF"
-                show-pivot
-                :percentage="25"
-              />
-              <div class="green-pro-left">79%</div>
+              <progress class="greenpro" :percent="(bikeListAll / sdata.landArea * 100) | numFilter" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{(bikeListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
           </div>
           <div class="bet-item">
@@ -174,12 +162,12 @@
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
-                pivot-text="2"
+                :pivot-text="~~(bikeListAll / 1.7)"
                 color="#5380FF"
                 show-pivot
-                :percentage="25"
+                :percentage="bikeListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea)"
               />
-              <div class="green-pro-left">2个</div>
+              <div class="green-pro-left">{{~~(bikeListAll / 1.7)}}个</div>
             </div>
           </div>
           <div v-if="bikeList.length > 0" v-for="(item, i) in bikeList" :key="i">
@@ -285,10 +273,10 @@
                 <img class="greenarea" src="/static/icon/hd.png" alt="">园路用地面积
               </div>
             </div>
-            <div class="bet-item-be">5000㎡</div>
+            <div class="bet-item-be">{{pavement}}㎡</div>
             <div class="green-pro-one">
-              <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress>
-              <div class="green-pro-left">79%</div>
+              <progress class="greenpro" :percent="pavementPercent" color="#5380FF" border-radius="5" stroke-width="4"></progress>
+              <div class="green-pro-left">{{pavementPercent}}%</div>
             </div>
           </div>
         </div>
@@ -298,7 +286,7 @@
     </div>
     <!-- 园路及铺装用地end -->
 
-    <div class="submit">提交修改</div>
+    <div class="submit" @click="submit">提交修改</div>
   </div>
 </div>
   
@@ -307,6 +295,7 @@
 <script>
 import echarts from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
+import { mapState } from 'vuex'
 
 let chart = null
 
@@ -340,6 +329,7 @@ export default {
   components: {
     mpvueEcharts
   },
+  computed: mapState(['sdata']),
   data () {
     return {
       echarts,
@@ -374,7 +364,7 @@ export default {
         outterImage: '../../static/images/yuanlu.png',
         outterImageCur: '../../static/images/yuanlu2.png'
       }],
-      sdata: {},
+      // sdata: {},
       greenPer: 0,
       peopleAbility: 0,
       strollType: 'tingche',
@@ -390,10 +380,34 @@ export default {
       activity2: 200,
       activityList: [],
       activityListAll: 0,
-      current: 0
+      current: 0,
+      pavement: 0,
+      pavementPercent: 0
+    }
+  },
+  filters: {
+    numFilter (value) {
+      let realVal = ''
+      if (!isNaN(value) && value !== '') {
+        // 截取当前数据到小数点后两位
+        realVal = parseFloat(value).toFixed(2)
+      } else {
+        realVal = '--'
+      }
+      return realVal
     }
   },
   methods: {
+    submit () {
+      this.sdata.parkNum = this.parkingList.length
+      this.sdata.parkArea = this.parkingListAll
+      this.sdata.bikeNum = this.bikeList.length
+      this.sdata.bikeArea = this.bikeListAll
+      this.sdata.hdcdNum = this.activityList.length
+      this.sdata.hdcdArea = this.activityListAll
+      wx.setStorageSync('area', this.sdata)
+      wx.navigateBack()
+    },
     changeSwiper (event) {
       console.log(event.mp.detail)
       this.strollType = event.mp.detail.currentItemId
@@ -475,9 +489,12 @@ export default {
   },
   mounted () {
     // let app = getApp()
-    this.sdata = wx.getStorageSync('area')
+    // this.sdata = wx.getStorageSync('area')
+    console.log(this.sdata)
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
+    this.pavement = this.sdata.pavement
+    this.pavementPercent = this.sdata.pavementPercent
   }
 }
 </script>
