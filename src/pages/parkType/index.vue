@@ -12,13 +12,13 @@
         <div class="park-type__area__input__line">
           <img src="/static/images/landarea.png" alt="" class="area-line__logo">
           陆地面积
-          <input class="area-line__enter" type="text" placeholder="不可为空值*" v-model="landArea" @blur="countParkType">
+          <input type="number" class="area-line__enter" placeholder="不可为空值*" v-model="landArea" @blur="countParkType">
           ㎡
         </div>
         <div class="park-type__area__input__line">
           <img src="/static/images/waterarea.png" alt="" class="area-line__logo">
           水域面积
-          <input class="area-line__enter" type="text" placeholder="0" v-model="waterArea">
+          <input type="number" class="area-line__enter" placeholder="0" v-model="waterArea">
           ㎡
         </div>
       </div>
@@ -38,6 +38,7 @@
       :circular='circular'
       :previous-margin="'100px'"
       :next-margin="'100px'"
+      :current='current'
       @change='changeSwiper'
       v-if="showSwiper"
     >
@@ -45,6 +46,13 @@
 
         <swiper-item class="swiper-bar" :item-id='img.id'>
           <img              
+            v-if="current === index"
+            class='slide-image' 
+            mode='aspectFit' 
+            :src="img.outterImageCur" 
+            />
+          <img              
+            v-else
             class='slide-image' 
             mode='aspectFit' 
             :src="img.outterImage" 
@@ -67,36 +75,44 @@ export default {
       showSwiper: true,
       topSwipers: [{
         id: 'combine',
-        outterImage: '../../static/images/combine.png'
+        outterImage: '../../static/images/combine.png',
+        outterImageCur: '../../static/images/combine2.png'
       },
       {
         id: 'zoo',
-        outterImage: '../../static/images/zoo.png'
+        outterImage: '../../static/images/zoo.png',
+        outterImageCur: '../../static/images/zoo2.png'
       },
       {
         id: 'plant',
-        outterImage: '../../static/images/plant.png'
+        outterImage: '../../static/images/plant.png',
+        outterImageCur: '../../static/images/plant2.png'
       },
       {
         id: 'other',
-        outterImage: '../../static/images/other.png'
+        outterImage: '../../static/images/other.png',
+        outterImageCur: '../../static/images/other2.png'
       },
       {
         id: 'commity',
-        outterImage: '../../static/images/commity.png'
+        outterImage: '../../static/images/commity.png',
+        outterImageCur: '../../static/images/commity2.png'
       },
       {
         id: 'park',
-        outterImage: '../../static/images/park.png'
+        outterImage: '../../static/images/park.png',
+        outterImageCur: '../../static/images/park2.png'
       }],
       nowType: '',
       landArea: null,
-      waterArea: 0
+      waterArea: 0,
+      current: 0
     }
   },
   methods: {
     changeSwiper (event) {
-      console.log(event.mp.detail)
+      this.strollType = event.mp.detail.currentItemId
+      this.current = event.mp.detail.current
       this.nowType = event.mp.detail.currentItemId
     },
     getReport () {
@@ -125,85 +141,104 @@ export default {
       if (area <= 19999) {
         this.topSwipers = [{
           id: 'plant',
-          outterImage: '../../static/images/plant.png'
+          outterImage: '../../static/images/plant.png',
+          outterImageCur: '../../static/images/plant2.png'
         },
         {
           id: 'other',
-          outterImage: '../../static/images/other.png'
+          outterImage: '../../static/images/other.png',
+          outterImageCur: '../../static/images/other2.png'
         },
         {
           id: 'commity',
-          outterImage: '../../static/images/commity.png'
+          outterImage: '../../static/images/commity.png',
+          outterImageCur: '../../static/images/commity2.png'
         },
         {
           id: 'park',
-          outterImage: '../../static/images/park.png'
+          outterImage: '../../static/images/park.png',
+          outterImageCur: '../../static/images/park2.png'
         }]
       }
       if (area <= 49999 && area > 19999) {
         this.topSwipers = [{
           id: 'park',
-          outterImage: '../../static/images/zoo.png'
+          outterImage: '../../static/images/zoo.png',
+          outterImageCur: '../../static/images/zoo2.png'
         },
         {
           id: 'plant',
-          outterImage: '../../static/images/plant.png'
+          outterImage: '../../static/images/plant.png',
+          outterImageCur: '../../static/images/plant2.png'
         },
         {
           id: 'other',
-          outterImage: '../../static/images/other.png'
+          outterImage: '../../static/images/other.png',
+          outterImageCur: '../../static/images/other2.png'
         },
         {
           id: 'commity',
-          outterImage: '../../static/images/commity.png'
+          outterImage: '../../static/images/commity.png',
+          outterImageCur: '../../static/images/commity2.png'
         },
         {
           id: 'park',
-          outterImage: '../../static/images/park.png'
+          outterImage: '../../static/images/park.png',
+          outterImageCur: '../../static/images/park2.png'
         }]
       }
       if (area < 499999 && area > 99999) {
         this.topSwipers = [{
           id: 'combine',
-          outterImage: '../../static/images/combine.png'
+          outterImage: '../../static/images/combine.png',
+          outterImageCur: '../../static/images/combine2.png'
         },
         {
           id: 'zoo',
-          outterImage: '../../static/images/zoo.png'
+          outterImage: '../../static/images/zoo.png',
+          outterImageCur: '../../static/images/zoo2.png'
         },
         {
           id: 'plant',
-          outterImage: '../../static/images/plant.png'
+          outterImage: '../../static/images/plant.png',
+          outterImageCur: '../../static/images/plant2.png'
         },
         {
           id: 'other',
-          outterImage: '../../static/images/other.png'
+          outterImage: '../../static/images/other.png',
+          outterImageCur: '../../static/images/other2.png'
         },
         {
           id: 'commity',
-          outterImage: '../../static/images/commity.png'
+          outterImage: '../../static/images/commity.png',
+          outterImageCur: '../../static/images/commity2.png'
         }]
       }
       if (area > 499999) {
         this.topSwipers = [{
           id: 'combine',
-          outterImage: '../../static/images/combine.png'
+          outterImage: '../../static/images/combine.png',
+          outterImageCur: '../../static/images/combine2.png'
         },
         {
           id: 'zoo',
-          outterImage: '../../static/images/zoo.png'
+          outterImage: '../../static/images/zoo.png',
+          outterImageCur: '../../static/images/zoo2.png'
         },
         {
           id: 'plant',
-          outterImage: '../../static/images/plant.png'
+          outterImage: '../../static/images/plant.png',
+          outterImageCur: '../../static/images/plant2.png'
         },
         {
           id: 'other',
-          outterImage: '../../static/images/other.png'
+          outterImage: '../../static/images/other.png',
+          outterImageCur: '../../static/images/other2.png'
         }]
       }
       setTimeout(() => {
         this.showSwiper = true
+        // this.current = 0
         wx.hideLoading()
       }, 300)
     }
@@ -292,8 +327,8 @@ export default {
   text-align: center;
 }
 .slide-image{
-  width:160px;
-  height:200px;
+  width:130px;
+  height:160px;
   margin: 0 10px;
 }
 .get-report-btn {
