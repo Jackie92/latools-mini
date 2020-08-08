@@ -20,7 +20,7 @@
       <div class="chart-line__block" @click="goPage('greenLand')">
         <div class="chart-line__block__title"><span>绿化用地(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>{{rateNum[0]}}</span></div>
+          <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>{{rateNum[0]}}</span> <span class="small-percent">%</span> </div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit1" canvasId="chart1" />
           </div>
@@ -30,7 +30,7 @@
       <div class="chart-line__block" @click="goPage('strollRest')">
         <div class="chart-line__block__title"><span>游憩及服务(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[2]}}</span></div>
+          <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[2]}}</span><span class="small-percent">%</span></div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit2" canvasId="chart2" />
           </div>
@@ -44,7 +44,7 @@
       <div class="chart-line__block" @click="goPage('manage')">
         <div class="chart-line__block__title"><span>管理建筑类(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[1]}}</span></div>
+          <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[1]}}</span><span class="small-percent">%</span></div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit3" canvasId="chart3" />
           </div>
@@ -54,7 +54,7 @@
       <div class="chart-line__block" @click="goPage('garden')">
         <div class="chart-line__block__title"><span>园路及铺装(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon chart-line__icon--special">{{rateNum[3]}}-{{rateNum[4]}}</div>
+          <div class="chart-line__icon chart-line__icon--special">{{rateNum[3]}}-{{rateNum[4]}}<span class="small-percent">%</span></div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit4" canvasId="chart4" />
           </div>
@@ -74,10 +74,10 @@
       <div class="ov__body__line">
         <div class="fl">
           <img src="/static/images/people.png" alt="" class="body-line__icon">
-          <span>&nbsp;&nbsp;游人容量</span>
+          <span>&nbsp;&nbsp;游人容量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
         </div>
         <div class="fr">
-          <div class="ov-body-line__spread fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <div class="ov-body-line__spread fl"></div>
           <span v-if="isChosePeople">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewPeople}}人</span>
           <div v-else class="ov-body-line__area fr">
             <p>{{peopleAbilityBottom}}人</p>
@@ -90,10 +90,10 @@
       <div class="ov__body__line ov__body__line--end">
         <div class="fl">
           <img src="/static/images/per.png" alt="" class="body-line__icon">
-          <span>&nbsp;&nbsp;人均绿地</span>
+          <span>&nbsp;&nbsp;人均绿地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
         </div>
         <div class="fr">
-          <div class="ov-body-line__spread fl">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <div class="ov-body-line__spread fl"></div>
           <span v-if="isChoseGreenPer">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewGreenPer}}㎡</span>
           <div v-else class="ov-body-line__area fr">
             <p>{{greenPerBottom}}㎡</p>
@@ -109,7 +109,7 @@
           <div class="icon-line--title--line">
             <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
             <span class="icon-line--title--text">座椅</span>
-            <img class="chart-edit" src="/static/images/edit.png" alt="">
+            <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('greenLand')">
           </div>
         </div>
 
@@ -129,7 +129,7 @@
           <div class="icon-line--title--line">
             <img class="icon-line--title--icon" src="/static/icon/car.png" alt="">
             <span class="icon-line--title--text">停车位</span>
-            <img class="chart-edit" src="/static/images/edit.png" alt="">
+            <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('garden')">
           </div>
         </div>
 
@@ -153,7 +153,7 @@
           <div class="icon-line--title--line">
             <img class="icon-line--title--icon" src="/static/icon/bike.png" alt="">
             <span class="icon-line--title--text">自行车车位</span>
-            <img class="chart-edit" src="/static/images/edit.png" alt="">
+            <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('garden')">
           </div>
         </div>
 
@@ -173,7 +173,7 @@
           <div class="icon-line--title--line">
             <img class="icon-line--title--icon" src="/static/icon/dw.png" alt="">
             <span class="icon-line--title--text">厕所蹲位</span>
-            <img class="chart-edit" src="/static/images/edit.png" alt="">
+            <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('strollRest')">
           </div>
         </div>
 
@@ -204,7 +204,7 @@
           <div class="icon-line--title--line">
             <img class="icon-line--title--icon" src="/static/icon/road.png" alt="">
             <span class="icon-line--title--text">路网体量参考</span>
-            <img class="chart-edit" src="/static/images/edit.png" alt="">
+            <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('strollRest')">
           </div>
         </div>
 
@@ -246,7 +246,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="chart-edit" src="/static/images/edit.png" alt="">
+              <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('strollRest')">
             </div>
             <div class="icon-line--title--line">
               <img class="icon-line--title--icon" src="/static/icon/cs.png" alt="">
@@ -324,7 +324,7 @@
         <div class="icon-wrapper">
           <div class="icon-line--title">
             <div class="icon-line--title--line">
-              <img class="chart-edit" src="/static/images/edit.png" alt="">
+              <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('strollRest')">
             </div>
             <div class="icon-line--title--line">
               <img class="icon-line--title--icon" src="/static/icon/tltx.png" alt="">
@@ -373,7 +373,7 @@
       <!-- icon-line -->
       <div class="icon-line icon-line--right">
         <div class="green-title">
-          管理类建筑<img class="chart-edit" src="/static/images/edit.png" alt="">
+          管理类建筑<img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('manage')">
         </div>
         <div class="icon-wrapper">
           <div class="icon-line--title">
@@ -630,6 +630,21 @@ export default {
       const url = `../${pageName}/main`
       console.log(url)
       mpvue.navigateTo({ url })
+    },
+    numFilter (value) {
+      console.log(value)
+      let realVal = ''
+      if (!isNaN(value) && value !== '') {
+        // 截取当前数据到小数点后两位
+        realVal = parseFloat(value).toFixed(1)
+        let xsd = realVal.toString().split('.')
+        if (xsd.length === 1) {
+          realVal = realVal.toString() + '.0'
+        }
+      } else {
+        realVal = '--'
+      }
+      return realVal
     }
   },
   mounted () {
@@ -663,12 +678,12 @@ export default {
       this.rateNum = rate[0][type]
       this.parkSpot = ~~(la / 100 * 0.02)
       this.bikeSpot = ~~(la / 100 * 0.5)
-      this.mainBtm = 2
-      this.mainTop = 4
+      this.mainBtm = 2.0
+      this.mainTop = 4.0
       this.minorBtm = '-'
       this.minorTop = '-'
       this.branchBtm = 1.2
-      this.branchTop = 2
+      this.branchTop = 2.0
       this.pathBtm = 0.9
       this.pathTop = 1.2
     }
@@ -680,10 +695,10 @@ export default {
       this.mainTop = 4.5
       this.minorBtm = '-'
       this.minorTop = '-'
-      this.branchBtm = 2
+      this.branchBtm = 2.0
       this.branchTop = 2.5
       this.pathBtm = 0.9
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
     if (la >= 50000 && la < 99999) {
       this.rateNum = rate[2][type]
@@ -693,76 +708,84 @@ export default {
       this.mainTop = 4.5
       this.minorBtm = '-'
       this.minorTop = '-'
-      this.branchBtm = 2
+      this.branchBtm = 2.0
       this.branchTop = 2.5
       this.pathBtm = 0.9
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
     if (la >= 100000 && la < 199999) {
       this.rateNum = rate[3][type]
       this.parkSpot = ~~(la / 100 * 0.05)
       this.bikeSpot = ~~(la / 100 * 0.5)
-      this.mainBtm = 4
-      this.mainTop = 5
-      this.minorBtm = 3
-      this.minorTop = 4
-      this.branchBtm = 2
-      this.branchTop = 3
+      this.mainBtm = 4.0
+      this.mainTop = 5.0
+      this.minorBtm = 3.0
+      this.minorTop = 4.0
+      this.branchBtm = 2.0
+      this.branchTop = 3.0
       this.pathBtm = 1.2
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
     if (la >= 200000 && la < 499999) {
       this.rateNum = rate[4][type]
       this.parkSpot = ~~(la / 100 * 0.05)
       this.bikeSpot = ~~(la / 100 * 0.5)
-      this.mainBtm = 4
-      this.mainTop = 5
-      this.minorBtm = 3
-      this.minorTop = 4
-      this.branchBtm = 2
-      this.branchTop = 3
+      this.mainBtm = 4.0
+      this.mainTop = 5.0
+      this.minorBtm = 3.0
+      this.minorTop = 4.0
+      this.branchBtm = 2.0
+      this.branchTop = 3.0
       this.pathBtm = 1.2
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
     if (la >= 500000 && la < 999999) {
       this.rateNum = rate[5][type]
       this.parkSpot = ~~(la / 100 * 0.08)
       this.bikeSpot = ~~(la / 100 * 0.2)
-      this.mainBtm = 4
-      this.mainTop = 7
-      this.minorBtm = 3
-      this.minorTop = 4
-      this.branchBtm = 2
-      this.branchTop = 3
+      this.mainBtm = 4.0
+      this.mainTop = 7.0
+      this.minorBtm = 3.0
+      this.minorTop = 4.0
+      this.branchBtm = 2.0
+      this.branchTop = 3.0
       this.pathBtm = 1.2
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
     if (la >= 1000000 && la < 2999999) {
       this.rateNum = rate[6][type]
       this.parkSpot = ~~(la / 100 * 0.12)
       this.bikeSpot = ~~(la / 100 * 0.2)
-      this.mainBtm = 4
-      this.mainTop = 7
-      this.minorBtm = 3
-      this.minorTop = 4
-      this.branchBtm = 2
-      this.branchTop = 3
+      this.mainBtm = 4.0
+      this.mainTop = 7.0
+      this.minorBtm = 3.0
+      this.minorTop = 4.0
+      this.branchBtm = 2.0
+      this.branchTop = 3.0
       this.pathBtm = 1.2
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
     if (la >= 3000000) {
       this.rateNum = rate[7][type]
       this.parkSpot = ~~(la / 100 * 0.12)
       this.bikeSpot = ~~(la / 100 * 0.2)
-      this.mainBtm = 4
-      this.mainTop = 7
-      this.minorBtm = 3
-      this.minorTop = 4
-      this.branchBtm = 2
-      this.branchTop = 3
+      this.mainBtm = 4.0
+      this.mainTop = 7.0
+      this.minorBtm = 3.0
+      this.minorTop = 4.0
+      this.branchBtm = 2.0
+      this.branchTop = 3.0
       this.pathBtm = 1.2
-      this.pathTop = 2
+      this.pathTop = 2.0
     }
+    this.mainBtm = this.numFilter(this.mainBtm)
+    this.mainTop = this.numFilter(this.mainTop)
+    this.minorBtm = this.numFilter(this.minorBtm)
+    this.minorTop = this.numFilter(this.minorTop)
+    this.branchBtm = this.numFilter(this.branchBtm)
+    this.branchTop = this.numFilter(this.branchTop)
+    this.pathBtm = this.numFilter(this.pathBtm)
+    this.pathTop = this.numFilter(this.pathTop)
     // 四大用地
     this.greenLand = ~~(~~this.rateNum[0] / 100 * la)
     this.recreation = ~~(~~this.rateNum[2] / 100 * la)
@@ -921,13 +944,13 @@ export default {
   margin-top: -10px;
 }
 .chart-line__icon {
-  font-size: 46px;
+  font-size: 42px;
   color: #5480ff;
   float: left;
   padding-top: 10px;
 }
 .chart-line__icon--special {
-  font-size: 30px;
+  font-size: 26px;
   height: 66px;
   line-height: 66px;
 }
@@ -976,12 +999,15 @@ export default {
 .ov-body-line__area {
   line-height: 14px;
   text-align: center;
-  color: #808080;
+  color: #b1b0b0;
 }
 .ov-body-line__spread {
-  color: #808080;
+  color: #b1b0b0;
 }
 .ov__body__line--end {
   border-radius: 0 0 10px 10px;
+}
+.small-percent {
+  font-size: 12px;
 }
 </style>

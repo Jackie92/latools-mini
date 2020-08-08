@@ -60,9 +60,9 @@
       <div v-if="strollType === 'huodong'" class="swiper-per-body">
         <div class="gl-body-head">
           <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
-            <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
           </div>
           <div class="three-switch" v-else>
             <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
@@ -115,9 +115,9 @@
       <div v-if="strollType === 'tinglang'"  class="swiper-per-body">
         <div class="gl-body-head">
           <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
-            <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
           </div>
           <div class="three-switch" v-else>
             <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
@@ -548,9 +548,9 @@
       <div v-if="strollType2 === 'xmb'"  class="swiper-per-body">
         <div class="gl-body-head">
           <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
-            <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
+            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
           </div>
           <div class="three-switch" v-else>
             <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>

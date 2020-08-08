@@ -56,6 +56,7 @@
             :max="sdata.greenPer.top"
           />
           <div class="green-pro-left">{{sdata.greenPer.chose}}㎡/人</div>
+          <input class="green-pro-left" >㎡/人
         </div>
       </div>
       <div v-if="sdata.waterArea != 0" class="bet-item">
