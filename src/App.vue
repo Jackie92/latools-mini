@@ -139,4 +139,10 @@ page {
   line-height: 40px;
   font-weight: 600;
 }
+.input-progress {
+  display: inline;
+  float: left;
+  width: 30px;
+  text-align: right;
+}
 </style>

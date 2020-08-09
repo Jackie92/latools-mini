@@ -55,15 +55,17 @@
       <!-- 安保监控室start -->
       <div v-if="strollType === 'anbao'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.manageArch[2] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.manageArch[2] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index1=0" :class="index1==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index1=1" :class="index1==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -102,24 +104,26 @@
               </div>
             </div>
           </div>
-          <!-- <div class="add" @click="addList('anbao')"><div class="number">+</div>添加类目</div> -->
-          <div class="add"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
-        </div>
+          <div class="add"  v-if="sdata.facility.manageArch[2] !== 0"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
+          </div>
       </div>
       <!-- 安保监控室end -->
 
       <!-- 管理办公室start -->
       <div v-if="strollType === 'guanli'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.manageArch[0] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.manageArch[0] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index2=0" :class="index2==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index2=1" :class="index2==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -158,7 +162,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
+          <div class="add"  v-if="sdata.facility.manageArch[0] !== 0"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 管理办公室end -->
@@ -166,15 +171,17 @@
       <!-- 广播室start -->
       <div v-if="strollType === 'guangbo'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.manageArch[1] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.manageArch[1] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index3=0" :class="index3==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index3=1" :class="index3==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -213,7 +220,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
+          <div class="add"  v-if="sdata.facility.manageArch[1] !== 0"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 广播室end -->
@@ -310,7 +318,10 @@ export default {
       radio2: 200,
       radioList: [],
       radioListAll: 0,
-      current: 0
+      current: 0,
+      index1: 0,
+      index2: 0,
+      index3: 0
     }
   },
   filters: {

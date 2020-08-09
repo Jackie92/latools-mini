@@ -55,15 +55,17 @@
       <!-- 停车场start -->
       <div v-if="strollType === 'tingche'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.serve[0] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serve[0] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index1=0" :class="index1==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index1=1" :class="index1==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -119,8 +121,8 @@
               </div>
             </div>
           </div>
-          <!-- <div class="add" @click="addList('tingche')"><div class="number">+</div>添加类目</div> -->
-          <div class="add"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
+          <div class="add"  v-if="sdata.facility.serve[0] !== 0"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 停车场end -->
@@ -128,15 +130,17 @@
       <!-- 自行车存放处start -->
       <div v-if="strollType === 'zixingche'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.serve[1] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serve[1] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index2=0" :class="index2==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index2=1" :class="index2==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -192,7 +196,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
+          <div class="add"  v-if="sdata.facility.serve[1] !== 0"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 自行车存放处end -->
@@ -200,15 +205,17 @@
       <!-- 活动场地start -->
       <div v-if="strollType === 'huodong'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.recreation[3] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.recreation[3] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index3=0" :class="index3==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index3=1" :class="index3==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -247,7 +254,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-if="sdata.facility.recreation[3] !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 活动场地end -->
@@ -322,7 +330,11 @@ function getOption (num) {
           {value: ~~rateNum}
         ]
       }
-    ]
+    ],
+    index1: 0,
+    index2: 0,
+    index3: 0,
+    index4: 0
   }
 }
 export default {
@@ -339,7 +351,7 @@ export default {
           height: height
         })
         canvas.setChart(chart)
-        chart.setOption(getOption(1))
+        chart.setOption(getOption(3))
         return chart
       },
       index: 0,

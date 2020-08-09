@@ -1,0 +1,66 @@
+[
+    {
+        "recreation": [1, 2, 1, 2, 0],
+        "recreationArch": [1, 0, 0],
+        "serve": [0, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [0, 1, 1, 0, 0, 1, 1],
+        "manage": [1, 0, 0, 0, 1, 0],
+        "manageArch": [1, 1, 1],
+        "manageFacilities": [1, 2]
+    },
+    {
+        "recreation": [2, 2, 1, 2, 0],
+        "recreationArch": [1, 0, 0],
+        "serve": [1, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [0, 2, 1, 0, 1, 1, 1],
+        "manage": [1, 0, 0, 0, 1, 0],
+        "manageArch": [1, 1, 2],
+        "manageFacilities": [1, 2]
+    },
+    {
+        "recreation": [2, 2, 1, 2, 0],
+        "recreationArch": [2, 0, 0],
+        "serve": [1, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [1, 2, 1, 1, 1, 1, 1],
+        "manage": [1, 1, 0, 1, 1, 1],
+        "manageArch": [1, 1, 2],
+        "manageFacilities": [1, 2]
+    },
+    {
+        "recreation": [2, 2, 1, 2, 1],
+        "recreationArch": [2, 0, 0],
+        "serve": [2, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [1, 2, 1, 1, 1, 1, 1],
+        "manage": [1, 1, 1, 1, 1, 1],
+        "manageArch": [2, 2, 2],
+        "manageFacilities": [1, 2]
+    },
+    {
+        "recreation": [2, 2, 1, 2, 1],
+        "recreationArch": [2, 1, 1],
+        "serve": [2, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [2, 2, 1, 1, 1, 1, 1],
+        "manage": [1, 2, 1, 1, 1, 1],
+        "manageArch": [2, 2, 2],
+        "manageFacilities": [1, 2]
+    },
+    {
+        "recreation": [2, 2, 1, 2, 1],
+        "recreationArch": [2, 1, 1],
+        "serve": [2, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [2, 2, 1, 1, 1, 1, 2],
+        "manage": [1, 2, 2, 1, 1, 1],
+        "manageArch": [2, 2, 2],
+        "manageFacilities": [1, 2]
+    },
+    {
+        "recreation": [2, 2, 1, 2, 1],
+        "recreationArch": [2, 1, 1],
+        "serve": [2, 2, 2, 2, 1, 2, 1, 1],
+        "serveArch": [2, 2, 1, 1, 1, 1, 2],
+        "manage": [1, 2, 2, 1, 1, 1],
+        "manageArch": [2, 2, 2],
+        "manageFacilities": [1, 2]
+    }
+    
+]

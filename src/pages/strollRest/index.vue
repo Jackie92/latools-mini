@@ -59,15 +59,17 @@
       <!-- 游憩类-活动馆start -->
       <div v-if="strollType === 'huodong'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          <div class="three-switch" v-if="sdata.facility.recreationArch[1] === 0">
+            <div class="switch-item current" >off</div>
+            <div class="switch-item">on</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.recreationArch[1] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index1=0" :class="index1==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index1=1" :class="index1==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -106,7 +108,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-if="sdata.facility.recreationArch[1] !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 游憩类-活动馆end -->
@@ -114,15 +117,17 @@
       <!-- 游憩类-廊亭厅榭start -->
       <div v-if="strollType === 'tinglang'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          <div class="three-switch" v-if="sdata.facility.recreationArch[0] === 0">
+            <div class="switch-item current" >off</div>
+            <div class="switch-item">on</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.recreationArch[0] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index2=0" :class="index2==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index2=1" :class="index2==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -161,7 +166,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
+          <div class="add" v-if="sdata.facility.recreationArch[0] !== 0"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 游憩类-廊亭厅榭end -->
@@ -169,15 +175,17 @@
       <!-- 游憩类-展览馆start -->
       <div v-if="strollType === 'zhanlan'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.recreationArch[2] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.recreationArch[2] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index3=0" :class="index3==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index3=1" :class="index3==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -216,7 +224,8 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
+          <div class="add" v-if="sdata.facility.recreationArch[2] !== 0"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
         </div>
       </div>
       <!-- 游憩类-展览馆end -->
@@ -262,15 +271,17 @@
       <!-- 建筑类-厕所start -->
       <div v-if="strollType2 === 'cs'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.serveArch[1] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[1] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index4=0" :class="index4==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index4=1" :class="index4==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -288,7 +299,7 @@
                 :pivot-text="toiletListAll > toiletAreaLine ? '√' : toiletListAll"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100)"
+                :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100 + 8)"
               />
               <div class="green-pro-left">{{(toiletListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
@@ -306,51 +317,11 @@
                 :pivot-text="toiletNum > toiletNumLine ? '√' : toiletNum"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100)"
+                :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100 + 8)"
               />
               <div class="green-pro-left">{{toiletNum}}个</div>
             </div>
           </div>
-          <!-- <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">1</div>厕所1
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(1, 'cs', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{toilet1}}㎡</div>
-            </div>
-          </div>
-          <div class="bet-item">
-            <div class="bet-item-title">
-              <div class="bet-item-left">
-                <div class="number">2</div>厕所2
-              </div>
-            </div>
-            <div class="green-pro">
-              <van-slider
-                class="greenslider"
-                bar-height="3.1px"
-                active-color="#5380FF"
-                inactive-color="#EBEBEB"
-                value="150"
-                @change="onChange(2, 'cs', $event)"
-                :min='0'
-                :max='150'
-              />
-              <div class="green-pro-left">{{toilet2}}㎡</div>
-            </div>
-          </div> -->
           <div v-if="toiletList.length > 0" v-for="(item, i) in toiletList" :key="i">
             <div class="bet-item">
               <div class="bet-item-title">
@@ -373,23 +344,26 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
-        </div>
+          <div class="add" v-if="sdata.facility.serveArch[1] !== 0"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
+         </div>
       </div>
       <!-- 建筑类-厕所end -->
       
       <!-- 建筑类-游客服务中心start -->
       <div v-if="strollType2 === 'yk'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.serveArch[0] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[0] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index5=0" :class="index5==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index5=1" :class="index5==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -428,23 +402,26 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
-        </div>
+          <div class="add" v-if="sdata.facility.serveArch[0] !== 0"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
+         </div>
       </div>
       <!-- 建筑类-游客服务中心end -->
 
       <!-- 建筑类-茶座和咖啡start -->
       <div v-if="strollType2 === 'cz'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.serveArch[4] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[4] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index6=0" :class="index6==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index6=1" :class="index6==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -483,23 +460,26 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
-        </div>
+          <div class="add" v-if="sdata.facility.serveArch[4] !== 0"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
+          </div>
       </div>
       <!-- 建筑类-茶座和咖啡end -->
 
       <!-- 建筑类-医疗救助站start -->
       <div v-if="strollType2 === 'yl'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
+          <div class="three-switch" v-if="sdata.facility.serveArch[6] === 0">
+            <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[6] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index7=0" :class="index7==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index7=1" :class="index7==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -538,8 +518,9 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
-        </div>
+          <div class="add" v-if="sdata.facility.serveArch[6] !== 0"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
+          </div>
       </div>
       <!-- 建筑类-医疗救助站end -->
 
@@ -547,15 +528,17 @@
       <!-- 建筑类-小卖部start -->
       <div v-if="strollType2 === 'xmb'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+          <div class="three-switch" v-if="sdata.facility.serveArch[5] === 0">
+            <div class="switch-item current" >off</div>
+            <div class="switch-item">on</div>
+          </div>
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[5] === 2">
+            <div class="switch-item" >off</div>
+            <div class="switch-item current">on</div>
           </div>
           <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
+            <div class="switch-item" @click="index8=0" :class="index8==0 ? 'current':''">off</div>
+            <div class="switch-item" @click="index8=1" :class="index8==1 ? 'current':''">on</div>
           </div>
         </div>
         <div class="body-between">
@@ -594,8 +577,9 @@
               </div>
             </div>
           </div>
-          <div class="add"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
-        </div>
+          <div class="add" v-if="sdata.facility.serveArch[5] !== 0"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
+          <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
+         </div>
       </div>
       <!-- 建筑类-小卖部end -->
     </div>
@@ -614,19 +598,16 @@ import { mapState } from 'vuex'
 
 let chart = null
 
-function initChart (canvas, width, height) {
-  chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(chart)
-
-  var option = {
-    color: ['#13987e', '#bbffd0', '#49e198'],
+function getOption (num) {
+  const rate = wx.getStorageSync('area').rateNum
+  const rateNum = rate[num]
+  return {
+    color: ['#187161', '#BBFFD0'],
     series: [
       {
         type: 'pie',
-        radius: ['90%', '70%'],
+        hoverAnimation: false,
+        radius: ['80%', '60%'],
         avoidLabelOverlap: false,
         label: {
           show: false,
@@ -636,17 +617,12 @@ function initChart (canvas, width, height) {
           show: false
         },
         data: [
-          {value: 1},
-          {value: 3},
-          {value: 2}
+          {value: 100 - ~~rateNum},
+          {value: ~~rateNum}
         ]
       }
     ]
-  } // ECharts 配置项
-
-  chart.setOption(option)
-
-  return chart // 返回 chart 后可以自动绑定触摸操作
+  }
 }
 export default {
   components: {
@@ -656,8 +632,15 @@ export default {
   data () {
     return {
       echarts,
-      onInit: initChart,
-      index: 0,
+      onInit: function (canvas, width, height) {
+        chart = echarts.init(canvas, null, {
+          width: width,
+          height: height
+        })
+        canvas.setChart(chart)
+        chart.setOption(getOption(2))
+        return chart
+      },
       typeIn: 0,
       topSwipers: [{
         id: 'huodong',
@@ -740,7 +723,15 @@ export default {
       current2: 0,
       toiletNum: 0,
       toiletAreaLine: 0,
-      toiletNumLine: 0
+      toiletNumLine: 0,
+      index1: 0,
+      index2: 0,
+      index3: 0,
+      index4: 0,
+      index5: 0,
+      index6: 0,
+      index7: 0,
+      index8: 0
     }
   },
   filters: {
@@ -950,22 +941,18 @@ export default {
         this.toiletListAll += this.toiletList[i]
       }
       this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
-    },
-    toilet1 (val) {
-      this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
-    },
-    toilet2 (val) {
-      this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
+      this.toiletNum = this.toiletNum > 0 ? this.toiletNum : 0
     }
   },
   mounted () {
     // let app = getApp()
     // this.sdata = wx.getStorageSync('area')
-    console.log(this.sdata)
+    console.log(111, this.sdata.facility.recreationArch[2])
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
     this.toiletNumLine = this.sdata.landArea < 100000 ? ~~(this.peopleAbility * 0.02) : ~~(this.peopleAbility * 0.15)
     this.toiletAreaLine = this.toiletNumLine * 14
+    this.index = new Array(20).fill(0)
   }
 }
 </script>

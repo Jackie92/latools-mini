@@ -650,6 +650,7 @@ export default {
   mounted () {
     this.area = wx.getStorageSync('area')
     const rate = require('./rate.json')
+    const facility = require('../facility.json')
     const la = ~~this.area.landArea
     const type = this.area.parkType
     switch (type) {
@@ -686,6 +687,7 @@ export default {
       this.branchTop = 2.0
       this.pathBtm = 0.9
       this.pathTop = 1.2
+      this.area.facility = facility[0]
     }
     if (la >= 20000 && la < 49999) {
       this.rateNum = rate[1][type]
@@ -699,6 +701,7 @@ export default {
       this.branchTop = 2.5
       this.pathBtm = 0.9
       this.pathTop = 2.0
+      this.area.facility = facility[1]
     }
     if (la >= 50000 && la < 99999) {
       this.rateNum = rate[2][type]
@@ -712,6 +715,7 @@ export default {
       this.branchTop = 2.5
       this.pathBtm = 0.9
       this.pathTop = 2.0
+      this.area.facility = facility[2]
     }
     if (la >= 100000 && la < 199999) {
       this.rateNum = rate[3][type]
@@ -725,6 +729,7 @@ export default {
       this.branchTop = 3.0
       this.pathBtm = 1.2
       this.pathTop = 2.0
+      this.area.facility = facility[3]
     }
     if (la >= 200000 && la < 499999) {
       this.rateNum = rate[4][type]
@@ -738,6 +743,7 @@ export default {
       this.branchTop = 3.0
       this.pathBtm = 1.2
       this.pathTop = 2.0
+      this.area.facility = facility[4]
     }
     if (la >= 500000 && la < 999999) {
       this.rateNum = rate[5][type]
@@ -751,6 +757,7 @@ export default {
       this.branchTop = 3.0
       this.pathBtm = 1.2
       this.pathTop = 2.0
+      this.area.facility = facility[5]
     }
     if (la >= 1000000 && la < 2999999) {
       this.rateNum = rate[6][type]
@@ -764,6 +771,7 @@ export default {
       this.branchTop = 3.0
       this.pathBtm = 1.2
       this.pathTop = 2.0
+      this.area.facility = facility[6]
     }
     if (la >= 3000000) {
       this.rateNum = rate[7][type]
@@ -777,6 +785,7 @@ export default {
       this.branchTop = 3.0
       this.pathBtm = 1.2
       this.pathTop = 2.0
+      this.area.facility = facility[7]
     }
     this.mainBtm = this.numFilter(this.mainBtm)
     this.mainTop = this.numFilter(this.mainTop)
@@ -944,7 +953,7 @@ export default {
   margin-top: -10px;
 }
 .chart-line__icon {
-  font-size: 42px;
+  font-size: 38px;
   color: #5480ff;
   float: left;
   padding-top: 10px;

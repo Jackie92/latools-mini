@@ -55,8 +55,7 @@
             :min="sdata.greenPer.bottom"
             :max="sdata.greenPer.top"
           />
-          <div class="green-pro-left">{{sdata.greenPer.chose}}㎡/人</div>
-          <input class="green-pro-left" >㎡/人
+          <div class="green-pro-left"><input class="input-progress" type="text" v-model="sdata.greenPer.chose" @input="handleInput">㎡/人</div>
         </div>
       </div>
       <div v-if="sdata.waterArea != 0" class="bet-item">
@@ -174,6 +173,13 @@ export default {
   },
   computed: mapState(['sdata']),
   methods: {
+    handleInput (e) {
+      console.log(e.target.value)
+      if (e.target.value >= this.sdata.greenPer.bottom && e.target.value <= this.sdata.greenPer.top) {
+        this.sdata.greenPer.chose = e.target.value
+        console.log(e)
+      }
+    },
     onChangeGreen (e) {
       this.sdata.greenPer.chose = e.mp.detail
       this.sdata.greenPer.isChose = true
