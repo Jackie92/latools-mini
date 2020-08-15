@@ -129,6 +129,7 @@ export default {
           parkType: this.nowType === '' ? this.topSwipers[0].id : this.nowType
         }
         wx.setStorageSync('area', area)
+        console.log(wx.getStorageSync('area'), 3333)
         this.$store.commit('_setData', area)
         const url = '../overView/main'
         mpvue.navigateTo({ url })

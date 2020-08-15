@@ -22,7 +22,7 @@
         <div class="chart-line">
           <div class="chart-line__icon"><img src="/static/images/big.png" alt=""><span>{{rateNum[0]}}</span> <span class="small-percent">%</span> </div>
           <div class="echarts-wrap">
-            <mpvue-echarts :echarts="echarts" :onInit="onInit1" canvasId="chart1" />
+            <mpvue-echarts  v-if="JSON.stringify(rateNum)!=='{}'" :echarts="echarts" :onInit="onInit1" canvasId="chart1" />
           </div>
         </div>
         <div><span>{{greenLand}}</span>㎡</div>
@@ -431,19 +431,19 @@
           <div class="icon-web-line">
 
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/bf.png" alt="">
+              <div class="icon-describe">泵房</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/bpd.png" alt="">
+              <div class="icon-describe">变配电所</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/ljzz.png" alt="">
+              <div class="icon-describe">垃圾中转站</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
+              <img class="icon-line--title--icon" src="/static/icon/wq.png" alt="">
               <div class="icon-describe">围墙围栏</div>
             </div>
 
@@ -451,20 +451,20 @@
           <div class="icon-web-line">
 
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/lslj.png" alt="">
+              <div class="icon-describe">绿色垃圾处理站</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/ws.png" alt="">
+              <div class="icon-describe">温室荫棚</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/yj.png" alt="">
+              <div class="icon-describe">应急避险处理站</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/images/seats.png" alt="">
-              <div class="icon-describe">围墙围栏</div>
+              <img class="icon-line--title--icon" src="/static/icon/yskz.png" alt="">
+              <div class="icon-describe">雨水控制</div>
             </div>
             
           </div>
@@ -520,6 +520,7 @@ export default {
     return {
       echarts,
       onInit1: function (canvas, width, height) {
+        console.log('oninit1')
         chart = echarts.init(canvas, null, {
           width: width,
           height: height
@@ -849,12 +850,14 @@ export default {
     this.area.pavementPercent = this.rateNum[3]
     // wx.setStorageSync('area', this.area)
     this.$store.commit('_setData', this.area)
+    wx.setStorageSync('area', this.area)
     console.log('$store2', this.$store.state.sdata)
   },
   onShow () {
     console.log('$storeOnShow', this.$store.state.sdata)
     let _data = this.$store.state.sdata
-    if (_data !== undefined) {
+    console.log('$storeOnShow', _data.peopleAbility)
+    if (_data.peopleAbility !== undefined) {
       this.isChosePeople = _data.peopleAbility.isChose
       this.isChoseGreenPer = _data.greenPer.isChose
       this.isNewPeople = _data.peopleAbility.chose
