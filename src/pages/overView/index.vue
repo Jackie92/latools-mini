@@ -431,19 +431,23 @@
           <div class="icon-web-line">
 
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/bf.png" alt="">
+              <img v-if="facility.manage[4] === 2" class="icon-line--title--icon" src="/static/icon/bf.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/bf2.png" alt="">
               <div class="icon-describe">泵房</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/bpd.png" alt="">
+              <img v-if="facility.manage[3] === 2" class="icon-line--title--icon" src="/static/icon/bpd.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/bpd2.png" alt="">
               <div class="icon-describe">变配电所</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/ljzz.png" alt="">
+              <img v-if="facility.manage[1] === 2" class="icon-line--title--icon" src="/static/icon/ljzz.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/ljzz2.png" alt="">
               <div class="icon-describe">垃圾中转站</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/wq.png" alt="">
+              <img v-if="facility.manage[0] === 2" class="icon-line--title--icon" src="/static/icon/wq.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/wq2.png" alt="">
               <div class="icon-describe">围墙围栏</div>
             </div>
 
@@ -451,19 +455,23 @@
           <div class="icon-web-line">
 
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/lslj.png" alt="">
+              <img v-if="facility.manage[2] === 2" class="icon-line--title--icon" src="/static/icon/lslj.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/lslj2.png" alt="">
               <div class="icon-describe">绿色垃圾处理站</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/ws.png" alt="">
+              <img v-if="facility.manage[5] === 2" class="icon-line--title--icon" src="/static/icon/ws.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/ws2.png" alt="">
               <div class="icon-describe">温室荫棚</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/yj.png" alt="">
+              <img v-if="facility.manageFacilities[0] === 2" class="icon-line--title--icon" src="/static/icon/yj.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/yj2.png" alt="">
               <div class="icon-describe">应急避险处理站</div>
             </div>
             <div class="icon-content">
-              <img class="icon-line--title--icon" src="/static/icon/yskz.png" alt="">
+              <img v-if="facility.manageFacilities[1] === 2" class="icon-line--title--icon" src="/static/icon/yskz.png" alt="">
+              <img v-else class="icon-line--title--icon" src="/static/icon/yskz2.png" alt="">
               <div class="icon-describe">雨水控制</div>
             </div>
             
@@ -622,7 +630,8 @@ export default {
       manageNum: 0,
       manageArea: 0,
       gbsNum: 0,
-      gbsArea: 0
+      gbsArea: 0,
+      facility: null
     }
   },
   computed: mapState(['sdata']),
@@ -788,6 +797,7 @@ export default {
       this.pathTop = 2.0
       this.area.facility = facility[7]
     }
+    this.facility = this.area.facility
     this.mainBtm = this.numFilter(this.mainBtm)
     this.mainTop = this.numFilter(this.mainTop)
     this.minorBtm = this.numFilter(this.minorBtm)

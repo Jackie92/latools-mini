@@ -91,12 +91,12 @@
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
-                :pivot-text="parkingListAll / 30"
+                :pivot-text="~~(parkingListAll / 30)"
                 color="#5380FF"
                 show-pivot
-                :percentage="parkingListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea)"
+                :percentage="parkingListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea) + 8"
               />
-              <div class="green-pro-left">{{parkingListAll / 30}}个</div>
+              <div class="green-pro-left">{{~~(parkingListAll / 30)}}个</div>
             </div>
           </div>
           <div v-if="parkingList.length > 0" v-for="(item, i) in parkingList" :key="i">
@@ -169,7 +169,7 @@
                 :pivot-text="~~(bikeListAll / 1.7)"
                 color="#5380FF"
                 show-pivot
-                :percentage="bikeListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea)"
+                :percentage="bikeListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea) + 8"
               />
               <div class="green-pro-left">{{~~(bikeListAll / 1.7)}}个</div>
             </div>

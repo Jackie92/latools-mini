@@ -3,10 +3,10 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">游憩服务用地</div>
-      <div class="gl-head__number">{{sdata.rateNum[2]}}<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{(allFacSum * 100 / sdata.landArea )| numFilter}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{~~(sdata.rateNum[2] / 100 * sdata.landArea)}}㎡</p>
+          <p>{{allFacSum}}㎡</p>
         </div>
       </div>
     </div>
@@ -99,10 +99,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="150"
+                  value="0"
                   @change="onChangeList(i, 'huodong', $event)"
                   :min='0'
-                  :max='150'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{activityList[i]}}㎡</div>
               </div>
@@ -157,10 +157,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="20"
+                  value="0"
                   @change="onChangeList(i, 'tinglang', $event)"
                   :min='0'
-                  :max='20'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{galleryList[i]}}㎡</div>
               </div>
@@ -215,10 +215,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="300"
+                  value="0"
                   @change="onChangeList(i, 'zhanlan', $event)"
                   :min='0'
-                  :max='300'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
               </div>
@@ -299,7 +299,7 @@
                 :pivot-text="toiletListAll > toiletAreaLine ? '√' : toiletListAll"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100 + 8)"
+                :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100 + 10)"
               />
               <div class="green-pro-left">{{(toiletListAll / sdata.landArea * 100) | numFilter}}%</div>
             </div>
@@ -317,7 +317,7 @@
                 :pivot-text="toiletNum > toiletNumLine ? '√' : toiletNum"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100 + 8)"
+                :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100 + 10)"
               />
               <div class="green-pro-left">{{toiletNum}}个</div>
             </div>
@@ -335,10 +335,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="150"
+                  value="0"
                   @change="onChangeList(i, 'cs', $event)"
                   :min='0'
-                  :max='150'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{toiletList[i]}}㎡</div>
               </div>
@@ -393,10 +393,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'yk', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{visitorList[i]}}㎡</div>
               </div>
@@ -451,10 +451,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'cafe', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{cafeList[i]}}㎡</div>
               </div>
@@ -509,10 +509,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'yl', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{medicalList[i]}}㎡</div>
               </div>
@@ -568,10 +568,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'xmb', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{shopList[i]}}㎡</div>
               </div>
@@ -731,7 +731,10 @@ export default {
       index5: 0,
       index6: 0,
       index7: 0,
-      index8: 0
+      index8: 0,
+      allFacSum: 0,
+      lastSum: 0,
+      strollRestArea: 0
     }
   },
   filters: {
@@ -840,29 +843,37 @@ export default {
       }
     },
     addList (type) {
+      if (this.allFacSum > this.strollRestArea) {
+        wx.showToast({
+          title: '已达上限',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
       if (type === 'huodong') {
-        this.$set(this.activityList, this.activityList.length, 150)
+        this.$set(this.activityList, this.activityList.length, 0)
       }
       if (type === 'tinglang') {
-        this.$set(this.galleryList, this.galleryList.length, 20)
+        this.$set(this.galleryList, this.galleryList.length, 0)
       }
       if (type === 'zhanlan') {
-        this.$set(this.exhibitionList, this.exhibitionList.length, 300)
+        this.$set(this.exhibitionList, this.exhibitionList.length, 0)
       }
       if (type === 'cs') {
-        this.$set(this.toiletList, this.toiletList.length, 150)
+        this.$set(this.toiletList, this.toiletList.length, 0)
       }
       if (type === 'yk') {
-        this.$set(this.visitorList, this.visitorList.length, 200)
+        this.$set(this.visitorList, this.visitorList.length, 0)
       }
       if (type === 'xmb') {
-        this.$set(this.shopList, this.shopList.length, 200)
+        this.$set(this.shopList, this.shopList.length, 0)
       }
       if (type === 'cafe') {
-        this.$set(this.cafeList, this.cafeList.length, 200)
+        this.$set(this.cafeList, this.cafeList.length, 0)
       }
       if (type === 'yl') {
-        this.$set(this.medicalList, this.medicalList.length, 200)
+        this.$set(this.medicalList, this.medicalList.length, 0)
       }
     },
     delList (type) {
@@ -899,11 +910,19 @@ export default {
         this.activityListAll += this.activityList[i]
       }
     },
+    activityListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
+    },
     galleryList (val) {
       this.galleryListAll = 0
       for (let i = 0; i < this.galleryList.length; i++) {
         this.galleryListAll += this.galleryList[i]
       }
+    },
+    galleryListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
     },
     exhibitionList (val) {
       this.exhibitionListAll = 0
@@ -911,11 +930,19 @@ export default {
         this.exhibitionListAll += this.exhibitionList[i]
       }
     },
+    exhibitionListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
+    },
     visitorList (val) {
       this.visitorListAll = 0
       for (let i = 0; i < this.visitorList.length; i++) {
         this.visitorListAll += this.visitorList[i]
       }
+    },
+    visitorListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
     },
     shopList (val) {
       this.shopListAll = 0
@@ -923,17 +950,29 @@ export default {
         this.shopListAll += this.shopList[i]
       }
     },
+    shopListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
+    },
     cafeList (val) {
       this.cafeListAll = 0
       for (let i = 0; i < this.cafeList.length; i++) {
         this.cafeListAll += this.cafeList[i]
       }
     },
+    cafeListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
+    },
     medicalList (val) {
       this.medicalListAll = 0
       for (let i = 0; i < this.medicalList.length; i++) {
         this.medicalListAll += this.medicalList[i]
       }
+    },
+    medicalListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
     },
     toiletList (val) {
       this.toiletListAll = 0
@@ -942,17 +981,23 @@ export default {
       }
       this.toiletNum = ~~((this.toiletListAll - 14 * (2 + this.toiletList.length)) / 6)
       this.toiletNum = this.toiletNum > 0 ? this.toiletNum : 0
+    },
+    toiletListAll (val) {
+      this.allFacSum = this.activityListAll + this.galleryListAll + this.exhibitionListAll + this.visitorListAll + this.shopListAll + this.cafeListAll + this.medicalListAll + this.toiletListAll
+      this.lastSum = ~~(this.strollRestArea - this.allFacSum)
     }
   },
   mounted () {
     // let app = getApp()
     // this.sdata = wx.getStorageSync('area')
-    console.log(111, this.sdata.facility.recreationArch[2])
+    console.log(~~(this.sdata.rateNum[2] / 100 * this.sdata.landArea))
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
     this.toiletNumLine = this.sdata.landArea < 100000 ? ~~(this.peopleAbility * 0.02) : ~~(this.peopleAbility * 0.15)
     this.toiletAreaLine = this.toiletNumLine * 14
     this.index = new Array(20).fill(0)
+    this.strollRestArea = ~~(this.sdata.rateNum[2] / 100 * this.sdata.landArea)
+    this.lastSum = this.strollRestArea
   }
 }
 </script>
