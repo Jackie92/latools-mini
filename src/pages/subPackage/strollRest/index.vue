@@ -644,43 +644,43 @@ export default {
       typeIn: 0,
       topSwipers: [{
         id: 'huodong',
-        outterImage: '../../static/images/hdg.png',
-        outterImageCur: '../../static/images/hdg2.png'
+        outterImage: '../../../static/images/hdg.png',
+        outterImageCur: '../../../static/images/hdg2.png'
       },
       {
         id: 'zhanlan',
-        outterImage: '../../static/images/zlg.png',
-        outterImageCur: '../../static/images/zlg2.png'
+        outterImage: '../../../static/images/zlg.png',
+        outterImageCur: '../../../static/images/zlg2.png'
       },
       {
         id: 'tinglang',
-        outterImage: '../../static/images/tltx.png',
-        outterImageCur: '../../static/images/tltx2.png'
+        outterImage: '../../../static/images/tltx.png',
+        outterImageCur: '../../../static/images/tltx2.png'
       }],
       topSwipers2: [{
         id: 'cs',
-        outterImage: '../../static/images/cs.png',
-        outterImageCur: '../../static/images/cs2.png'
+        outterImage: '../../../static/images/cs.png',
+        outterImageCur: '../../../static/images/cs2.png'
       },
       {
         id: 'yk',
-        outterImage: '../../static/images/yk.png',
-        outterImageCur: '../../static/images/yk2.png'
+        outterImage: '../../../static/images/yk.png',
+        outterImageCur: '../../../static/images/yk2.png'
       },
       {
         id: 'xmb',
-        outterImage: '../../static/images/xmb.png',
-        outterImageCur: '../../static/images/xmb2.png'
+        outterImage: '../../../static/images/xmb.png',
+        outterImageCur: '../../../static/images/xmb2.png'
       },
       {
         id: 'cz',
-        outterImage: '../../static/images/cz.png',
-        outterImageCur: '../../static/images/cz2.png'
+        outterImage: '../../../static/images/cz.png',
+        outterImageCur: '../../../static/images/cz2.png'
       },
       {
         id: 'yl',
-        outterImage: '../../static/images/yl.png',
-        outterImageCur: '../../static/images/yl2.png'
+        outterImage: '../../../static/images/yl.png',
+        outterImageCur: '../../../static/images/yl2.png'
       }],
       // sdata: {},
       greenPer: 0,

@@ -3,10 +3,10 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">管理类建筑用地</div>
-      <div class="gl-head__number">{{sdata.rateNum[1]}}<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{(allManaSum * 100 / sdata.landArea )| numFilter}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{~~(sdata.rateNum[1] / 100 * sdata.landArea)}}㎡</p>
+          <p>{{allManaSum}}㎡</p>
         </div>
       </div>
     </div>
@@ -95,10 +95,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'anbao', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{securityList[i]}}㎡</div>
               </div>
@@ -153,10 +153,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'office', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{officeList[i]}}㎡</div>
               </div>
@@ -211,10 +211,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'radio', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{radioList[i]}}㎡</div>
               </div>
@@ -289,18 +289,18 @@ export default {
       typeIn: 0,
       topSwipers: [{
         id: 'anbao',
-        outterImage: '../../static/images/ab.png',
-        outterImageCur: '../../static/images/ab2.png'
+        outterImage: '../../../static/images/ab.png',
+        outterImageCur: '../../../static/images/ab2.png'
       },
       {
         id: 'guanli',
-        outterImage: '../../static/images/gl.png',
-        outterImageCur: '../../static/images/gl2.png'
+        outterImage: '../../../static/images/gl.png',
+        outterImageCur: '../../../static/images/gl2.png'
       },
       {
         id: 'guangbo',
-        outterImage: '../../static/images/gb.png',
-        outterImageCur: '../../static/images/gb2.png'
+        outterImage: '../../../static/images/gb.png',
+        outterImageCur: '../../../static/images/gb2.png'
       }],
       // sdata: {},
       greenPer: 0,
@@ -321,7 +321,10 @@ export default {
       current: 0,
       index1: 0,
       index2: 0,
-      index3: 0
+      index3: 0,
+      allManaSum: 0,
+      lastSum: 0,
+      manageArea: 0
     }
   },
   filters: {
@@ -378,14 +381,23 @@ export default {
       }
     },
     addList (type) {
+      console.log(this.allManaSum, this.manageArea)
+      if (this.allManaSum >= this.manageArea) {
+        wx.showToast({
+          title: '已达上限',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
       if (type === 'anbao') {
-        this.$set(this.securityList, this.securityList.length, 200)
+        this.$set(this.securityList, this.securityList.length, 0)
       }
       if (type === 'office') {
-        this.$set(this.officeList, this.officeList.length, 200)
+        this.$set(this.officeList, this.officeList.length, 0)
       }
       if (type === 'radio') {
-        this.$set(this.radioList, this.radioList.length, 200)
+        this.$set(this.radioList, this.radioList.length, 0)
       }
     },
     delList (type) {
@@ -407,23 +419,37 @@ export default {
         this.securityListAll += this.securityList[i]
       }
     },
+    securityListAll (val) {
+      this.allManaSum = this.securityListAll + this.officeListAll + this.radioListAll
+      this.lastSum = ~~(this.manageArea - this.allManaSum)
+    },
     officeList (val) {
       this.officeListAll = 0
       for (let i = 0; i < this.officeList.length; i++) {
         this.officeListAll += this.officeList[i]
       }
     },
+    officeListAll (val) {
+      this.allManaSum = this.securityListAll + this.officeListAll + this.radioListAll
+      this.lastSum = ~~(this.manageArea - this.allManaSum)
+    },
     radioList (val) {
       this.radioListAll = 0
       for (let i = 0; i < this.radioList.length; i++) {
         this.radioListAll += this.radioList[i]
       }
+    },
+    radioListAll (val) {
+      this.allManaSum = this.securityListAll + this.officeListAll + this.radioListAll
+      this.lastSum = ~~(this.manageArea - this.allManaSum)
     }
   },
   mounted () {
     console.log(this.sdata)
     this.greenPer = this.sdata.greenPer.bottom
     this.peopleAbility = this.sdata.landArea / this.greenPer
+    this.manageArea = ~~(this.sdata.rateNum[1] / 100 * this.sdata.landArea)
+    this.lastSum = this.manageArea
   }
 }
 </script>

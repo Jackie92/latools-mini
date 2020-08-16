@@ -3,10 +3,10 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">园路及铺装用地</div>
-      <div class="gl-head__number">{{sdata.rateNum[3]}}<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{(allgardenSum * 100 / sdata.landArea )| numFilter}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{~~(sdata.rateNum[3] / 100 * sdata.landArea)}}㎡</p>
+          <p>{{allgardenSum}}㎡</p>
         </div>
       </div>
     </div>
@@ -112,10 +112,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="150"
+                  value="0"
                   @change="onChangeList(i, 'tingche', $event)"
                   :min='0'
-                  :max='150'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{parkingList[i]}}㎡</div>
               </div>
@@ -187,10 +187,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="150"
+                  value="0"
                   @change="onChangeList(i, 'zixingche', $event)"
                   :min='0'
-                  :max='150'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{bikeList[i]}}㎡</div>
               </div>
@@ -245,10 +245,10 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="200"
+                  value="0"
                   @change="onChangeList(i, 'huodong', $event)"
                   :min='0'
-                  :max='200'
+                  :max='lastSum'
                 />
                 <div class="green-pro-left">{{activityList[i]}}㎡</div>
               </div>
@@ -262,18 +262,6 @@
 
       <!-- 园路start -->
       <div v-if="strollType === 'yuanlu'" class="swiper-per-body">
-        <!-- <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.landArea < 200000">
-            <div class="switch-item current">off</div>
-            <div class="switch-item">on</div>
-            <div class="switch-item">save</div>
-          </div>
-          <div class="three-switch" v-else>
-            <div class="switch-item" @click="index=0" :class="index==0 ? 'current':''">off</div>
-            <div class="switch-item" @click="index=1" :class="index==1 ? 'current':''">on</div>
-            <div class="switch-item" @click="index=2" :class="index==2 ? 'current':''">save</div>
-          </div>
-        </div> -->
         <div class="body-between">
           <div class="bet-item">
             <div class="bet-item-title">
@@ -334,7 +322,10 @@ function getOption (num) {
     index1: 0,
     index2: 0,
     index3: 0,
-    index4: 0
+    index4: 0,
+    allgardenSum: 0,
+    lastSum: 0,
+    gardenArea: 0
   }
 }
 export default {
@@ -358,23 +349,23 @@ export default {
       typeIn: 0,
       topSwipers: [{
         id: 'tingche',
-        outterImage: '../../static/images/tcc.png',
-        outterImageCur: '../../static/images/tcc2.png'
+        outterImage: '../../../static/images/tcc.png',
+        outterImageCur: '../../../static/images/tcc2.png'
       },
       {
         id: 'zixingche',
-        outterImage: '../../static/images/zxc.png',
-        outterImageCur: '../../static/images/zxc2.png'
+        outterImage: '../../../static/images/zxc.png',
+        outterImageCur: '../../../static/images/zxc2.png'
       },
       {
         id: 'huodong',
-        outterImage: '../../static/images/hdcd.png',
-        outterImageCur: '../../static/images/hdcd2.png'
+        outterImage: '../../../static/images/hdcd.png',
+        outterImageCur: '../../../static/images/hdcd2.png'
       },
       {
         id: 'yuanlu',
-        outterImage: '../../static/images/yuanlu.png',
-        outterImageCur: '../../static/images/yuanlu2.png'
+        outterImage: '../../../static/images/yuanlu.png',
+        outterImageCur: '../../../static/images/yuanlu2.png'
       }],
       // sdata: {},
       greenPer: 0,
@@ -394,7 +385,10 @@ export default {
       activityListAll: 0,
       current: 0,
       pavement: 0,
-      pavementPercent: 0
+      pavementPercent: 0,
+      allgardenSum: 0,
+      lastSum: 0,
+      gardenArea: 0
     }
   },
   filters: {
@@ -451,14 +445,22 @@ export default {
       }
     },
     addList (type) {
+      if (this.allgardenSum >= this.gardenArea) {
+        wx.showToast({
+          title: '已达上限',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
       if (type === 'tingche') {
-        this.$set(this.parkingList, this.parkingList.length, 150)
+        this.$set(this.parkingList, this.parkingList.length, 0)
       }
       if (type === 'zixingche') {
-        this.$set(this.bikeList, this.bikeList.length, 150)
+        this.$set(this.bikeList, this.bikeList.length, 0)
       }
       if (type === 'huodong') {
-        this.$set(this.activityList, this.activityList.length, 200)
+        this.$set(this.activityList, this.activityList.length, 0)
       }
     },
     delList (type) {
@@ -480,23 +482,29 @@ export default {
         this.parkingListAll += this.parkingList[i]
       }
     },
+    parkingListAll (val) {
+      this.allgardenSum = this.parkingListAll + this.bikeListAll + this.activityListAll
+      this.lastSum = ~~(this.gardenArea - this.allgardenSum)
+    },
     bikeList (val) {
       this.bikeListAll = 0
       for (let i = 0; i < this.bikeList.length; i++) {
         this.bikeListAll += this.bikeList[i]
       }
     },
-    radioList (val) {
-      this.radioListAll = 0
-      for (let i = 0; i < this.radioList.length; i++) {
-        this.radioListAll += this.radioList[i]
-      }
+    bikeListAll (val) {
+      this.allgardenSum = this.parkingListAll + this.bikeListAll + this.activityListAll
+      this.lastSum = ~~(this.gardenArea - this.allgardenSum)
     },
     activityList (val) {
       this.activityListAll = 0
       for (let i = 0; i < this.activityList.length; i++) {
         this.activityListAll += this.activityList[i]
       }
+    },
+    activityListAll (val) {
+      this.allgardenSum = this.parkingListAll + this.bikeListAll + this.activityListAll
+      this.lastSum = ~~(this.gardenArea - this.allgardenSum)
     }
   },
   mounted () {
@@ -507,6 +515,8 @@ export default {
     this.peopleAbility = this.sdata.landArea / this.greenPer
     this.pavement = this.sdata.pavement
     this.pavementPercent = this.sdata.pavementPercent
+    this.gardenArea = ~~(this.sdata.rateNum[3] / 100 * this.sdata.landArea)
+    this.lastSum = this.gardenArea
   }
 }
 </script>

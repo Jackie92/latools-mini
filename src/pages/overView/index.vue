@@ -637,7 +637,7 @@ export default {
   computed: mapState(['sdata']),
   methods: {
     goPage (pageName) {
-      const url = `../${pageName}/main`
+      const url = `../subPackage/${pageName}/main`
       console.log(url)
       mpvue.navigateTo({ url })
     },

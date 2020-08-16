@@ -1,16 +1,20 @@
 {
   "pages": [
-    "pages/overView/main",
-    "pages/parkType/main",
     "pages/entry/main",
-    "pages/greenLand/main",
-    "pages/garden/main",
-    "pages/strollRest/main",
-    "pages/manage/main"
+    "pages/parkType/main",
+    "pages/overView/main"
   ],
-  "subPackages": {
-
-  },
+  "subPackages": [
+    {
+      "root": "pages/subPackage/",
+      "pages": [
+        "greenLand/main",
+        "garden/main",
+        "strollRest/main",
+        "manage/main"
+      ]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationStyle": "custom",
