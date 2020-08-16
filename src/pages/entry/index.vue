@@ -19,6 +19,8 @@ export default {
 
   created () {
     // let app = getApp()
+    wx.clearStorageSync()
+    wx.clearStorage()
   }
 }
 </script>
