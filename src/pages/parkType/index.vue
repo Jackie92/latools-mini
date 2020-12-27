@@ -318,7 +318,7 @@ export default {
   margin-top: 30px;
 }
 .area-swiper {
-  margin-top: 200px;
+  margin-top: 240px;
   height: 200px;
 }
 .swiper-inner {

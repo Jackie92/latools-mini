@@ -1,7 +1,7 @@
 <template>
 <div class="overview">
   <div class="overview-head">
-    <div class="overview-head__title">场地总面积</div>
+    <div class="overview-head__title">{{area.parkType}}</div>
     <div class="overview-head__number">{{~~area.landArea + ~~area.waterArea}} <span class="m2">㎡</span> </div>
     <div class="overview-head__area-line">
       <div class="area-line__land-area">
@@ -255,8 +255,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{csArea === 0 ? '--' : csArea}}㎡</span>
-              <span class="fr">{{csNum === 0 ? '--' : csNum}}个</span>
+              <span>面积 {{csArea === 0 ? '-/-' : csArea}}㎡</span>
+              <span class="fr">{{csNum === 0 ? '-/-' : csNum}}座</span>
             </div>
           </div>
         </div>
@@ -269,8 +269,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{ylArea === 0 ? '--' : ylArea}}㎡</span>
-              <span class="fr">{{ylNum === 0 ? '--' : ylNum}}个</span>
+              <span>面积 {{ylArea === 0 ? '-/-' : ylArea}}㎡</span>
+              <span class="fr">{{ylNum === 0 ? '-/-' : ylNum}}座</span>
             </div>
           </div>
         </div>
@@ -283,8 +283,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{xmbArea === 0 ? '--' : xmbArea}}㎡</span>
-              <span class="fr">{{xmbNum === 0 ? '--' : xmbNum}}个</span>
+              <span>面积 {{xmbArea === 0 ? '-/-' : xmbArea}}㎡</span>
+              <span class="fr">{{xmbNum === 0 ? '-/-' : xmbNum}}座</span>
             </div>
           </div>
         </div>
@@ -297,8 +297,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{cafeArea === 0 ? '--' : cafeArea}}㎡</span>
-              <span class="fr">{{cafeNum === 0 ? '--' : cafeNum}}个</span>
+              <span>面积 {{cafeArea === 0 ? '-/-' : cafeArea}}㎡</span>
+              <span class="fr">{{cafeNum === 0 ? '-/-' : cafeNum}}座</span>
             </div>
           </div>
         </div>
@@ -311,8 +311,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{ykArea === 0 ? '--' : ykArea}}㎡</span>
-              <span class="fr">{{ykNum === 0 ? '--' : ykNum}}个</span>
+              <span>面积 {{ykArea === 0 ? '-/-' : ykArea}}㎡</span>
+              <span class="fr">{{ykNum === 0 ? '-/-' : ykNum}}座</span>
             </div>
           </div>
         </div>
@@ -333,8 +333,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{tltxArea === 0 ? '--' : tltxArea}}㎡</span>
-              <span class="fr">{{tltxNum === 0 ? '--' : tltxNum}}个</span>
+              <span>面积 {{tltxArea === 0 ? '-/-' : tltxArea}}㎡</span>
+              <span class="fr">{{tltxNum === 0 ? '-/-' : tltxNum}}座</span>
             </div>
           </div>
         </div>
@@ -347,8 +347,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{hdgArea === 0 ? '--' : hdgArea}}㎡</span>
-              <span class="fr">{{hdgNum === 0 ? '--' : hdgNum}}个</span>
+              <span>面积 {{hdgArea === 0 ? '-/-' : hdgArea}}㎡</span>
+              <span class="fr">{{hdgNum === 0 ? '-/-' : hdgNum}}座</span>
             </div>
           </div>
         </div>
@@ -361,8 +361,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>面积{{zlgArea === 0 ? '--' : zlgArea}}㎡</span>
-              <span class="fr">{{zlgNum === 0 ? '--' : zlgNum}}个</span>
+              <span>面积 {{zlgArea === 0 ? '-/-' : zlgArea}}㎡</span>
+              <span class="fr">{{zlgNum === 0 ? '-/-' : zlgNum}}座</span>
             </div>
           </div>
         </div>
@@ -384,8 +384,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>{{abjkArea === 0 ? '--' : abjkArea}}㎡</span>
-              <span class="fr">{{abjkNum === 0 ? '--' : abjkNum}}个</span>
+              <span>面积 {{abjkArea === 0 ? '-/-' : abjkArea}}㎡</span>
+              <span class="fr">{{abjkNum === 0 ? '-/-' : abjkNum}}座</span>
             </div>
           </div>
         </div>
@@ -398,8 +398,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>{{manageArea === 0 ? '--' : manageArea}}㎡</span>
-              <span class="fr">{{manageNum === 0 ? '--' : manageNum}}个</span>
+              <span>面积 {{manageArea === 0 ? '-/-' : manageArea}}㎡</span>
+              <span class="fr">{{manageNum === 0 ? '-/-' : manageNum}}座</span>
             </div>
           </div>
         </div>
@@ -413,8 +413,8 @@
           </div>
           <div class="icon-line--body">
             <div class="icon-line--body--line">
-              <span>{{gbsArea === 0 ? '--' : gbsArea}}㎡</span>
-              <span class="fr">{{gbsNum === 0 ? '--' : gbsNum}}个</span>
+              <span>面积 {{gbsArea === 0 ? '-/-' : gbsArea}}㎡</span>
+              <span class="fr">{{gbsNum === 0 ? '-/-' : gbsNum}}座</span>
             </div>
           </div>
         </div>
@@ -652,7 +652,7 @@ export default {
           realVal = realVal.toString() + '.0'
         }
       } else {
-        realVal = '--'
+        realVal = '-/-'
       }
       return realVal
     }
@@ -862,6 +862,26 @@ export default {
     this.$store.commit('_setData', this.area)
     wx.setStorageSync('area', this.area)
     console.log('$store2', this.$store.state.sdata)
+    switch (this.area.parkType) {
+      case 'combine':
+        this.area.parkType = '综合公园'
+        break
+      case 'community':
+        this.area.parkType = '社区公园'
+        break
+      case 'other':
+        this.area.parkType = '其他专类园'
+        break
+      case 'park':
+        this.area.parkType = '游园'
+        break
+      case 'plant':
+        this.area.parkType = '植物园'
+        break
+      case 'zoo':
+        this.area.parkType = '动物园'
+        break
+    }
   },
   onShow () {
     console.log('$storeOnShow', this.$store.state.sdata)
@@ -966,7 +986,7 @@ export default {
   margin-top: -10px;
 }
 .chart-line__icon {
-  font-size: 38px;
+  font-size: 30px;
   color: #5480ff;
   float: left;
   padding-top: 10px;
