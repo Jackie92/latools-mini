@@ -7,6 +7,7 @@
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
           <p>{{allManaSum}}㎡</p>
+          <p>{{manageArea}}㎡</p>
         </div>
       </div>
     </div>
@@ -72,7 +73,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">安保监控室用地
+                <img class="greenarea" src="/static/icon/abjk.png" alt="">安保监控室用地
               </div>
               <div class="bet-item-right">{{securityList.length}}个</div>
             </div>
@@ -95,16 +96,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='securityList[i]'
                   @change="onChangeList(i, 'anbao', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='manageArea'
                 />
                 <div class="green-pro-left">{{securityList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.manageArch[2] !== 0"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
+          <div class="add"  v-if="sdata.facility.manageArch[2] !== 0 && index1 !== 0"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
           </div>
       </div>
@@ -130,7 +131,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">管理办公室用地
+                <img class="greenarea" src="/static/icon/gl.png" alt="">管理办公室用地
               </div>
               <div class="bet-item-right">{{officeList.length}}个</div>
             </div>
@@ -153,16 +154,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='officeList[i]'
                   @change="onChangeList(i, 'office', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='manageArea'
                 />
                 <div class="green-pro-left">{{officeList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.manageArch[0] !== 0"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
+          <div class="add"  v-if="sdata.facility.manageArch[0] !== 0 && index2 !== 0"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -188,7 +189,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">广播室用地
+                <img class="greenarea" src="/static/icon/gb.png" alt="">广播室用地
               </div>
               <div class="bet-item-right">{{radioList.length}}个</div>
             </div>
@@ -211,16 +212,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='radioList[i]'
                   @change="onChangeList(i, 'radio', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='manageArea'
                 />
                 <div class="green-pro-left">{{radioList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.manageArch[1] !== 0"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
+          <div class="add"  v-if="sdata.facility.manageArch[1] !== 0 && index3 !== 0"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -347,6 +348,8 @@ export default {
       this.sdata.manageArea = this.officeListAll
       this.sdata.gbsNum = this.radioList.length
       this.sdata.gbsArea = this.radioListAll
+      this.sdata.allManaSum = this.allManaSum
+      this.sdata.allManaSumRate = (this.allManaSum * 100 / this.sdata.landArea) | this.numFilter
       wx.setStorageSync('area', this.sdata)
       wx.navigateBack()
     },
@@ -384,7 +387,7 @@ export default {
       console.log(this.allManaSum, this.manageArea)
       if (this.allManaSum >= this.manageArea) {
         wx.showToast({
-          title: '已达上限',
+          title: '剩余用地已经用完，请酌情减少其他类用地用量',
           icon: 'none',
           duration: 2000
         })

@@ -201,17 +201,16 @@ export default {
       this.sdata.manToiletChose = ~~(this.sdata.toiletChose * 0.4)
       this.sdata.womanToiletChose = ~~(this.sdata.toiletChose * 0.6)
       wx.setStorageSync('area', this.sdata)
-      // const url = '../greenLand/main'
-      // mpvue.navigateBack({ url })
       wx.navigateBack()
     }
   },
-
+  created () {
+    this.peopleAbility = this.sdata.landArea / this.greenPer
+  },
   mounted () {
     // let app = getApp()
     // this.sdata = wx.getStorageSync('area')
     this.greenPer = this.sdata.greenPer.bottom
-    this.peopleAbility = this.sdata.landArea / this.greenPer
   }
 }
 </script>

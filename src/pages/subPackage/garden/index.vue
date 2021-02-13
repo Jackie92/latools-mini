@@ -7,6 +7,7 @@
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
           <p>{{allgardenSum}}㎡</p>
+          <p>{{gardenArea}}㎡</p>
         </div>
       </div>
     </div>
@@ -72,7 +73,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">停车场用地
+                <img class="greenarea" src="/static/icon/car.png" alt="">停车场用地
               </div>
               <div class="bet-item-right">{{parkingList.length}}个</div>
             </div>
@@ -85,7 +86,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">停车位数量
+                <img class="greenarea" src="/static/icon/car.png" alt="">停车位数量
               </div>
             </div>
             <div class="green-pro-one">
@@ -112,16 +113,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='parkingList[i]'
                   @change="onChangeList(i, 'tingche', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='gardenArea'
                 />
                 <div class="green-pro-left">{{parkingList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.serve[0] !== 0"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
+          <div class="add"  v-if="sdata.facility.serve[0] !== 0 && index1 !== 0"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -147,7 +148,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">自行车存放处
+                <img class="greenarea" src="/static/icon/bike.png" alt="">自行车存放处
               </div>
               <div class="bet-item-right">{{bikeList.length}}个</div>
             </div>
@@ -160,7 +161,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">停车位数量
+                <img class="greenarea" src="/static/icon/bike.png" alt="">停车位数量
               </div>
             </div>
             <div class="green-pro-one">
@@ -187,16 +188,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='bikeList[i]'
                   @change="onChangeList(i, 'zixingche', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='gardenArea'
                 />
                 <div class="green-pro-left">{{bikeList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.serve[1] !== 0"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
+          <div class="add"  v-if="sdata.facility.serve[1] !== 0 && index2 !== 0"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -222,7 +223,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">活动场地
+                <img class="greenarea" src="/static/icon/hdcd.png" alt="">活动场地
               </div>
               <div class="bet-item-right">{{activityList.length}}个</div>
             </div>
@@ -245,16 +246,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='activityList[i]'
                   @change="onChangeList(i, 'huodong', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='gardenArea'
                 />
                 <div class="green-pro-left">{{activityList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.recreation[3] !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-if="sdata.facility.recreation[3] !== 0 && index3 !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -266,7 +267,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">园路用地面积
+                <img class="greenarea" src="/static/icon/yl.png" alt="">园路用地面积
               </div>
             </div>
             <div class="bet-item-be">{{pavement}}㎡</div>
@@ -411,6 +412,8 @@ export default {
       this.sdata.bikeArea = this.bikeListAll
       this.sdata.hdcdNum = this.activityList.length
       this.sdata.hdcdArea = this.activityListAll
+      this.sdata.allgardenSum = this.allgardenSum
+      this.sdata.allgardenSumRate = (this.allgardenSum * 100 / this.sdata.landArea) | this.numFilter
       wx.setStorageSync('area', this.sdata)
       wx.navigateBack()
     },
@@ -447,7 +450,7 @@ export default {
     addList (type) {
       if (this.allgardenSum >= this.gardenArea) {
         wx.showToast({
-          title: '已达上限',
+          title: '剩余用地已经用完，请酌情减少其他类用地用量',
           icon: 'none',
           duration: 2000
         })

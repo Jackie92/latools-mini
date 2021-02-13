@@ -7,6 +7,7 @@
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
           <p>{{allFacSum}}㎡</p>
+          <p>{{sdata.limitrecreation}}㎡</p>
         </div>
       </div>
     </div>
@@ -99,16 +100,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='activityList[i]'
                   @change="onChangeList(i, 'huodong', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea > 2000 ? 2000 : strollRestArea'
                 />
                 <div class="green-pro-left">{{activityList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.recreationArch[1] !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-if="sdata.facility.recreationArch[1] !== 0 && index1 !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -134,7 +135,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">亭廊厅榭用地
+                <img class="greenarea" src="/static/icon/tltx.png" alt="">亭廊厅榭用地
               </div>
               <div class="bet-item-right">{{galleryList.length}}个</div>
             </div>
@@ -157,16 +158,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='galleryList[i]'
                   @change="onChangeList(i, 'tinglang', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea > 500 ? 500 : strollRestArea'
                 />
                 <div class="green-pro-left">{{galleryList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.recreationArch[0] !== 0"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
+          <div class="add" v-if="sdata.facility.recreationArch[0] !== 0 && index2 !== 0"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -192,7 +193,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">展览馆用地
+                <img class="greenarea" src="/static/icon/zl.png" alt="">展览馆用地
               </div>
               <div class="bet-item-right">{{exhibitionList.length}}个</div>
             </div>
@@ -215,16 +216,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='exhibitionList[i]'
                   @change="onChangeList(i, 'zhanlan', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea'
                 />
                 <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.recreationArch[2] !== 0"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
+          <div class="add" v-if="sdata.facility.recreationArch[2] !== 0 && index3 !== 0"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -288,7 +289,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">厕所用地
+                <img class="greenarea" src="/static/icon/cs.png" alt="">厕所用地
               </div>
               <div class="bet-item-right">{{toiletList.length}}个</div>
             </div>
@@ -307,7 +308,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">蹲位数量
+                <img class="greenarea" src="/static/icon/dw.png" alt="">蹲位数量
               </div>
             </div>
             <div class="green-pro-one">
@@ -335,16 +336,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='toiletList[i]'
                   @change="onChangeList(i, 'cs', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea > 2000 ? 2000 : strollRestArea'
                 />
                 <div class="green-pro-left">{{toiletList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[1] !== 0"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
+          <div class="add" v-if="sdata.facility.serveArch[1] !== 0 && index4 !== 0"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
          </div>
       </div>
@@ -370,7 +371,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">游客服务中心用地
+                <img class="greenarea" src="/static/icon/yk.png" alt="">游客服务中心用地
               </div>
               <div class="bet-item-right">{{visitorList.length}}个</div>
             </div>
@@ -393,16 +394,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='visitorList[i]'
                   @change="onChangeList(i, 'yk', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea'
                 />
                 <div class="green-pro-left">{{visitorList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[0] !== 0"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
+          <div class="add" v-if="sdata.facility.serveArch[0] !== 0 && index5 !== 0"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
          </div>
       </div>
@@ -428,7 +429,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">茶座/咖啡厅用地
+                <img class="greenarea" src="/static/icon/cafe.png" alt="">茶座/咖啡厅用地
               </div>
               <div class="bet-item-right">{{cafeList.length}}个</div>
             </div>
@@ -451,16 +452,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='cafeList[i]'
                   @change="onChangeList(i, 'cafe', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea'
                 />
                 <div class="green-pro-left">{{cafeList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[4] !== 0"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
+          <div class="add" v-if="sdata.facility.serveArch[4] !== 0 && index6 !== 0"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
           </div>
       </div>
@@ -486,7 +487,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">医疗救助站用地
+                <img class="greenarea" src="/static/icon/medical.png" alt="">医疗救助站用地
               </div>
               <div class="bet-item-right">{{medicalList.length}}个</div>
             </div>
@@ -509,16 +510,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='medicalList[i]'
                   @change="onChangeList(i, 'yl', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea'
                 />
                 <div class="green-pro-left">{{medicalList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[6] !== 0"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
+          <div class="add" v-if="sdata.facility.serveArch[6] !== 0 && index7 !== 0"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
           </div>
       </div>
@@ -545,7 +546,7 @@
           <div class="bet-item">
             <div class="bet-item-title">
               <div class="bet-item-left">
-                <img class="greenarea" src="/static/icon/hd.png" alt="">小卖部用地
+                <img class="greenarea" src="/static/icon/xmb.png" alt="">小卖部用地
               </div>
               <div class="bet-item-right">{{shopList.length}}个</div>
             </div>
@@ -568,16 +569,16 @@
                   bar-height="3.1px"
                   active-color="#5380FF"
                   inactive-color="#EBEBEB"
-                  value="0"
+                  :value='shopList[i]'
                   @change="onChangeList(i, 'xmb', $event)"
                   :min='0'
-                  :max='lastSum'
+                  :max='strollRestArea'
                 />
                 <div class="green-pro-left">{{shopList[i]}}㎡</div>
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[5] !== 0"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
+          <div class="add" v-if="sdata.facility.serveArch[5] !== 0 && index8 !== 0"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
          </div>
       </div>
@@ -632,6 +633,7 @@ export default {
   data () {
     return {
       echarts,
+      chart,
       onInit: function (canvas, width, height) {
         chart = echarts.init(canvas, null, {
           width: width,
@@ -769,6 +771,8 @@ export default {
       this.sdata.cafeNum = this.cafeList.length
       this.sdata.ylArea = this.medicalListAll
       this.sdata.ylNum = this.medicalList.length
+      this.sdata.allFacSum = this.allFacSum
+      this.sdata.allFacSumRate = (this.allFacSum * 100 / this.sdata.landArea) | this.numFilter
       wx.setStorageSync('area', this.sdata)
       wx.navigateBack()
     },
@@ -843,9 +847,9 @@ export default {
       }
     },
     addList (type) {
-      if (this.allFacSum > this.strollRestArea) {
+      if (this.allFacSum >= this.sdata.limitrecreation) {
         wx.showToast({
-          title: '已达上限',
+          title: '剩余用地已经用完，请酌情减少其他类用地用量',
           icon: 'none',
           duration: 2000
         })
@@ -998,6 +1002,7 @@ export default {
     this.index = new Array(20).fill(0)
     this.strollRestArea = ~~(this.sdata.rateNum[2] / 100 * this.sdata.landArea)
     this.lastSum = this.strollRestArea
+    console.log(this.chart, 111)
   }
 }
 </script>

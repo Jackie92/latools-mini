@@ -25,17 +25,20 @@
             <mpvue-echarts  v-if="JSON.stringify(rateNum)!=='{}'" :echarts="echarts" :onInit="onInit1" canvasId="chart1" />
           </div>
         </div>
-        <div><span>{{greenLand}}</span>㎡</div>
+        <div v-if="isChosePeople"><span>{{greenLand}}</span>㎡</div>
+        <div v-else><span>{{0}}</span>㎡</div>
       </div>
       <div class="chart-line__block" @click="goPage('strollRest')">
         <div class="chart-line__block__title"><span>游憩及服务(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[2]}}</span><span class="small-percent">%</span></div>
+          <div class="chart-line__icon" v-if="allFacSumRate === 0 || allFacSumRate == null"><img src="/static/images/small.png" alt=""><span>{{rateNum[2]}}</span><span class="small-percent">%</span></div>
+          <div class="chart-line__icon" v-else><span>{{allFacSumRate}}</span><span class="small-percent">%</span></div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit2" canvasId="chart2" />
           </div>
         </div>
-        <div><span>{{recreation}}</span>㎡</div>
+        <!-- <div v-if="allFacSum !== 0"><span>{{recreation}}</span>㎡</div> -->
+        <div><span>{{allFacSum}}</span>㎡</div>
       </div>
       
     </div>
@@ -44,22 +47,26 @@
       <div class="chart-line__block" @click="goPage('manage')">
         <div class="chart-line__block__title"><span>管理建筑类(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon"><img src="/static/images/small.png" alt=""><span>{{rateNum[1]}}</span><span class="small-percent">%</span></div>
+          <div class="chart-line__icon" v-if="allManaSumRate === 0 || allManaSumRate == null"><img src="/static/images/small.png" alt=""><span>{{rateNum[1]}}</span><span class="small-percent">%</span></div>
+          <div class="chart-line__icon" v-else><span>{{allManaSumRate}}</span><span class="small-percent">%</span></div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit3" canvasId="chart3" />
           </div>
         </div>
-        <div><span>{{manager}}</span>㎡</div>
+        <!-- <div><span>{{manager}}</span>㎡</div> -->
+        <div><span>{{allManaSum}}</span>㎡</div>
       </div>
       <div class="chart-line__block" @click="goPage('garden')">
         <div class="chart-line__block__title"><span>园路及铺装(%)</span><img class="chart-edit" src="/static/images/edit.png" alt=""></div>
         <div class="chart-line">
-          <div class="chart-line__icon chart-line__icon--special">{{rateNum[3]}}-{{rateNum[4]}}<span class="small-percent">%</span></div>
+          <div class="chart-line__icon chart-line__icon--special" v-if="allgardenSum === 0 || allgardenSum == null">{{rateNum[3]}}-{{rateNum[4]}}<span class="small-percent">%</span></div>
+          <div class="chart-line__icon chart-line__icon--special" v-else>{{allgardenSumRate}}<span class="small-percent">%</span></div>
           <div class="echarts-wrap">
             <mpvue-echarts :echarts="echarts" :onInit="onInit4" canvasId="chart4" />
           </div>
         </div>
-        <div><span>{{pavementBtm}}-{{pavementTop}}</span>㎡</div>
+        <!-- <div><span>{{pavementBtm}}-{{pavementTop}}</span>㎡</div> -->
+        <div><span>{{allgardenSum}}</span>㎡</div>
       </div>
       
     </div>
@@ -78,12 +85,13 @@
         </div>
         <div class="fr">
           <div class="ov-body-line__spread fl"></div>
-          <span v-if="isChosePeople">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewPeople}}人</span>
-          <div v-else class="ov-body-line__area fr">
+          <span class="fr">&nbsp;&nbsp;&nbsp;&nbsp;{{isChosePeople ? isNewPeople : '-/-'}}人</span>
+          <div class="ov-body-line__area fr">
             <p>{{peopleAbilityBottom}}人</p>
             <p>-</p>
             <p>{{peopleAbilityTop}}人</p>
           </div>
+          <!-- <span v-if="isChosePeople">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewPeople}}人</span> -->
         </div>
       </div>
 
@@ -639,7 +647,13 @@ export default {
       manageArea: 0,
       gbsNum: 0,
       gbsArea: 0,
-      facility: null
+      facility: null,
+      allFacSum: 0,
+      allFacSumRate: 0,
+      allManaSum: 0,
+      allManaSumRate: 0,
+      allgardenSum: 0,
+      allgardenSumRate: 0
     }
   },
   computed: mapState(['sdata']),
@@ -866,6 +880,13 @@ export default {
     this.area.womanToiletTop = this.womanToiletTop
     this.area.pavement = this.pavementBtm
     this.area.pavementPercent = this.rateNum[3]
+    // 四大用地存储
+    // 四大用地
+    this.area.limitgreenLand = ~~(~~this.rateNum[0] / 100 * la)
+    this.area.limitrecreation = ~~(~~this.rateNum[2] / 100 * la)
+    this.area.limitmanager = ~~(~~this.rateNum[1] / 100 * la)
+    this.area.limitpavementBtm = ~~(~~this.rateNum[3] / 100 * la)
+    this.area.limitpavementTop = ~~(~~this.rateNum[4] / 100 * la)
     // wx.setStorageSync('area', this.area)
     this.$store.commit('_setData', this.area)
     wx.setStorageSync('area', this.area)
@@ -926,6 +947,12 @@ export default {
       this.manageArea = _data.manageArea
       this.gbsNum = _data.gbsNum
       this.gbsArea = _data.gbsArea
+      this.allFacSum = _data.allFacSum == null ? 0 : _data.allFacSum
+      this.allFacSumRate = _data.allFacSumRate == null ? 0 : _data.allFacSumRate
+      this.allManaSum = _data.allManaSum == null ? 0 : _data.allManaSum
+      this.allManaSumRate = _data.allManaSumRate == null ? 0 : _data.allManaSumRate
+      this.allgardenSum = _data.allgardenSum == null ? 0 : _data.allgardenSum
+      this.allgardenSumRate = _data.allgardenSumRate == null ? 0 : _data.allgardenSumRate
     }
   }
 }
