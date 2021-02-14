@@ -234,7 +234,7 @@ export default {
   font-size: 22px;
 }
 .gl-head__number {
-  font-size: 60px;
+  font-size: 50px;
 }
 .gl-head__number .m2 {
   font-size: 22px;

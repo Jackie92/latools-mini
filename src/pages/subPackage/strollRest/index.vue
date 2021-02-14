@@ -3,7 +3,7 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">游憩服务用地</div>
-      <div class="gl-head__number">{{(allFacSum * 100 / sdata.landArea )| numFilter}}<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{rateNumNew}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
           <p>{{allFacSum}}㎡</p>
@@ -598,10 +598,10 @@ import mpvueEcharts from 'mpvue-echarts'
 import { mapState } from 'vuex'
 
 let chart = null
-
+// const rate = wx.getStorageSync('area').rateNum
+// let rateNum = rate[2]
+let rateNum = 0
 function getOption (num) {
-  const rate = wx.getStorageSync('area').rateNum
-  const rateNum = rate[num]
   return {
     color: ['#187161', '#BBFFD0'],
     series: [
@@ -736,22 +736,23 @@ export default {
       index8: 0,
       allFacSum: 0,
       lastSum: 0,
-      strollRestArea: 0
-    }
-  },
-  filters: {
-    numFilter (value) {
-      let realVal = ''
-      if (!isNaN(value) && value !== '') {
-        // 截取当前数据到小数点后两位
-        realVal = parseFloat(value).toFixed(2)
-      } else {
-        realVal = '--'
-      }
-      return realVal
+      strollRestArea: 0,
+      rateNumNew: 0
     }
   },
   methods: {
+    numFilter (value) {
+      let realVal = ''
+      if (!isNaN(value) && value !== '') {
+        // 截取当前数据到小数点后三位
+        let transformVal = Number(value).toFixed(2)
+        realVal = transformVal.substring(0, transformVal.length - 1)
+      } else {
+        realVal = '--'
+      }
+      console.log('numFilter', Number(realVal))
+      return realVal
+    },
     submit () {
       this.sdata.hdgNum = this.activityList.length
       this.sdata.hdgArea = this.activityListAll
@@ -908,6 +909,12 @@ export default {
     }
   },
   watch: {
+    allFacSum (val) {
+      rateNum = this.numFilter(val * 100 / this.sdata.landArea)
+      chart.setOption(getOption())
+      this.rateNumNew = rateNum
+      this.allFacSum = this.numFilter(val)
+    },
     activityList (val) {
       this.activityListAll = 0
       for (let i = 0; i < this.activityList.length; i++) {
@@ -1026,7 +1033,7 @@ export default {
   font-size: 22px;
 }
 .gl-head__number {
-  font-size: 60px;
+  font-size: 50px;
 }
 .gl-head__number .m2 {
   font-size: 22px;

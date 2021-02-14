@@ -3,7 +3,7 @@
   <div class="gl-head">
     <div class="fl">
       <div class="gl-head__title">园路及铺装用地</div>
-      <div class="gl-head__number">{{(allgardenSum * 100 / sdata.landArea )| numFilter}}<span class="m2">%</span> </div>
+      <div class="gl-head__number">{{rateNumNew}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
           <p>{{allgardenSum}}㎡</p>
@@ -295,10 +295,10 @@ import mpvueEcharts from 'mpvue-echarts'
 import { mapState } from 'vuex'
 
 let chart = null
-
+let rateNum = 0
 function getOption (num) {
-  const rate = wx.getStorageSync('area').rateNum
-  const rateNum = rate[num]
+  // const rate = wx.getStorageSync('area').rateNum
+  // const rateNum = rate[num]
   return {
     color: ['#187161', '#BBFFD0'],
     series: [
@@ -389,10 +389,11 @@ export default {
       pavementPercent: 0,
       allgardenSum: 0,
       lastSum: 0,
-      gardenArea: 0
+      gardenArea: 0,
+      rateNumNew: 0
     }
   },
-  filters: {
+  methods: {
     numFilter (value) {
       let realVal = ''
       if (!isNaN(value) && value !== '') {
@@ -402,9 +403,7 @@ export default {
         realVal = '--'
       }
       return realVal
-    }
-  },
-  methods: {
+    },
     submit () {
       this.sdata.parkNum = this.parkingList.length
       this.sdata.parkArea = this.parkingListAll
@@ -479,6 +478,12 @@ export default {
     }
   },
   watch: {
+    allgardenSum (val) {
+      rateNum = this.numFilter(val * 100 / this.sdata.landArea)
+      chart.setOption(getOption())
+      this.rateNumNew = rateNum
+      this.allgardenSum = this.numFilter(val)
+    },
     parkingList (val) {
       this.parkingListAll = 0
       for (let i = 0; i < this.parkingList.length; i++) {
@@ -543,7 +548,7 @@ export default {
   font-size: 22px;
 }
 .gl-head__number {
-  font-size: 60px;
+  font-size: 50px;
 }
 .gl-head__number .m2 {
   font-size: 22px;
