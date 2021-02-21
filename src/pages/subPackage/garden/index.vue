@@ -7,7 +7,7 @@
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
           <p>{{allgardenSum}}㎡</p>
-          <p>{{gardenArea}}㎡</p>
+          <p>{{pavementBtm}}-{{pavementTop}}㎡</p>
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.serve[0] !== 0 && index1 !== 0"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.serve[0] !== 0 && index1 !== 0) || sdata.facility.serve[0] === 2"><div class="number"  @click="addList('tingche')">+</div><div class="delete" @click="delList('tingche')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -197,7 +197,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.serve[1] !== 0 && index2 !== 0"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.serve[1] !== 0 && index2 !== 0) || sdata.facility.serve[1] === 2"><div class="number"  @click="addList('zixingche')">+</div><div class="delete" @click="delList('zixingche')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -255,7 +255,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.recreation[3] !== 0 && index3 !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.recreation[3] !== 0 && index3 !== 0) || sdata.facility.serve[3] === 2"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -271,10 +271,23 @@
               </div>
             </div>
             <div class="bet-item-be">{{pavement}}㎡</div>
-            <div class="green-pro-one">
+            <div class="green-pro">
+              <van-slider
+                class="greenslider"
+                bar-height="3.1px"
+                active-color="#5380FF"
+                inactive-color="#EBEBEB"
+                :value='pavementChose'
+                @change="onChangeList(i, 'yuanlu', $event)"
+                :min='canPaveMin'
+                :max='canPaveMax'
+              />
+              <div class="green-pro-left">{{pavementChose}}㎡</div>
+            </div>
+            <!-- <div class="green-pro-one">
               <progress class="greenpro" :percent="pavementPercent" color="#5380FF" border-radius="5" stroke-width="4"></progress>
               <div class="green-pro-left">{{pavementPercent}}%</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -319,14 +332,7 @@ function getOption (num) {
           {value: ~~rateNum}
         ]
       }
-    ],
-    index1: 0,
-    index2: 0,
-    index3: 0,
-    index4: 0,
-    allgardenSum: 0,
-    lastSum: 0,
-    gardenArea: 0
+    ]
   }
 }
 export default {
@@ -390,7 +396,16 @@ export default {
       allgardenSum: 0,
       lastSum: 0,
       gardenArea: 0,
-      rateNumNew: 0
+      rateNumNew: 0,
+      pavementBtm: 0,
+      pavementTop: 0,
+      index1: 0,
+      index2: 0,
+      index3: 0,
+      index4: 0,
+      pavementChose: 0,
+      canPaveMin: 0,
+      canPaveMax: 0
     }
   },
   methods: {
@@ -445,6 +460,9 @@ export default {
       if (type === 'huodong') {
         this.$set(this.activityList, index, event.mp.detail)
       }
+      if (type === 'yuanlu') {
+        this.pavementChose = event.mp.detail
+      }
     },
     addList (type) {
       if (this.allgardenSum >= this.gardenArea) {
@@ -478,6 +496,15 @@ export default {
     }
   },
   watch: {
+    lastSum (val) {
+      if (val <= this.pavementBtm) {
+        this.canPaveMin = this.pavementBtm - val
+        this.canPaveMax = this.pavementTop - val
+      } else {
+        this.canPaveMin = 0
+        this.canPaveMax = this.pavementTop - val
+      }
+    },
     allgardenSum (val) {
       rateNum = this.numFilter(val * 100 / this.sdata.landArea)
       chart.setOption(getOption())
@@ -523,6 +550,10 @@ export default {
     this.peopleAbility = this.sdata.landArea / this.greenPer
     this.pavement = this.sdata.pavement
     this.pavementPercent = this.sdata.pavementPercent
+    this.pavementBtm = this.sdata.limitpavementBtm
+    this.pavementTop = this.sdata.limitpavementTop
+    this.canPaveMax = this.sdata.limitpavementTop
+    this.canPaveMin = this.sdata.limitpavementBtm
     this.gardenArea = ~~(this.sdata.rateNum[3] / 100 * this.sdata.landArea)
     this.lastSum = this.gardenArea
   }

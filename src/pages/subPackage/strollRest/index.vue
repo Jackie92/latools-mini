@@ -109,7 +109,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.recreationArch[1] !== 0 && index1 !== 0"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.recreationArch[1] !== 0 && index1 !== 0) || sdata.facility.recreationArch[1] === 2"><div class="number"  @click="addList('huodong')">+</div><div class="delete" @click="delList('huodong')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -167,7 +167,7 @@
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.recreationArch[0] !== 0 && index2 !== 0"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
+          <div class="add" v-if="(sdata.facility.recreationArch[0] !== 0 && index2 !== 0) || sdata.facility.recreationArch[0] === 2"><div class="number"  @click="addList('tinglang')">+</div><div class="delete" @click="delList('tinglang')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -225,7 +225,7 @@
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.recreationArch[2] !== 0 && index3 !== 0"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
+          <div class="add" v-if="(sdata.facility.recreationArch[2] !== 0 && index3 !== 0) || sdata.facility.recreationArch[2] === 2"><div class="number"  @click="addList('zhanlan')">+</div><div class="delete" @click="delList('zhanlan')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -297,7 +297,7 @@
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
-                :pivot-text="toiletListAll > toiletAreaLine ? '√' : toiletListAll"
+                :pivot-text="toiletListAll > toiletAreaLine ? '✔' : toiletListAll"
                 color="#5380FF"
                 show-pivot
                 :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100 + 10)"
@@ -315,7 +315,7 @@
               <!-- <progress class="greenpro" percent="79" color="#5380FF" border-radius="5" stroke-width="4"></progress> -->
               <van-progress
                 class="van-progress"
-                :pivot-text="toiletNum > toiletNumLine ? '√' : toiletNum"
+                :pivot-text="toiletNum > toiletNumLine ? '✔' : toiletNum"
                 color="#5380FF"
                 show-pivot
                 :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100 + 10)"
@@ -343,9 +343,93 @@
                 />
                 <div class="green-pro-left">{{toiletList[i]}}㎡</div>
               </div>
+              <div class="arrow-toilet" v-if="showToilet[i] == null || showToilet[i] == false" @click="showToiletFun(i, true)">▼</div>
+              <div v-show="showToilet[i]">
+                <div class="bet-item">
+                  <div class="bet-item-title fl">
+                    <div class="bet-item-left">
+                      单位蹲位面积：
+                    </div>
+                  </div>
+                  <div class="green-pro green-pro-special">
+                    <van-slider
+                      class="greenslider"
+                      bar-height="3.1px"
+                      active-color="#5380FF"
+                      inactive-color="#EBEBEB"
+                      :value='toiletListDetail0[i] == null ? 6 : toiletListDetail0[i]'
+                      @change="onChangeList(i, 'csxq0', $event)"
+                      :min='0'
+                      :max='20'
+                      />
+                  <div class="green-pro-left">{{toiletListDetail0[i] == null ? 6 : toiletListDetail0[i]}}㎡</div>
+                  </div>
+                </div>
+                <div class="bet-item">
+                  <div class="bet-item-title fl">
+                    <div class="bet-item-left">
+                      管理房面积：&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                  <div class="green-pro green-pro-special">
+                    <van-slider
+                      class="greenslider"
+                      bar-height="3.1px"
+                      active-color="#5380FF"
+                      inactive-color="#EBEBEB"
+                      :value='toiletListDetail1[i] == null ? 6 : toiletListDetail1[i]'
+                      @change="onChangeList(i, 'csxq1', $event)"
+                      :min='6'
+                      :max='20'
+                      />
+                  <div class="green-pro-left">{{toiletListDetail1[i] == null ? 6 : toiletListDetail1[i]}}㎡</div>
+                  </div>
+                </div> 
+                <div class="bet-item">
+                  <div class="bet-item-title fl">
+                    <div class="bet-item-left">
+                      工具房面积：&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                  <div class="green-pro green-pro-special">
+                    <van-slider
+                      class="greenslider"
+                      bar-height="3.1px"
+                      active-color="#5380FF"
+                      inactive-color="#EBEBEB"
+                      :value='toiletListDetail2[i] == null ? 2 : toiletListDetail2[i]'
+                      @change="onChangeList(i, 'csxq2', $event)"
+                      :min='2'
+                      :max='20'
+                      />
+                  <div class="green-pro-left">{{toiletListDetail2[i] == null ? 2 : toiletListDetail2[i]}}㎡</div>
+                  </div>
+                </div>
+                <div class="bet-item">
+                  <div class="bet-item-title fl">
+                    <div class="bet-item-left">
+                      第三卫生间：&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                  <div class="green-pro green-pro-special">
+                    <van-slider
+                      class="greenslider"
+                      bar-height="3.1px"
+                      active-color="#5380FF"
+                      inactive-color="#EBEBEB"
+                      :value='toiletListDetail3[i] == null ? 6 : toiletListDetail3[i]'
+                      @change="onChangeList(i, 'csxq3', $event)"
+                      :min='6'
+                      :max='20'
+                      />
+                  <div class="green-pro-left">{{toiletListDetail3[i] == null ? 6 : toiletListDetail3[i]}}㎡</div>
+                  </div>
+                </div>
+              </div>
+              <div class="arrow-toilet" v-if="showToilet[i] == true" @click="showToiletFun(i, false)">▲</div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[1] !== 0 && index4 !== 0"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
+          <div class="add" v-if="(sdata.facility.serveArch[1] !== 0 && index4 !== 0) || sdata.facility.serveArch[1] === 2"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
          </div>
       </div>
@@ -403,7 +487,7 @@
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[0] !== 0 && index5 !== 0"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
+          <div class="add" v-if="(sdata.facility.serveArch[0] !== 0 && index5 !== 0) || sdata.facility.serveArch[0] === 2"><div class="number"  @click="addList('yk')">+</div><div class="delete" @click="delList('yk')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
          </div>
       </div>
@@ -461,7 +545,7 @@
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[4] !== 0 && index6 !== 0"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
+          <div class="add" v-if="(sdata.facility.serveArch[4] !== 0 && index6 !== 0) || sdata.facility.serveArch[4] === 2"><div class="number"  @click="addList('cafe')">+</div><div class="delete" @click="delList('cafe')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
           </div>
       </div>
@@ -519,7 +603,7 @@
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[6] !== 0 && index7 !== 0"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
+          <div class="add" v-if="(sdata.facility.serveArch[6] !== 0 && index7 !== 0) || sdata.facility.serveArch[6] === 2"><div class="number"  @click="addList('yl')">+</div><div class="delete" @click="delList('yl')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
           </div>
       </div>
@@ -578,7 +662,7 @@
               </div>
             </div>
           </div>
-          <div class="add" v-if="sdata.facility.serveArch[5] !== 0 && index8 !== 0"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
+          <div class="add" v-if="(sdata.facility.serveArch[5] !== 0 && index8 !== 0) || sdata.facility.serveArch[5] === 2"><div class="number"  @click="addList('xmb')">+</div><div class="delete" @click="delList('xmb')">-</div></div>
           <div class="add" v-else><div class="number">+</div><div class="delete" >-</div></div>
          </div>
       </div>
@@ -737,10 +821,18 @@ export default {
       allFacSum: 0,
       lastSum: 0,
       strollRestArea: 0,
-      rateNumNew: 0
+      rateNumNew: 0,
+      toiletListDetail0: [],
+      toiletListDetail1: [],
+      toiletListDetail2: [],
+      toiletListDetail3: [],
+      showToilet: []
     }
   },
   methods: {
+    showToiletFun (i, status) {
+      this.$set(this.showToilet, i, status)
+    },
     numFilter (value) {
       let realVal = ''
       if (!isNaN(value) && value !== '') {
@@ -845,6 +937,18 @@ export default {
       }
       if (type === 'yl') {
         this.$set(this.medicalList, index, event.mp.detail)
+      }
+      if (type === 'csxq0') {
+        this.$set(this.toiletListDetail0, index, event.mp.detail)
+      }
+      if (type === 'csxq1') {
+        this.$set(this.toiletListDetail1, index, event.mp.detail)
+      }
+      if (type === 'csxq2') {
+        this.$set(this.toiletListDetail2, index, event.mp.detail)
+      }
+      if (type === 'csxq3') {
+        this.$set(this.toiletListDetail3, index, event.mp.detail)
       }
     },
     addList (type) {
@@ -1241,5 +1345,15 @@ export default {
 }
 .van-progress {
   width: 68%;
+}
+.green-pro-special {
+  padding-left: 5px;
+}
+.green-pro-special .greenslider {
+  width: 130px;
+}
+.arrow-toilet {
+  text-align: center;
+  padding: 5px 0;
 }
 </style>

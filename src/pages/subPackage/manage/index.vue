@@ -105,7 +105,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.manageArch[2] !== 0 && index1 !== 0"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.manageArch[2] !== 0 && index1 !== 0) || sdata.facility.manageArch[2] === 2"><div class="number"  @click="addList('anbao')">+</div><div class="delete" @click="delList('anbao')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
           </div>
       </div>
@@ -163,7 +163,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.manageArch[0] !== 0 && index2 !== 0"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.manageArch[0] !== 0 && index2 !== 0) || sdata.facility.manageArch[0] === 2"><div class="number"  @click="addList('office')">+</div><div class="delete" @click="delList('office')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
@@ -221,7 +221,7 @@
               </div>
             </div>
           </div>
-          <div class="add"  v-if="sdata.facility.manageArch[1] !== 0 && index3 !== 0"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
+          <div class="add"  v-if="(sdata.facility.manageArch[1] !== 0 && index3 !== 0) || sdata.facility.manageArch[1] === 2"><div class="number"  @click="addList('radio')">+</div><div class="delete" @click="delList('radio')">-</div></div>
           <div class="add"  v-else><div class="number" >+</div><div class="delete" >-</div></div>
         </div>
       </div>
