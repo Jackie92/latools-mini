@@ -6,8 +6,8 @@
       <div class="gl-head__number">{{rateNumNew}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{allFacSum}}㎡</p>
-          <p>{{sdata.limitrecreation}}㎡</p>
+          <p>已用：{{allFacSum}}㎡</p>
+          <p>上限：{{sdata.limitrecreation}}㎡</p>
         </div>
       </div>
     </div>
@@ -60,11 +60,11 @@
       <!-- 游憩类-活动馆start -->
       <div v-if="strollType === 'huodong'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.recreationArch[1] === 0">
+          <div class="three-switch" v-if="sdata.facility.recreationArch[1] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.recreationArch[1] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.recreationArch[1] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -103,7 +103,7 @@
                   :value='activityList[i]'
                   @change="onChangeList(i, 'huodong', $event)"
                   :min='0'
-                  :max='strollRestArea > 2000 ? 2000 : strollRestArea'
+                  :max='lastMax > 2000 ? 2000 : lastMax'
                 />
                 <div class="green-pro-left">{{activityList[i]}}㎡</div>
               </div>
@@ -118,11 +118,11 @@
       <!-- 游憩类-廊亭厅榭start -->
       <div v-if="strollType === 'tinglang'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.recreationArch[0] === 0">
+          <div class="three-switch" v-if="sdata.facility.recreationArch[0] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.recreationArch[0] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.recreationArch[0] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -161,7 +161,7 @@
                   :value='galleryList[i]'
                   @change="onChangeList(i, 'tinglang', $event)"
                   :min='0'
-                  :max='strollRestArea > 500 ? 500 : strollRestArea'
+                  :max='lastMax > 500 ? 500 : lastMax'
                 />
                 <div class="green-pro-left">{{galleryList[i]}}㎡</div>
               </div>
@@ -176,11 +176,11 @@
       <!-- 游憩类-展览馆start -->
       <div v-if="strollType === 'zhanlan'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.recreationArch[2] === 0">
+          <div class="three-switch" v-if="sdata.facility.recreationArch[2] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.recreationArch[2] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.recreationArch[2] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -219,7 +219,7 @@
                   :value='exhibitionList[i]'
                   @change="onChangeList(i, 'zhanlan', $event)"
                   :min='0'
-                  :max='strollRestArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{exhibitionList[i]}}㎡</div>
               </div>
@@ -272,11 +272,11 @@
       <!-- 建筑类-厕所start -->
       <div v-if="strollType2 === 'cs'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serveArch[1] === 0">
+          <div class="three-switch" v-if="sdata.facility.serveArch[1] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serveArch[1] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[1] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -300,9 +300,9 @@
                 :pivot-text="toiletListAll > toiletAreaLine ? '✔' : toiletListAll"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletListAll / toiletAreaLine * 100) > toiletAreaLine ? 100 : ~~(toiletListAll / toiletAreaLine * 100 + 10)"
+                :percentage="~~(toiletListAll / toiletAreaLine * 100) > 100 ? 100 : ~~(toiletListAll / toiletAreaLine * 100 + 3)"
               />
-              <div class="green-pro-left">{{(toiletListAll / sdata.landArea * 100) | numFilter}}%</div>
+              <div class="green-pro-left">{{(toiletListAll > toiletAreaLine ? (toiletAreaLine / sdata.landArea * 100 ) : (toiletListAll / sdata.landArea * 100 )) | numFilter}}%</div>
             </div>
           </div>
           <div class="bet-item">
@@ -318,9 +318,9 @@
                 :pivot-text="toiletNum > toiletNumLine ? '✔' : toiletNum"
                 color="#5380FF"
                 show-pivot
-                :percentage="~~(toiletNum / toiletNumLine * 100) > toiletNumLine ? 100 : ~~(toiletNum / toiletNumLine * 100 + 10)"
+                :percentage="~~(toiletNum / toiletNumLine * 100) > 100 ? 100 : ~~(toiletNum / toiletNumLine * 100) + 3"
               />
-              <div class="green-pro-left">{{toiletNum}}个</div>
+              <div class="green-pro-left">{{toiletNum > toiletNumLine ? toiletNumLine : toiletNum}}个</div>
             </div>
           </div>
           <div v-if="toiletList.length > 0" v-for="(item, i) in toiletList" :key="i">
@@ -339,12 +339,12 @@
                   :value='toiletList[i]'
                   @change="onChangeList(i, 'cs', $event)"
                   :min='0'
-                  :max='strollRestArea > 2000 ? 2000 : strollRestArea'
+                  :max='lastMax > 2000 ? 2000 : lastMax'
                 />
                 <div class="green-pro-left">{{toiletList[i]}}㎡</div>
               </div>
-              <div class="arrow-toilet" v-if="showToilet[i] == null || showToilet[i] == false" @click="showToiletFun(i, true)">▼</div>
-              <div v-show="showToilet[i]">
+              <div class="arrow-toilet" v-if="showToilet[i] == null || showToilet[i] == false" @click="showToiletFun(i, true)">可设置详情数据</div>
+              <div v-show="showToilet[i]" class="small-percent" style="padding-top: 20px">
                 <div class="bet-item">
                   <div class="bet-item-title fl">
                     <div class="bet-item-left">
@@ -426,7 +426,7 @@
                   </div>
                 </div>
               </div>
-              <div class="arrow-toilet" v-if="showToilet[i] == true" @click="showToiletFun(i, false)">▲</div>
+              <div class="arrow-toilet" v-if="showToilet[i] == true" @click="showToiletFun(i, false)">收起详情</div>
             </div>
           </div>
           <div class="add" v-if="(sdata.facility.serveArch[1] !== 0 && index4 !== 0) || sdata.facility.serveArch[1] === 2"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
@@ -438,11 +438,11 @@
       <!-- 建筑类-游客服务中心start -->
       <div v-if="strollType2 === 'yk'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serveArch[0] === 0">
+          <div class="three-switch" v-if="sdata.facility.serveArch[0] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serveArch[0] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[0] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -481,7 +481,7 @@
                   :value='visitorList[i]'
                   @change="onChangeList(i, 'yk', $event)"
                   :min='0'
-                  :max='strollRestArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{visitorList[i]}}㎡</div>
               </div>
@@ -496,11 +496,11 @@
       <!-- 建筑类-茶座和咖啡start -->
       <div v-if="strollType2 === 'cz'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serveArch[4] === 0">
+          <div class="three-switch" v-if="sdata.facility.serveArch[4] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serveArch[4] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[4] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -539,7 +539,7 @@
                   :value='cafeList[i]'
                   @change="onChangeList(i, 'cafe', $event)"
                   :min='0'
-                  :max='strollRestArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{cafeList[i]}}㎡</div>
               </div>
@@ -554,11 +554,11 @@
       <!-- 建筑类-医疗救助站start -->
       <div v-if="strollType2 === 'yl'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serveArch[6] === 0">
+          <div class="three-switch" v-if="sdata.facility.serveArch[6] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serveArch[6] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[6] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -597,7 +597,7 @@
                   :value='medicalList[i]'
                   @change="onChangeList(i, 'yl', $event)"
                   :min='0'
-                  :max='strollRestArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{medicalList[i]}}㎡</div>
               </div>
@@ -613,11 +613,11 @@
       <!-- 建筑类-小卖部start -->
       <div v-if="strollType2 === 'xmb'"  class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serveArch[5] === 0">
+          <div class="three-switch" v-if="sdata.facility.serveArch[5] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serveArch[5] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serveArch[5] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -656,7 +656,7 @@
                   :value='shopList[i]'
                   @change="onChangeList(i, 'xmb', $event)"
                   :min='0'
-                  :max='strollRestArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{shopList[i]}}㎡</div>
               </div>
@@ -826,10 +826,26 @@ export default {
       toiletListDetail1: [],
       toiletListDetail2: [],
       toiletListDetail3: [],
-      showToilet: []
+      showToilet: [],
+      lastMax: 0
     }
   },
   methods: {
+    showHint (flag) {
+      if (flag === 1) {
+        wx.showToast({
+          title: '在该情况下不需要设置该类用地',
+          icon: 'none',
+          duration: 2000
+        })
+      } else {
+        wx.showToast({
+          title: '在该情况下必须要设置该类用地',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    },
     showToiletFun (i, status) {
       this.$set(this.showToilet, i, status)
     },
@@ -960,6 +976,7 @@ export default {
         })
         return
       }
+      this.lastMax = ~~(this.sdata.limitrecreation - this.allFacSum)
       if (type === 'huodong') {
         this.$set(this.activityList, this.activityList.length, 0)
       }
@@ -1018,6 +1035,13 @@ export default {
       chart.setOption(getOption())
       this.rateNumNew = rateNum
       this.allFacSum = this.numFilter(val)
+      if (val > this.sdata.limitrecreation) {
+        wx.showToast({
+          title: '剩余用地已经超出上限，请酌情减少其他类用地用量',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     },
     activityList (val) {
       this.activityListAll = 0

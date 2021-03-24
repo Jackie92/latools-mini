@@ -6,8 +6,8 @@
       <div class="gl-head__number">{{rateNumNew}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{allgardenSum}}㎡</p>
-          <p>{{pavementBtm}}-{{pavementTop}}㎡</p>
+          <p>已用：{{allgardenSum}}㎡</p>
+          <p>上限：{{pavementBtm}}-{{pavementTop}}㎡</p>
         </div>
       </div>
     </div>
@@ -56,11 +56,11 @@
       <!-- 停车场start -->
       <div v-if="strollType === 'tingche'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serve[0] === 0">
+          <div class="three-switch" v-if="sdata.facility.serve[0] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serve[0] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serve[0] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -116,7 +116,7 @@
                   :value='parkingList[i]'
                   @change="onChangeList(i, 'tingche', $event)"
                   :min='0'
-                  :max='gardenArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{parkingList[i]}}㎡</div>
               </div>
@@ -131,11 +131,11 @@
       <!-- 自行车存放处start -->
       <div v-if="strollType === 'zixingche'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.serve[1] === 0">
+          <div class="three-switch" v-if="sdata.facility.serve[1] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.serve[1] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.serve[1] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -191,7 +191,7 @@
                   :value='bikeList[i]'
                   @change="onChangeList(i, 'zixingche', $event)"
                   :min='0'
-                  :max='gardenArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{bikeList[i]}}㎡</div>
               </div>
@@ -206,11 +206,11 @@
       <!-- 活动场地start -->
       <div v-if="strollType === 'huodong'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.recreation[3] === 0">
+          <div class="three-switch" v-if="sdata.facility.recreation[3] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.recreation[3] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.recreation[3] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -249,7 +249,7 @@
                   :value='activityList[i]'
                   @change="onChangeList(i, 'huodong', $event)"
                   :min='0'
-                  :max='gardenArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{activityList[i]}}㎡</div>
               </div>
@@ -405,10 +405,26 @@ export default {
       index4: 0,
       pavementChose: 0,
       canPaveMin: 0,
-      canPaveMax: 0
+      canPaveMax: 0,
+      lastMax: 0
     }
   },
   methods: {
+    showHint (flag) {
+      if (flag === 1) {
+        wx.showToast({
+          title: '在该情况下不需要设置该类用地',
+          icon: 'none',
+          duration: 2000
+        })
+      } else {
+        wx.showToast({
+          title: '在该情况下必须要设置该类用地',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    },
     numFilter (value) {
       let realVal = ''
       if (!isNaN(value) && value !== '') {
@@ -473,6 +489,7 @@ export default {
         })
         return
       }
+      this.lastMax = ~~(this.gardenArea - this.allgardenSum)
       if (type === 'tingche') {
         this.$set(this.parkingList, this.parkingList.length, 0)
       }
@@ -510,6 +527,13 @@ export default {
       chart.setOption(getOption())
       this.rateNumNew = rateNum
       this.allgardenSum = this.numFilter(val)
+      if (val > this.pavementTop) {
+        wx.showToast({
+          title: '剩余用地已经超出上限，请酌情减少其他类用地用量',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     },
     parkingList (val) {
       this.parkingListAll = 0

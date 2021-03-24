@@ -6,8 +6,8 @@
       <div class="gl-head__number">{{rateNumNew}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>{{allManaSum}}㎡</p>
-          <p>{{manageArea}}㎡</p>
+          <p>已用：{{allManaSum}}㎡</p>
+          <p>上限：{{manageArea}}㎡</p>
         </div>
       </div>
     </div>
@@ -56,11 +56,11 @@
       <!-- 安保监控室start -->
       <div v-if="strollType === 'anbao'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.manageArch[2] === 0">
+          <div class="three-switch" v-if="sdata.facility.manageArch[2] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.manageArch[2] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.manageArch[2] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -99,7 +99,7 @@
                   :value='securityList[i]'
                   @change="onChangeList(i, 'anbao', $event)"
                   :min='0'
-                  :max='manageArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{securityList[i]}}㎡</div>
               </div>
@@ -114,11 +114,11 @@
       <!-- 管理办公室start -->
       <div v-if="strollType === 'guanli'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.manageArch[0] === 0">
+          <div class="three-switch" v-if="sdata.facility.manageArch[0] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.manageArch[0] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.manageArch[0] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -157,7 +157,7 @@
                   :value='officeList[i]'
                   @change="onChangeList(i, 'office', $event)"
                   :min='0'
-                  :max='manageArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{officeList[i]}}㎡</div>
               </div>
@@ -172,11 +172,11 @@
       <!-- 广播室start -->
       <div v-if="strollType === 'guangbo'" class="swiper-per-body">
         <div class="gl-body-head">
-          <div class="three-switch" v-if="sdata.facility.manageArch[1] === 0">
+          <div class="three-switch" v-if="sdata.facility.manageArch[1] === 0" @click="showHint(1)">
             <div class="switch-item current" >off</div>
             <div class="switch-item">on</div>
           </div>
-          <div class="three-switch" v-else-if="sdata.facility.manageArch[1] === 2">
+          <div class="three-switch" v-else-if="sdata.facility.manageArch[1] === 2" @click="showHint(2)">
             <div class="switch-item" >off</div>
             <div class="switch-item current">on</div>
           </div>
@@ -215,7 +215,7 @@
                   :value='radioList[i]'
                   @change="onChangeList(i, 'radio', $event)"
                   :min='0'
-                  :max='manageArea'
+                  :max='lastMax'
                 />
                 <div class="green-pro-left">{{radioList[i]}}㎡</div>
               </div>
@@ -326,10 +326,26 @@ export default {
       allManaSum: 0,
       lastSum: 0,
       manageArea: 0,
-      rateNumNew: 0
+      rateNumNew: 0,
+      lastMax: 0
     }
   },
   methods: {
+    showHint (flag) {
+      if (flag === 1) {
+        wx.showToast({
+          title: '在该情况下不需要设置该类用地',
+          icon: 'none',
+          duration: 2000
+        })
+      } else {
+        wx.showToast({
+          title: '在该情况下必须要设置该类用地',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    },
     numFilter (value) {
       let realVal = ''
       if (!isNaN(value) && value !== '') {
@@ -392,6 +408,7 @@ export default {
         })
         return
       }
+      this.lastMax = ~~(this.manageArea - this.allManaSum)
       if (type === 'anbao') {
         this.$set(this.securityList, this.securityList.length, 0)
       }
@@ -420,6 +437,13 @@ export default {
       chart.setOption(getOption())
       this.rateNumNew = rateNum
       this.allManaSum = this.numFilter(val)
+      if (val > this.manageArea) {
+        wx.showToast({
+          title: '剩余用地已经超出上限，请酌情减少其他类用地用量',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     },
     securityList (val) {
       this.securityListAll = 0

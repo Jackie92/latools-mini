@@ -68,13 +68,16 @@ page {
 .icon-line--title--text {
   position: relative;
   top: -6px;
-  left: 10px;
+  left: 5px;
 }
 .icon-line--body--line {
   padding-top: 15px;
 }
 .icon-wrapper .icon-line--body--line {
   padding-top: 8px;
+}
+.icon-line--body--line span {
+  font-size: 12px;
 }
 .icon-web-line {
   margin: 30px 0;
@@ -144,5 +147,8 @@ page {
   float: left;
   width: 30px;
   text-align: right;
+}
+.small-percent {
+  font-size: 12px;
 }
 </style>

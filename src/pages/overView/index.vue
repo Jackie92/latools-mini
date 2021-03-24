@@ -102,8 +102,8 @@
         </div>
         <div class="fr">
           <div class="ov-body-line__spread fl"></div>
-          <span v-if="isChoseGreenPer">&nbsp;&nbsp;&nbsp;&nbsp;{{isNewGreenPer}}㎡</span>
-          <div v-else class="ov-body-line__area fr">
+          <span class="fr">&nbsp;&nbsp;&nbsp;&nbsp;{{isChoseGreenPer ? isNewGreenPer : '-/-'}}㎡</span>
+          <div class="ov-body-line__area fr">
             <p>{{greenPerBottom}}㎡</p>
             <p>-</p>
             <p>{{greenPerTop}}㎡</p>
@@ -212,7 +212,7 @@
           <div class="icon-line--title--line">
             <img class="icon-line--title--icon" src="/static/icon/road.png" alt="">
             <span class="icon-line--title--text">路网体量参考</span>
-            <img class="chart-edit" src="/static/images/edit.png" alt="" @click="goPage('strollRest')">
+            <img class="chart-edit" src="/static/images/edit.png" alt="" >
           </div>
         </div>
 
@@ -492,6 +492,15 @@
             </div>
             
           </div>
+          <div class="icon-web-line">
+            <span class="fr tuli small-percent">
+              <img class="icon-line--title--icon" src="/static/icon/blue.png" alt="">应设
+              <img class="icon-line--title--icon" src="/static/icon/green.png" alt="">宜设
+              <img class="icon-line--title--icon" src="/static/icon/gray.png" alt="">无需设置
+            </span>
+
+          </div>
+          
         </div>
         
       </div>
@@ -1029,7 +1038,7 @@ export default {
 .chart-line__icon--special {
   font-size: 26px;
   height: 66px;
-  line-height: 66px;
+  /* line-height: 66px; */
 }
 .echarts-wrap {
   width: 38%;
@@ -1084,7 +1093,8 @@ export default {
 .ov__body__line--end {
   border-radius: 0 0 10px 10px;
 }
-.small-percent {
-  font-size: 12px;
+.tuli img {
+  width: 18px;
+  height: 18px;
 }
 </style>
