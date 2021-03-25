@@ -433,7 +433,7 @@
       <!-- icon-line -->
       <div class="icon-line icon-line--right">
         <div class="green-title">
-          其他设施<img class="chart-edit" src="/static/images/edit.png" alt="">
+          其他设施
         </div>
         <div class="icon-web">
           <div class="icon-web-line">
@@ -896,6 +896,7 @@ export default {
     this.area.limitmanager = ~~(~~this.rateNum[1] / 100 * la)
     this.area.limitpavementBtm = ~~(~~this.rateNum[3] / 100 * la)
     this.area.limitpavementTop = ~~(~~this.rateNum[4] / 100 * la)
+    this.area.parkSpot = this.parkSpot
     // wx.setStorageSync('area', this.area)
     this.$store.commit('_setData', this.area)
     wx.setStorageSync('area', this.area)
@@ -904,7 +905,7 @@ export default {
       case 'combine':
         this.area.parkType = '综合公园'
         break
-      case 'community':
+      case 'commity':
         this.area.parkType = '社区公园'
         break
       case 'other':
@@ -1093,8 +1094,13 @@ export default {
 .ov__body__line--end {
   border-radius: 0 0 10px 10px;
 }
+.tuli {
+  height: 25px;
+}
 .tuli img {
   width: 18px;
   height: 18px;
+  position: relative;
+  top: 5px;
 }
 </style>

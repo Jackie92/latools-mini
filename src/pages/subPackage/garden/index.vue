@@ -6,7 +6,7 @@
       <div class="gl-head__number">{{rateNumNew}}<span class="m2">%</span> </div>
       <div class="gl-head__area-line">
         <div class="area-line__land-area">
-          <p>已用：{{allgardenSum}}㎡</p>
+          <p>已用：{{~~allgardenSum + ~~pavementChose}}㎡</p>
           <p>上限：{{pavementBtm}}-{{pavementTop}}㎡</p>
         </div>
       </div>
@@ -92,10 +92,10 @@
             <div class="green-pro-one">
               <van-progress
                 class="van-progress"
-                :pivot-text="~~(parkingListAll / 30)"
+                :pivot-text="~~(parkingListAll / 30) > sdata.parkSpot ? '✔' : ~~(parkingListAll / 30)"
                 color="#5380FF"
                 show-pivot
-                :percentage="parkingListAll * 100 / (sdata.rateNum[3] / 100 * sdata.landArea) + 8"
+                :percentage="~~(parkingListAll / 30) * 100 / sdata.parkSpot > 100 ? 100 : ~~(parkingListAll / 30) * 100 / sdata.parkSpot + 3"
               />
               <div class="green-pro-left">{{~~(parkingListAll / 30)}}个</div>
             </div>
@@ -523,7 +523,7 @@ export default {
       }
     },
     allgardenSum (val) {
-      rateNum = this.numFilter(val * 100 / this.sdata.landArea)
+      rateNum = this.numFilter((~~val + ~~this.pavementChose) * 100 / this.sdata.landArea)
       chart.setOption(getOption())
       this.rateNumNew = rateNum
       this.allgardenSum = this.numFilter(val)
@@ -534,6 +534,11 @@ export default {
           duration: 2000
         })
       }
+    },
+    pavementChose (val) {
+      rateNum = this.numFilter((~~val + ~~this.allgardenSum) * 100 / this.sdata.landArea)
+      chart.setOption(getOption())
+      this.rateNumNew = rateNum
     },
     parkingList (val) {
       this.parkingListAll = 0

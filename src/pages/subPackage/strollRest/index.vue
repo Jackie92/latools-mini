@@ -320,7 +320,7 @@
                 show-pivot
                 :percentage="~~(toiletNum / toiletNumLine * 100) > 100 ? 100 : ~~(toiletNum / toiletNumLine * 100) + 3"
               />
-              <div class="green-pro-left">{{toiletNum > toiletNumLine ? toiletNumLine : toiletNum}}个</div>
+              <div class="green-pro-left">{{toiletNum}}个</div>
             </div>
           </div>
           <div v-if="toiletList.length > 0" v-for="(item, i) in toiletList" :key="i">
@@ -343,7 +343,7 @@
                 />
                 <div class="green-pro-left">{{toiletList[i]}}㎡</div>
               </div>
-              <div class="arrow-toilet" v-if="showToilet[i] == null || showToilet[i] == false" @click="showToiletFun(i, true)">可设置详情数据</div>
+              <div class="arrow-toilet small-percent" v-if="showToilet[i] == null || showToilet[i] == false" @click="showToiletFun(i, true)">可设置详情数据</div>
               <div v-show="showToilet[i]" class="small-percent" style="padding-top: 20px">
                 <div class="bet-item">
                   <div class="bet-item-title fl">
@@ -426,7 +426,7 @@
                   </div>
                 </div>
               </div>
-              <div class="arrow-toilet" v-if="showToilet[i] == true" @click="showToiletFun(i, false)">收起详情</div>
+              <div class="arrow-toilet small-percent" v-if="showToilet[i] == true" @click="showToiletFun(i, false)">收起详情</div>
             </div>
           </div>
           <div class="add" v-if="(sdata.facility.serveArch[1] !== 0 && index4 !== 0) || sdata.facility.serveArch[1] === 2"><div class="number"  @click="addList('cs')">+</div><div class="delete" @click="delList('cs')">-</div></div>
